@@ -61,6 +61,18 @@
     <Filter Include="98. Design\LineMgr\Line">
       <UniqueIdentifier>{78089d7c-1a72-4b00-a5c3-2694677ffecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hong">
+      <UniqueIdentifier>{16bcb849-5377-4342-b7de-2cd16c0afca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero">
+      <UniqueIdentifier>{f5c953b7-8774-4b22-a5a5-1b0985ba6c1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Saeng">
+      <UniqueIdentifier>{866b6230-79a5-4bc3-a23b-a8a6501a0a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinSung">
+      <UniqueIdentifier>{74c1ad34-5059-4fcd-9187-6ceb9589b4ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
