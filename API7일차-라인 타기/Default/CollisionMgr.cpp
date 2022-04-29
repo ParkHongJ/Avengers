@@ -23,7 +23,7 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 			if (IntersectRect(&rc, &(Dest->Get_Rect()), &(Sour->Get_Rect())))
 			{
 				Dest->OnTriggerStay(Sour);
-				Sour->OnTriggerStay(Dest);
+				Sour->OnTriggerStay(Dest);	
 			}
 		}
 	}
@@ -60,7 +60,7 @@ void CCollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					if (Dest->Get_Info().fX > Sour->Get_Info().fX)
 						Sour->Set_PosX(-fX);
 
-					// 우 충돌
+					// 우 충돌ㅈ111
 					else
 						Sour->Set_PosX(fX);
 				}
@@ -72,12 +72,15 @@ void CCollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 
 bool CCollisionMgr::Check_Rect(CObj* pDest, CObj* pSour, float *pX, float* pY)
 {
+	//중점 사이의 좌표
 	float		fWidth = abs(pDest->Get_Info().fX - pSour->Get_Info().fX);
 	float		fHeight = abs(pDest->Get_Info().fY - pSour->Get_Info().fY);
 
+	//반지름끼리 더한것
 	float		fCX = (pDest->Get_Info().fCX + pSour->Get_Info().fCX) * 0.5f;
 	float		fCY = (pDest->Get_Info().fCY + pSour->Get_Info().fCY) * 0.5f;
 
+	//중점 사이의 거리가 반지름의 길이를 더한것보다 작으면 충돌
 	if ((fCX > fWidth) && (fCY > fHeight))
 	{
 		*pX = fCX - fWidth;

@@ -12,7 +12,7 @@ public:
 	void		Initialize(void);
 	void		Render(HDC hDC);
 	void		Release(void);
-
+	void		Update(void);
 	bool		Collision_Line(float& _fX, float* pY);
 
 public:
@@ -40,5 +40,3 @@ private:
 	list<CLine*>			m_LineList;
 };
 
-// (자유 낙하 공식)을 이용하여 점프를 구현하라
-// Y = 힘 * sin(각도) * 시간 - 1/2(중력계수(9.8) * 시간 * 시간)

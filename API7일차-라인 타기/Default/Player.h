@@ -21,7 +21,8 @@ public:
 	virtual		void	Late_Update(void);
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
-
+	virtual void OnTriggerStay(CObj* other) override;
+	void Jump(void);
 private:
 	void		Key_Input(void);
 
@@ -38,6 +39,10 @@ private:
 
 	POINT					m_tPosin;
 	float					m_fDiagonal;
+	bool					m_bJump;
+	float m_tempSpeed = 2.5f;
+	POINT tempLineL = { 100, 100 };
+	POINT tempLineR = { 400, 100};
 };
 
 // 1. 플레이어 쉴드 구현(플레이어 중심으로 공전하는 위성 구현하기)

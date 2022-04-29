@@ -38,6 +38,7 @@ void CMainGame::Initialize(void)
 #pragma endregion º¹½À
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create());
 	
 	/*for (int i = 0; i < 5; ++i)
 	{
@@ -100,9 +101,6 @@ void CMainGame::Render(void)
 	SelectObject(MemDC, oldBackBit);
 	DeleteObject(BackBit);
 	DeleteDC(MemDC);
-	
-	
-
 }
 
 void CMainGame::Release(void)

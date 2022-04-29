@@ -51,8 +51,8 @@ int CMonster::Update(void)
 
 void CMonster::Late_Update(void)
 {
-	/*if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
-		m_fSpeed *= -1.f;*/
+	if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
+		m_fSpeed *= -1.f;
 }
 
 void CMonster::Render(HDC hDC)

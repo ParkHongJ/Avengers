@@ -21,7 +21,6 @@ void CLineMgr::Initialize(void)
 		{ 500.f, 250.f },
 		{ 700.f, 250.f }
 	};
-
 	m_LineList.push_back(new CLine(tLine[0], tLine[1]));
 	m_LineList.push_back(new CLine(tLine[1], tLine[2]));
 	m_LineList.push_back(new CLine(tLine[2], tLine[3]));
@@ -37,6 +36,10 @@ void CLineMgr::Release(void)
 {
 	for_each(m_LineList.begin(), m_LineList.end(), CDeleteObj());
 	m_LineList.clear();
+}
+
+void CLineMgr::Update(void)
+{
 }
 
 bool CLineMgr::Collision_Line(float& _fX, float* pY)
