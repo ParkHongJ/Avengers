@@ -156,6 +156,7 @@
     <ClInclude Include="Functor.h" />
     <ClInclude Include="GuideBullet.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LineMgr.h" />
     <ClInclude Include="MainGame.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="GuideBullet.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />

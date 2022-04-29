@@ -73,6 +73,9 @@
     <Filter Include="MinSung">
       <UniqueIdentifier>{74c1ad34-5059-4fcd-9187-6ceb9589b4ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Design\KeyMgr">
+      <UniqueIdentifier>{111f00de-d7d9-49be-9563-40094b5965dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -147,6 +150,9 @@
     <ClInclude Include="LineMgr.h">
       <Filter>98. Design\LineMgr</Filter>
     </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>98. Design\KeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="LineMgr.cpp">
       <Filter>98. Design\LineMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>98. Design\KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
