@@ -6,7 +6,6 @@ CMonster::CMonster()
 {
 }
 
-
 CMonster::~CMonster()
 {
 	Release();
@@ -14,10 +13,15 @@ CMonster::~CMonster()
 
 void CMonster::Initialize(void)
 {
-	m_tInfo.fCX = 50.f;
-	m_tInfo.fCY = 50.f;
+	m_tInfo.fX = 600.f;		// 중점 X
+	m_tInfo.fY = 300.f;		// 중점 Y
 
-	m_fSpeed = 5.f;
+	m_tInfo.fCX = 32.f;
+	m_tInfo.fCY = 32.f;
+
+	m_fSpeed = 1.f;
+
+	m_eDir = DIR_LEFT;
 }
 
 int CMonster::Update(void)
@@ -25,24 +29,21 @@ int CMonster::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	/*float		fWidth = m_pTarget->Get_Info().fX - m_tInfo.fX;
-	float		fHeight = m_pTarget->Get_Info().fY - m_tInfo.fY;
+	//double dX = m_pTarget->Get_Info().fX - m_tInfo.fX;
+	//double dY = m_pTarget->Get_Info().fY - m_tInfo.fY;
 
-	float		fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
-	
-	float		fRadian = acosf(fWidth / fDiagonal);	// acos값으로 나올 수 있는 각도의 범위는 0~180도 사이 값에 해당한다.
+	// acos를 사용해서 0~180 사이의 각도 구하기
+	//float dis = sqrt((dX * dX) + (dY * dY));
+	//m_fAngle = acosf(dX / dis);
 
-	/ *if (m_pTarget->Get_Info().fY > m_tInfo.fY)
-		fRadian = (2 * PI) - fRadian;* /	
+	// 플레이어가 몬스터보다 아래에 있다면 각도를 반전해 준다.
+	//if (m_pTarget->Get_Info().fY > m_tInfo.fY)  // (윈도우 좌표계)
+	//	m_fAngle *= -1.f;
 
-	// 라디안 값을 디그리로 치환
-	m_fAngle = (fRadian * 180.f) / PI;
+	// 윈도우 좌표계이기때문에 y는 빼준다.
+	//m_tInfo.fX += m_fSpeed * cosf(m_fAngle);
+	//m_tInfo.fY -= m_fSpeed * sinf(m_fAngle);
 
-	if (m_pTarget->Get_Info().fY > m_tInfo.fY)
-		m_fAngle *= -1.f;
-	
-	m_tInfo.fX += m_fSpeed * cosf((m_fAngle) * PI / 180.f);
-	m_tInfo.fY -= m_fSpeed * sinf((m_fAngle)* PI / 180.f);*/
 
 	Update_Rect();
 
@@ -51,8 +52,7 @@ int CMonster::Update(void)
 
 void CMonster::Late_Update(void)
 {
-	/*if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
-		m_fSpeed *= -1.f;*/
+
 }
 
 void CMonster::Render(HDC hDC)
@@ -62,5 +62,10 @@ void CMonster::Render(HDC hDC)
 
 void CMonster::Release(void)
 {
-	
+
+}
+
+void CMonster::OnCollision()
+{
+	// m_bDead = true;
 }
