@@ -29,3 +29,7 @@ typedef	struct	tagLineInfo
 	tagLineInfo(LINEPOINT& tLeft, LINEPOINT& tRight) : tLPoint(tLeft), tRPoint(tRight)	{	}
 
 }LINE;
+typedef struct  LineInfo {
+	LINE		m_tXInfo;
+	LINE		m_tYInfo;
+}LADDER;

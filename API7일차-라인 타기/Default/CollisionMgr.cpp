@@ -77,7 +77,8 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					}
 
 				}
-
+				/*Sour->OnTriggerStay(Dest);
+				Dest->OnTriggerStay(Sour);*/
 			}
 		}
 	}

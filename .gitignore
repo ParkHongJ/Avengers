@@ -204,6 +204,7 @@ csx/
 ecf/
 rcf/
 
+*.orig
 # Windows Store app package directories and files
 AppPackages/
 BundleArtifacts/

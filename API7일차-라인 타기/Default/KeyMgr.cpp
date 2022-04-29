@@ -22,16 +22,17 @@ bool CKeyMgr::Key_Pressing(int _iKey)
 
 bool CKeyMgr::Key_Down(int _iKey)
 {
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¸ ï¿½ï¿½
+
 	if (!m_bKeyState[_iKey] && (GetAsyncKeyState(_iKey) & 0x8000))
 	{
 		m_bKeyState[_iKey] = !m_bKeyState[_iKey];
 		return true;
 	}
 
-	// key »óÅÂ ¿ø·¡´ë·Î º¹¿ø
+	// key ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for (int i = 0; i < VK_MAX; ++i)
 	{
-		// trueÀÎ°Íµé Å° ¶§¸é false·Î ÀüÈ¯
 		if (m_bKeyState[i] && !(GetAsyncKeyState(i) & 0x8000))
 			m_bKeyState[i] = !m_bKeyState[i];
 	}
@@ -41,16 +42,17 @@ bool CKeyMgr::Key_Down(int _iKey)
 
 bool CKeyMgr::Key_Up(int _iKey)
 {
-	//  Å°°¡ true				¾È ´­·¶À» ¶§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
+
 	if (m_bKeyState[_iKey] && !(GetAsyncKeyState(_iKey) & 0x8000))
 	{
 		m_bKeyState[_iKey] = !m_bKeyState[_iKey];
 		return true;
 	}
 
+	// key ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	for (int i = 0; i < VK_MAX; ++i)
 	{
-		//	 Å°°¡ false				´­·¶À» ¶§
 		if (!m_bKeyState[i] && (GetAsyncKeyState(i) & 0x8000))
 			m_bKeyState[i] = !m_bKeyState[i];
 	}

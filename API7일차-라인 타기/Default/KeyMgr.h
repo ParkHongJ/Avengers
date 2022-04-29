@@ -10,12 +10,13 @@ private:
 
 
 public:
-	bool	Key_Pressing(int _iKey);
-	bool	Key_Down(int _iKey);
-	bool	Key_Up(int _iKey);
+	bool		Key_Pressing(int _iKey);
+	bool		Key_Down(int _iKey);		// �� ���� ������ �� 
+	bool		Key_Up(int _iKey);			// �����ٰ� ���� ��
+
 
 public:
-	static	CKeyMgr* Get_Instance(void)
+	static		CKeyMgr* Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{
@@ -25,7 +26,7 @@ public:
 		return m_pInstance;
 	}
 
-	static void Destroy_Instance(void)
+	static	void	Destroy_Instance(void)
 	{
 		if (m_pInstance)
 		{
@@ -36,6 +37,6 @@ public:
 
 private:
 	static CKeyMgr* m_pInstance;
-	bool			m_bKeyState[VK_MAX];
-
+	bool					m_bKeyState[VK_MAX];
 };
+

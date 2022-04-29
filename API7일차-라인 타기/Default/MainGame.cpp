@@ -6,6 +6,8 @@
 #include "Shield.h"
 #include "Mouse.h"
 #include "ObjMgr.h"
+#include "LineMgr.h"
+#include "CBox.h"
 
 #include "Player.h"
 #include "Monster.h"
@@ -26,7 +28,7 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 
-	// main¿¡ ÀÖ´Â hWnd ID °ªÀ» ¾ò¾î¿Â´Ù
+	// mainï¿½ï¿½ ï¿½Ö´ï¿½ hWnd ID ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
 	m_hDC = GetDC(g_hWnd);
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
@@ -36,6 +38,8 @@ void CMainGame::Initialize(void)
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(32 * i, 400.f, 0.f));
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(256 + 32 * i, 300.f, 0.f));
 	}
+	//dynamic_cast<CPlayer*>(m_pPlayer)->Set_BulletList(&m_BulletList);*/
+
 }
 
 
@@ -51,8 +55,8 @@ void CMainGame::Late_Update(void)
 
 void CMainGame::Render(void)
 {
-	//´õºí¹öÆÛ¸µ ÃâÃ³ : https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=kyed203&logNo=20187732037&beginTime=0&jumpingVid=&from=section&redirect=Log&widgetTypeCall=true
-/** ´õºí¹öÆÛ¸µ ½ÃÀÛÃ³¸®ÀÔ´Ï´Ù. **/
+	//ì¶œì²˜ : https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=kyed203&logNo=20187732037&beginTime=0&jumpingVid=&from=section&redirect=Log&widgetTypeCall=true
+/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½Ô´Ï´ï¿½. **/
 	HDC MemDC, tmpDC;
 	HBITMAP BackBit, oldBackBit;
 	RECT bufferRT;
@@ -66,14 +70,14 @@ void CMainGame::Render(void)
 	m_hDC = MemDC;
 	MemDC = tmpDC;
 
-	// TODO: ¿©±â¿¡ ±×¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ï¿½ï¿½ï¿½â¿¡ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
 
-	// Å« ³×¸ð¸¦ ±×·Á¼­ ÀÌÀü ÇÁ·¹ÀÓ ±×¸²À» µ¤¾îÁØ´Ù.
+	// Å« ï¿½×¸ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
 	CObjMgr::Get_Instance()->Render(m_hDC);
 
-	// FPS Ãâ·Â
+	// FPS ï¿½ï¿½ï¿½
 	++m_iFPS;
 
 	if (m_dwTime + 1000 < GetTickCount())
@@ -86,7 +90,7 @@ void CMainGame::Render(void)
 	}
 
 
-	/** ´õºí¹öÆÛ¸µ ³¡Ã³¸® ÀÔ´Ï´Ù. **/
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ô´Ï´ï¿½. **/
 	tmpDC = m_hDC;
 	m_hDC = MemDC;
 	MemDC = tmpDC;

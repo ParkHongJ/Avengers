@@ -26,7 +26,40 @@ public:
 	virtual	void	OnCollision(DIRECTION eDir);
 
 private:
-	bool					m_bJump;		// Á¡ÇÁ »óÅÂ È®ÀÎ
-	float					m_fJumpPower;	// Á¡ÇÁ Èû
+	bool					m_bJump;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+	float					m_fJumpPower;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+//hong
+// public:
+// public:
+// 	virtual void Initialize(void) override;
+// 	virtual int		Update(void) override;
+// 	virtual		void	Late_Update(void);
+// 	virtual void Render(HDC hDC) override;
+// 	virtual void Release(void) override;
+// 	virtual void OnTriggerStay(CObj* other) override;
+// private:
+// 	void		Key_Input(void);
+// 	void		Jumping(void);
+ 	void		OffSet(void);
 
+// private:
+// 	bool					m_bJump;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+// 	bool					m_bDBJump;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+// 	float					m_fJumpPower;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+// 	float					m_fJumpTime;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+// 	POINT					m_tPosin;
+// 	float					m_fDiagonal;
+// 	bool					m_bOnGrounded;
+// 	bool					m_bAbility;
+// 	int						m_iJumpCount;
+
+// 	bool					m_bDrawAbility;
+// 	bool					m_bOnAir;
+// 	int						temp;
+// 	CObj*					tempP;
+	//bool					m_tempAbility = false;
 };
+
+// 1. ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½)
+// 2. ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// 3. ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½Ù´Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½)

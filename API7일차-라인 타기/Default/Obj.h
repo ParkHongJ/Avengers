@@ -34,15 +34,25 @@ public:
 	virtual		void		Late_Update(void)	PURE;
 	virtual		void		Render(HDC hDC)		PURE;
 	virtual		void		Release(void)		PURE;
-
-public:
-	void			Update_Rect(void);
-
 	virtual	void	OnCollision() {};
 	virtual	void	OnCollision(DIRECTION eDir) {};
 
 public:
 	virtual void	UpdateGravity();
+
+	// virtual		void	Initialize(void)	PURE;
+	// virtual		int		Update(void)		PURE;
+	// virtual		void	Late_Update(void)	PURE;
+	// virtual		void	Render(HDC hDC)		PURE;
+	// virtual		void	Release(void)		PURE;
+	// virtual		void	OnTriggerEnter(CObj* other) {};
+	// virtual		void	OnTriggerStay(CObj* other) {};
+	// virtual		void	OnTriggerStay(CObj* other, DIRECTION dir) {};
+	// virtual		void	OnTriggerExit(CObj* other) {};
+	// bool CompareTag(string _Tag);
+	// void SetTag(string _Tag);
+protected:
+	void		Update_Rect(void);
 
 protected:
 	INFO		m_tInfo;
@@ -57,7 +67,7 @@ protected:
 	CObj* m_pTarget;
 
 protected:
-	float					m_fGTime;	// Á¡ÇÁ Áß ÁøÇà ½Ã°£
+	float					m_fGTime;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	bool					m_bOnAir;
 	bool					m_bOnBlock;
 };

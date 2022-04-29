@@ -74,7 +74,10 @@
       <UniqueIdentifier>{74c1ad34-5059-4fcd-9187-6ceb9589b4ae}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. Design\KeyMgr">
-      <UniqueIdentifier>{111f00de-d7d9-49be-9563-40094b5965dc}</UniqueIdentifier>
+     <UniqueIdentifier>{111f00de-d7d9-49be-9563-40094b5965dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Design\ScrollMgr">
+      <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +156,12 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>98. Design\KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CBox.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -202,6 +211,15 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>98. Design\KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>98. Design\ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBox.cpp">
+      <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>Hong</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
