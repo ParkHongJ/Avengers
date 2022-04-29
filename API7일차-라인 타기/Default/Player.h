@@ -24,7 +24,8 @@ public:
 
 private:
 	void		Key_Input(void);
-
+	void		Jumping(void);
+	void		OffSet(void);
 	CObj*		Create_Shield(void);
 
 	template<typename T>
@@ -35,7 +36,11 @@ private:
 	BULLETLIST*				m_pBullet;
 
 	list<CObj*>*			m_pShield;
+	
 
+	bool					m_bJump;		// 점프 상태 확인
+	float					m_fJumpPower;	// 점프 힘
+	float					m_fJumpTime;	// 점프 중 진행 시간
 	POINT					m_tPosin;
 	float					m_fDiagonal;
 };

@@ -14,9 +14,10 @@ public:
 	void		Release(void);
 
 	bool		Collision_Line(float& _fX, float* pY);
+	void		Load_Line();
 
 public:
-	static		CLineMgr*		Get_Instance(void)
+	static		CLineMgr* Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{
@@ -36,7 +37,7 @@ public:
 	}
 
 private:
-	static CLineMgr*		m_pInstance;
+	static CLineMgr* m_pInstance;
 	list<CLine*>			m_LineList;
 };
 
