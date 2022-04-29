@@ -51,10 +51,12 @@ int CMonster::Update(void)
 
 
 	Update_Rect();
+	//if(아이템이 활성화 되어있나?) -> 이거는 아이템말고 블럭활성화로 바꾸는게 좋을듯
 	if (m_tItemInfo.fY >= m_tInfo.fY - 32.f)
 	{
 		m_tItemInfo.fY -= m_fItemSpeed;
 	}
+	//item->Update_ItemRect() 
 	m_tItemRect.left = long(m_tItemInfo.fX - (m_tItemInfo.fCX / 2.f));
 	m_tItemRect.top = long(m_tItemInfo.fY - (m_tItemInfo.fCY / 2.f));
 	m_tItemRect.right = long(m_tItemInfo.fX + (m_tItemInfo.fCX / 2.f));
