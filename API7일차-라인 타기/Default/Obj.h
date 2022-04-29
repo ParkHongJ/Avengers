@@ -36,6 +36,7 @@ public:
 	virtual		void	Release(void)		PURE;
 	virtual		void	OnTriggerEnter(CObj* other) {};
 	virtual		void	OnTriggerStay(CObj* other) {};
+	virtual		void	OnTriggerStay(CObj* other, DIRECTION dir) {};
 	virtual		void	OnTriggerExit(CObj* other) {};
 	bool CompareTag(string _Tag);
 	void SetTag(string _Tag);

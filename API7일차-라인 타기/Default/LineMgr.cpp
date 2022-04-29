@@ -29,9 +29,9 @@ void CLineMgr::Release(void)
 	m_LineList.clear();
 }
 
-bool CLineMgr::Collision_Line(float& _fX, float* pY)
+bool CLineMgr::Collision_Line(float& _fX,float& _fY, float* pY)
 {
-	// 직선의 방정식
+	// 직선의 방정식					                
 
 	// Y - y1 = ((y2 - y1) / (x2 - x1)) * X - x1
 	// Y  = (((y2 - y1) / (x2 - x1)) * (X - x1)) + y1
@@ -41,10 +41,18 @@ bool CLineMgr::Collision_Line(float& _fX, float* pY)
 
 	CLine* pTarget = nullptr;
 
+	//플레이어의 x좌표가 Line범위에 있으면,
 	for (auto& iter : m_LineList)
 	{
-		if (_fX >= iter->Get_Info().tLPoint.fX &&
-			_fX <= iter->Get_Info().tRPoint.fX)
+		//플레이어 X좌표가 사다리의 왼쪽점의 X보다 크고
+		//플레이어 X좌표가 사다리의 오른점의 X보다 작고
+		//플레이어 Y좌표가 사다리의 위쪽점의 Y보다 크고 (아래있고)
+		//플레이어 Y좌표가 사다리의 위쪽점의 Y보다 작으면 (위에있으면)
+		//사다리의 범위 안에 있다면
+		if (_fX >= iter->Get_Info().m_tXInfo.tLPoint.fX &&
+			_fX <= iter->Get_Info().m_tXInfo.tRPoint.fX &&
+			_fY >= iter->Get_Info().m_tYInfo.tLPoint.fY &&
+			_fY <= iter->Get_Info().m_tYInfo.tRPoint.fY)
 		{
 			pTarget = iter;
 		}
@@ -53,11 +61,11 @@ bool CLineMgr::Collision_Line(float& _fX, float* pY)
 	if (!pTarget)
 		return false;
 
-	float	x1 = pTarget->Get_Info().tLPoint.fX;
-	float	x2 = pTarget->Get_Info().tRPoint.fX;
+	float	x1 = pTarget->Get_Info().m_tXInfo.tLPoint.fX;
+	float	x2 = pTarget->Get_Info().m_tXInfo.tRPoint.fX;
 
-	float	y1 = pTarget->Get_Info().tLPoint.fY;
-	float	y2 = pTarget->Get_Info().tRPoint.fY;
+	float	y1 = pTarget->Get_Info().m_tYInfo.tLPoint.fY;
+	float	y2 = pTarget->Get_Info().m_tYInfo.tRPoint.fY;
 
 	*pY = (((y2 - y1) / (x2 - x1)) * (_fX - x1)) + y1;
 	return true;

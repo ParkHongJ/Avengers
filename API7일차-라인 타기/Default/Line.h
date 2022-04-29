@@ -11,12 +11,12 @@ public:
 	~CLine();
 
 public:
-	const LINE& Get_Info(void) const { return m_tInfo; }
+	const LADDER& Get_Info(void) const { return m_tInfo;}
 
 public:
 	void	Render(HDC hDC);
 
 private:
-	LINE		m_tInfo;
+	LADDER m_tInfo;
 };
 

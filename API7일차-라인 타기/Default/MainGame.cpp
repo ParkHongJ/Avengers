@@ -6,6 +6,7 @@
 #include "CollisionMgr.h"
 #include "ObjMgr.h"
 #include "LineMgr.h"
+#include "CBox.h"
 
 
 CMainGame::CMainGame()
@@ -38,11 +39,10 @@ void CMainGame::Initialize(void)
 #pragma endregion º¹½À
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	
-	/*for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 100; i++)
 	{
-		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(rand() % WINCX, rand() % WINCY));
-	}*/
+		CObjMgr::Get_Instance()->Add_Object(OBJ_INTERACTION, CAbstractFactory<CBox>::Create(i * 16 ,550));
+	}
 	CLineMgr::Get_Instance()->Initialize();
 }
 

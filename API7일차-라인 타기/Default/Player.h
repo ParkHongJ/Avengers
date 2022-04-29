@@ -9,40 +9,34 @@ public:
 	virtual ~CPlayer();
 
 public:
-	void	Set_BulletList(list<CObj*>* pBullet)
-	{
-		m_pBullet = pBullet;
-	}
-	void	Set_ShieldList(list<CObj*>* pShield) { m_pShield = pShield; }
-
 public:
 	virtual void Initialize(void) override;
 	virtual int		Update(void) override;
 	virtual		void	Late_Update(void);
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
-
+	virtual void OnTriggerStay(CObj* other) override;
 private:
 	void		Key_Input(void);
 	void		Jumping(void);
 	void		OffSet(void);
-	CObj*		Create_Shield(void);
-
-	template<typename T>
-	CObj*		Create_Bullet(void);
 
 private:
-	typedef list<CObj*>		BULLETLIST;
-	BULLETLIST*				m_pBullet;
-
-	list<CObj*>*			m_pShield;
-	
-
 	bool					m_bJump;		// 점프 상태 확인
+	bool					m_bDBJump;		// 점프 상태 확인
 	float					m_fJumpPower;	// 점프 힘
 	float					m_fJumpTime;	// 점프 중 진행 시간
 	POINT					m_tPosin;
 	float					m_fDiagonal;
+	bool					m_bOnGrounded;
+	bool					m_bAbility;
+	int						m_iJumpCount;
+
+	bool					m_bDrawAbility;
+	bool					m_bOnAir;
+	int						temp;
+	CObj*					tempP;
+	//bool					m_tempAbility = false;
 };
 
 // 1. 플레이어 쉴드 구현(플레이어 중심으로 공전하는 위성 구현하기)

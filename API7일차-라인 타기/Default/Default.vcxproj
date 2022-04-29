@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CTile.h" />
+    <ClInclude Include="CBox.h" />
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="Define.h" />
@@ -175,6 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CBox.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />

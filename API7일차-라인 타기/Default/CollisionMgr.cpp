@@ -39,18 +39,18 @@ void CCollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 
 			if (Check_Rect(Dest, Sour, &fX, &fY))
 			{
- 			/*	Dest->Set_Dead();
- 				Sour->Set_Dead();*/
-
 				// 상하 충돌
 				if (fX > fY)
 				{
 					// 상 충돌
 					if (Dest->Get_Info().fY > Sour->Get_Info().fY)
+					{
 						Sour->Set_PosY(-fY);
-					
+					}
 					else // 하 충돌
+					{
 						Sour->Set_PosY(fY);
+					}
 
 				}
 				// 좌우 충돌
@@ -58,13 +58,17 @@ void CCollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 				{
 					// 좌 충돌
 					if (Dest->Get_Info().fX > Sour->Get_Info().fX)
+					{
 						Sour->Set_PosX(-fX);
-
+					}
 					// 우 충돌
 					else
+					{
 						Sour->Set_PosX(fX);
+					}
 				}
-
+				Sour->OnTriggerStay(Dest);
+				Dest->OnTriggerStay(Sour);
 			}
 		}
 	}
