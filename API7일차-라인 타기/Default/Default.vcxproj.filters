@@ -74,7 +74,7 @@
       <UniqueIdentifier>{74c1ad34-5059-4fcd-9187-6ceb9589b4ae}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. Design\KeyMgr">
-     <UniqueIdentifier>{111f00de-d7d9-49be-9563-40094b5965dc}</UniqueIdentifier>
+	  <UniqueIdentifier>{5621f0cd-17c9-4991-a627-cdb479383ea5}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. Design\ScrollMgr">
       <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
