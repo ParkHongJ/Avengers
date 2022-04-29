@@ -113,115 +113,25 @@ void CPlayer::Key_Input(void)
 	}
 }
 
-void CPlayer::OnCollision()
-{
-}
-
 void CPlayer::OnCollision(DIRECTION eDir)
 {
-	if (DIR_UP == eDir)
+	switch (eDir)
 	{
+	case DIR_UP:
 		m_bOnBlock = true;
 		m_bJump = false;
-	}
-	else if (DIR_DOWN == eDir)
-	{
+		break;
+	case DIR_DOWN:
 		m_fJumpPower = 0.f;
+		break;
+	case DIR_LEFT:
+		break;
+	case DIR_RIGHT:
+		break;
+	default:
+		break;
 	}
-	
-
-	// if (GetAsyncKeyState(VK_RIGHT))
-	// {
-	// 	m_tInfo.fX += m_fSpeed;
-	// }
-
-	// /*if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
-	// {
-	// 	m_tInfo.fCX = 25.f;
-	// 	m_tInfo.fCY = 25.f;
-	// }
-	// else
-	// {
-	// 	m_tInfo.fCX = 100.f;
-	// 	m_tInfo.fCY = 100.f;
-	// }*/
-
-	// if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
-	// {
-	// 	if (m_iJumpCount == 2)
-	// 		return; 
-
-
-	// 	m_bJump = true;
-	// 	m_bOnGrounded = false;
-	// 	if (m_bJump && m_fJumpTime > 0)
-	// 	{
-	// 		m_bDBJump = true;
-	// 		m_fJumpTime = 0.f;
-	// 	}
-	// 	m_iJumpCount++;
-	// 	/*temp = temp * -1;
-	// 	m_bJump = true;*/
-	// 	return;
-	// }
-	// if (CKeyMgr::Get_Instance()->Key_Down(VK_UP) && m_bAbility)
-	// {
-	// 	m_bDrawAbility = true;
-	// }
 }
-// void CPlayer::Jumping(void)
-// {
-// 	float		fY = 0.f;
-
-// 	//bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
-// 	//������ �ö�Ÿ�� �ӽ�
-// 	/*if (bLineCol && m_bOnGrounded && tempP)
-// 	{
-// 		m_tInfo.fY = tempP->Get_Info().fY - 70.f;
-// 		m_tInfo.fY = fY;
-// 		return;
-// 	}*/
-// 	if (m_bOnGrounded == true)
-// 	{
-// 		m_fJumpTime = 0.f;
-// 		return;
-// 	}
-// 	//�������̸�
-// 	if (m_bJump)
-// 	{
-// 		float fDBJumpPower = m_fJumpPower * 25.f;
-// 		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f * temp;
-// 		m_fJumpTime += 0.2f;
-
-// 		if (m_bDBJump)
-// 		{
-// 			float fDBJumpPower = m_fJumpPower * 0.9f;
-// 			m_tInfo.fY -= fDBJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-// 			m_fJumpTime += 0.1f;
-// 		}
-// 		//������ ������
-// 		if (tempP && m_bOnGrounded)
-// 		{
-// 			m_bJump = false;
-// 			m_bDBJump = false;
-// 			m_bOnGrounded = true;
-// 			m_fJumpTime = 0.f;
-// 			//m_tInfo.fY = fY;
-// 			m_iJumpCount = 0;
-// 		}
-// 	}
-// 	else if (m_bOnAir)
-// 	{
-// 		m_tInfo.fY -= -1 * 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-// 		m_fJumpTime += 0.1f;
-// 	}
-	
-// 	/*else if (tempP)
-// 	{
-// 		m_tInfo.fY = fY;
-// 	}*/
-// }
-
 
 void CPlayer::OffSet(void)
 {
@@ -236,6 +146,11 @@ void CPlayer::OffSet(void)
 	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
 		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
 }
+
+void CPlayer::OnCollision()
+{
+}
+
 void CPlayer::Release(void)
 {
 

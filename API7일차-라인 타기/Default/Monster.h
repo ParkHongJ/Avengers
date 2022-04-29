@@ -20,8 +20,14 @@ public:
 	virtual void	Render(HDC hDC)		override;
 	virtual void	Release(void)		override;
 
+	virtual void OnCollision(DIRECTION eDir);
+
 public:
 	virtual void OnCollision();
+private:
+	float m_fItemSpeed = 0.f;
+	RECT m_tItemRect;
+	INFO m_tItemInfo;
 
 };
 
