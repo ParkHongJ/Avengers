@@ -82,7 +82,7 @@ void CMonster::Release(void)
 
 }
 
-void CMonster::OnCollision(DIRECTION eDir)
+void CMonster::OnCollision(DIRECTION eDir, CObj* other)
 {
 	switch (eDir)
 	{

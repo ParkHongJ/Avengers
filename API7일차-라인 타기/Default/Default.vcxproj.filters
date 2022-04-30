@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="99. Header">
-      <UniqueIdentifier>{fbe2a4a3-fba0-4c49-8f48-026bfd31270f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. MainGame">
       <UniqueIdentifier>{2d3279d5-6d01-45c7-bb99-c63f14a76ad9}</UniqueIdentifier>
     </Filter>
@@ -79,9 +76,13 @@
     <Filter Include="98. Design\ScrollMgr">
       <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="Hero\UIMgr">
       <UniqueIdentifier>{13c89d70-a8e3-47d0-b006-bf7065f404c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\99. Header">
+      <UniqueIdentifier>{fbe2a4a3-fba0-4c49-8f48-026bfd31270f}</UniqueIdentifier>
+     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -96,23 +97,20 @@
     <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Default.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Define.h">
-      <Filter>99. Header</Filter>
+      <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
     <ClInclude Include="Struct.h">
-      <Filter>99. Header</Filter>
+      <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
     <ClInclude Include="Functor.h">
-      <Filter>99. Header</Filter>
+      <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
     <ClInclude Include="Enum.h">
-      <Filter>99. Header</Filter>
+      <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
     <ClInclude Include="Include.h">
-      <Filter>99. Header</Filter>
+      <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>00. MainGame</Filter>
@@ -170,6 +168,19 @@
     </ClInclude>
     <ClInclude Include="UIMgr.h">
       <Filter>Hero\UIMgr</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
+    <ClInclude Include="Default.h">
+      <Filter>헤더 파일\99. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Gumba.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <Filter>Hong</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +246,15 @@
     </ClCompile>
     <ClCompile Include="UIMgr.cpp">
       <Filter>Hero\UIMgr</Filter>
+      </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="Gumba.cpp">
+      <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
+      <Filter>Hong</Filter>   
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

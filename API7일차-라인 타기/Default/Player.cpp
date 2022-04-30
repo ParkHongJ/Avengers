@@ -19,7 +19,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fX = 500.f;
 	m_tInfo.fY = 0.f;
 
-	m_tInfo.fCX = 32.f;
+	m_tInfo.fCX = 16.f;
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 5.f;
@@ -124,20 +124,37 @@ void CPlayer::Key_Input(void)
 		m_tInfo.fX = MAPSIZE_RIGHT;
 }
 
-void CPlayer::OnCollision(DIRECTION eDir)
+void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 {
 	switch (eDir)
 	{
 	case DIR_UP:
-		m_bOnBlock = true;
-		m_bJump = false;
+	
+		if (other->CompareTag("Monster"))
+		{
+			m_fJumpPower *= 0.9f;
+			m_fGTime = 0.f;
+		}
+		else
+		{
+			m_bOnBlock = true;
+			m_bJump = false;
+		}
 		break;
 	case DIR_DOWN:
 		m_fJumpPower = 0.f;
 		break;
 	case DIR_LEFT:
+		if (other->CompareTag("Monster"))
+		{
+			//PostQuitMessage(0);
+		}
 		break;
 	case DIR_RIGHT:
+		if (other->CompareTag("Monster"))
+		{
+			//PostQuitMessage(0);
+		}
 		break;
 	default:
 		break;
@@ -159,6 +176,10 @@ void CPlayer::OffSet(void)
 }
 
 void CPlayer::OnCollision()
+{
+}
+
+void CPlayer::OnCollision(DIRECTION eDir)
 {
 }
 

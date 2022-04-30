@@ -20,7 +20,9 @@ public:
 	virtual void	Render(HDC hDC)		override;
 	virtual void	Release(void)		override;
 
-	virtual void OnCollision(DIRECTION eDir);
+
+	virtual void OnCollision(DIRECTION eDir) {};
+	virtual void OnCollision(DIRECTION eDir, CObj* other);
 
 public:
 	virtual void OnCollision();

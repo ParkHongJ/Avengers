@@ -80,8 +80,16 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 	}
 
+
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER]); 
+
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);
+	// 코인과 플레이어의 충돌 체크 추가했어요 -민성-
+
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER]); // �׽�Ʈ 
-	// CollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_TEMP]); // �׽�Ʈ 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TEMP], m_ObjList[OBJ_PLAYER]);
+
 	//CCollisionMgr::Collision_RectEx(m_ObjList[OBJ_INTERACTION], m_ObjList[OBJ_PLAYER]);
 	//CCollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 }
