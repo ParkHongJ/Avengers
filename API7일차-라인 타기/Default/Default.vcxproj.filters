@@ -164,7 +164,13 @@
       <Filter>Hong</Filter>
     </ClInclude>
     <ClInclude Include="ScrollMgr.h">
-      <Filter>98. Design\ScrollMgr</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingBlock.h">
+      <Filter>Saeng</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Saeng</Filter>
     </ClInclude>
     <ClInclude Include="UIMgr.h">
       <Filter>Hero\UIMgr</Filter>
@@ -241,6 +247,12 @@
     <ClCompile Include="KeyMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="MovingBlock.cpp">
+      <Filter>Saeng</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Saeng</Filter>
+      </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
@@ -254,7 +266,7 @@
       <Filter>Hong</Filter>
     </ClCompile>
     <ClCompile Include="Turtle.cpp">
-      <Filter>Hong</Filter>   
+      <Filter>Hong</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
