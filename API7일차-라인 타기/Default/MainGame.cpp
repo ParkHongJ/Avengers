@@ -11,6 +11,7 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "ScrollMgr.h"
 
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
@@ -32,6 +33,8 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
+	CScrollMgr::Get_Instance()->Initialize();
 
 	for (int i = 0; i < 100; ++i)
 	{
@@ -46,6 +49,7 @@ void CMainGame::Initialize(void)
 void CMainGame::Update(void)
 {
 	CObjMgr::Get_Instance()->Update();
+	CScrollMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update(void)

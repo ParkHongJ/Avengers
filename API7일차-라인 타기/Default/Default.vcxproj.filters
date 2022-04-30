@@ -74,10 +74,13 @@
       <UniqueIdentifier>{74c1ad34-5059-4fcd-9187-6ceb9589b4ae}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. Design\KeyMgr">
-	  <UniqueIdentifier>{5621f0cd-17c9-4991-a627-cdb479383ea5}</UniqueIdentifier>
+      <UniqueIdentifier>{5621f0cd-17c9-4991-a627-cdb479383ea5}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. Design\ScrollMgr">
       <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\UIMgr">
+      <UniqueIdentifier>{13c89d70-a8e3-47d0-b006-bf7065f404c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,11 +165,14 @@
     <ClInclude Include="CTile.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>98. Design\ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMgr.h">
+      <Filter>Hero\UIMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Default.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -220,6 +226,15 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMgr.cpp">
+      <Filter>Hero\UIMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
