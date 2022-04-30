@@ -1,5 +1,7 @@
 #pragma once
 #include "Include.h"
+#include "Obj.h"
+
 class CScrollMgr
 {
 private:
@@ -8,8 +10,8 @@ private:
 
 public:
 	float		Get_ScrollX(void) { return m_fScrollX; }
-
 	void		Set_ScrollX(float _fX) { m_fScrollX += _fX; }
+	void		Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
 
 public:
 	static		CScrollMgr* Get_Instance(void)
@@ -31,8 +33,14 @@ public:
 		}
 	}
 
+public:
+	void	Update(void);
+	void	Initialize(void);
+
 private:
 	static CScrollMgr* m_pInstance;
+
+	CObj*					m_pTarget;
 	float					m_fScrollX = 0.f;
 	float					m_fScrollY = 0.f;
 };

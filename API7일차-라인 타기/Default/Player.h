@@ -27,6 +27,7 @@ public:
 	virtual	void OnCollision(DIRECTION eDir);
 	virtual void OnCollision(DIRECTION eDir, CObj* other);
 
+
 private:
 	bool					m_bJump;		// ���� ���� Ȯ��
 	float					m_fJumpPower;	// ���� ��
