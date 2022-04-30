@@ -171,6 +171,7 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ReflexBullet.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScrewBullet.h" />
     <ClInclude Include="ScrollMgr.h" />
@@ -179,9 +180,7 @@
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UIMgr.h" />
-
     <ClInclude Include="Turtle.h" />
-
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
@@ -191,6 +190,7 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBox.cpp" />
     <ClCompile Include="Gumba.cpp" />
+    <ClCompile Include="ReflexBullet.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Default.cpp" />
@@ -214,7 +214,6 @@
     </ClCompile>
     <ClCompile Include="UIMgr.cpp" />
     <ClCompile Include="Turtle.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc" />

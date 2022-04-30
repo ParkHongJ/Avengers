@@ -26,6 +26,7 @@ public:
 
 public:
 	virtual void OnCollision();
+
 private:
 	float m_fItemSpeed = 0.f;
 	RECT m_tItemRect;

@@ -27,12 +27,24 @@ public:
 	}
 
 public:
-	void	Initialize(void);
+	void SetScore(int iScore) { m_iScore = iScore; }
+	void SetLifeCount(int iLifeCount) { m_iLifeCount = iLifeCount; }
+
+public:
+	void	Initialize();
 	void	Update(void);
-	void	Render(void);
+	void	Render(HDC hDC);
+
+public:
+	void	CoinRender(HDC hDC);
+	void	LifeCountRender(HDC hDC);
 
 private:
 	static CUIMgr* m_pInstance;
 
+	POINT	m_pScorePos;
+	POINT	m_pLifeCountPos;
+	int		m_iScore;
+	int		m_iLifeCount;
 };
 

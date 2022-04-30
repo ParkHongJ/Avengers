@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "AbstractFactory.h"
+
 #include "KeyMgr.h"
 #include "ObjMgr.h"
 #include "LineMgr.h"
-#include "ScrollMgr.h" 
+#include "ScrollMgr.h"
+
+#include "ReflexBullet.h"
+
 CPlayer::CPlayer()
 {
 }
@@ -24,26 +28,10 @@ void CPlayer::Initialize(void)
 
 	m_fSpeed = 5.f;
 
+	m_bSniperMode = false;
 	m_bJump = false;
 	m_fJumpPower = 10.f;
-	//hong
-	// m_tInfo.fCX = 16.f;
-	// m_tInfo.fCY = 16.f;
-
-	// m_fSpeed = 3.f;
 	
-	// m_fDiagonal = 100.f;
-
-	// m_bJump = false;
-	// m_fJumpPower = 15.f;
-	// m_fJumpTime = 0.f;
-	// m_bOnGrounded = false;
-	// m_bAbility = false;
-	// m_bDBJump = false;
-	// m_iJumpCount = 0;
-	// m_bDrawAbility = false;
-	// temp = 1;
-	// m_bOnAir = true;
 }
 
 int CPlayer::Update(void)
@@ -51,11 +39,7 @@ int CPlayer::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	// 2. �Է��� �޴´�.
 	Key_Input();
-	//Jumping();
-	
-	//OffSet();
 
 	Update_Rect();
 
@@ -66,7 +50,6 @@ void CPlayer::Late_Update(void)
 {
 	CObj::UpdateGravity();
 
-	// 3. ������ ���� �ش�.
 	if (m_bJump)
 	{
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
@@ -75,50 +58,61 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	//MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
-	// // ���� �׸���
-	// MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
-	// LineTo(hDC, (int)m_tPosin.x + iScrollX, (int)m_tPosin.y);
-
-	/*if (m_bAbility)
-	{
-		MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
-		POINT mouse = {};
-		GetCursorPos(&mouse);
-		ScreenToClient(g_hWnd, &mouse);
-		LineTo(hDC, (int)mouse.x, (int)mouse.y);
-	}*/
-	
+	SniperRender(hDC);
 }
 
+void CPlayer::SniperRender(HDC hDC)
+{
+	if (!m_bSniperMode)
+		return;
+
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+
+	m_tPosin.x = long(m_tInfo.fX + 30.f * cosf((m_fAngle * PI) / 180.f));
+	m_tPosin.y = long(m_tInfo.fY - 30.f * sinf((m_fAngle * PI) / 180.f));
+
+	MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
+	LineTo(hDC, (int)m_tPosin.x + iScrollX, (int)m_tPosin.y);
+}
 
 
 void CPlayer::Key_Input(void)
 {
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+	// Sniping
+	if (CKeyMgr::Get_Instance()->Key_Up('W') && m_bSniperMode)
 	{
-		m_tInfo.fX -= m_fSpeed;
-		//CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
+		m_bSniperMode = false;
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, CAbstractFactory<CReflexBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle));
 	}
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+	// SnipingMode
+	if (CKeyMgr::Get_Instance()->Key_Pressing('W'))
 	{
-		m_tInfo.fX += m_fSpeed;
-		//CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
+		m_bSniperMode = true;
+
+		if (CKeyMgr::Get_Instance()->Key_Pressing('Q'))
+			m_fAngle += 1.5f;
+		if (CKeyMgr::Get_Instance()->Key_Pressing('E'))
+			m_fAngle -= 1.5f;
 	}
 
 	// Jump
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE) && !m_bJump)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE) && !m_bJump)
 	{
 		m_fJumpPower = 10.f;
 		m_bJump = true;
-		return;
 	}
 
+	// Move
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+		m_tInfo.fX -= m_fSpeed;
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+		m_tInfo.fX += m_fSpeed;
+
+
+	// Limit Player Pos in MapSize
 	if (MAPSIZE_LEFT >= m_tInfo.fX)
 		m_tInfo.fX = MAPSIZE_LEFT;
 	else if (MAPSIZE_RIGHT <= m_tInfo.fX)
@@ -175,6 +169,7 @@ void CPlayer::OffSet(void)
 	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
 		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
 }
+
 
 void CPlayer::OnCollision()
 {

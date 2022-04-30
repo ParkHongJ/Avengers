@@ -82,6 +82,7 @@ void CObjMgr::Late_Update(void)
 
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]); // �׽�Ʈ 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_BULLET], false); 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
 	
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);

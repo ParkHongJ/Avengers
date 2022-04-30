@@ -76,13 +76,15 @@
     <Filter Include="98. Design\ScrollMgr">
       <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="Hero\UIMgr">
       <UniqueIdentifier>{13c89d70-a8e3-47d0-b006-bf7065f404c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\99. Header">
       <UniqueIdentifier>{fbe2a4a3-fba0-4c49-8f48-026bfd31270f}</UniqueIdentifier>
-     </Filter>
+    </Filter>
+    <Filter Include="Hero\ReflexBullet">
+      <UniqueIdentifier>{36eeff27-7508-4775-8101-fef4853452dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -188,6 +190,9 @@
     <ClInclude Include="Turtle.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="ReflexBullet.h">
+      <Filter>Hero\ReflexBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -249,13 +254,13 @@
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Saeng</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="UIMgr.cpp">
       <Filter>Hero\UIMgr</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>MinSung</Filter>
     </ClCompile>
@@ -264,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="Turtle.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflexBullet.cpp">
+      <Filter>Hero\ReflexBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

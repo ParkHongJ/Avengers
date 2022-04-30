@@ -42,7 +42,6 @@ bool CKeyMgr::Key_Down(int _iKey)
 
 bool CKeyMgr::Key_Up(int _iKey)
 {
-	// ������ ������ �ְ�, �� ������ ������ �ʾ��� ��� ��
 
 	if (m_bKeyState[_iKey] && !(GetAsyncKeyState(_iKey) & 0x8000))
 	{

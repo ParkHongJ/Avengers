@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Block.h"
 
+#include "SCrollMgr.h"
+
 CBlock::CBlock()
 {
 }
@@ -26,6 +28,8 @@ void CBlock::Initialize(void)
 
 	m_tItemInfo.fCX = 32.f;
 	m_tItemInfo.fCY = 32.f;
+
+	m_Tag = "Block";
 }
 
 int CBlock::Update(void)
@@ -55,8 +59,11 @@ void CBlock::Late_Update(void)
 
 void CBlock::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	Ellipse(hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Ellipse(hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
+
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CBlock::Release(void)

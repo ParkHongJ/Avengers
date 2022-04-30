@@ -15,9 +15,10 @@
 #include "ScrollMgr.h"
 #include "Gumba.h"
 #include "Turtle.h"
-
-
 #include "Coin.h"
+#include "UIMgr.h"
+
+
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
 	, m_dwTime(GetTickCount())
@@ -40,6 +41,11 @@ void CMainGame::Initialize(void)
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
 	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 	CScrollMgr::Get_Instance()->Initialize();
+	CUIMgr::Get_Instance()->Initialize();
+	
+	// TEST
+	CUIMgr::Get_Instance()->SetScore(20);
+	CUIMgr::Get_Instance()->SetLifeCount(5);
 
 	for (int i = 0; i < 100; ++i)
 	{
@@ -61,6 +67,7 @@ void CMainGame::Update(void)
 {
 	CObjMgr::Get_Instance()->Update();
 	CScrollMgr::Get_Instance()->Update();
+	// CUIMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update(void)
@@ -88,21 +95,10 @@ void CMainGame::Render(void)
 	// TODO: ���⿡ �׸��� �ڵ带 �߰��մϴ�.
 
 	// ū �׸� �׷��� ���� ������ �׸��� �����ش�.
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	// Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
+	CUIMgr::Get_Instance()->Render(m_hDC);
 	CObjMgr::Get_Instance()->Render(m_hDC);
-
-	// FPS ���
-	++m_iFPS;
-
-	if (m_dwTime + 1000 < GetTickCount())
-	{
-		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
-		SetWindowText(g_hWnd, m_szFPS);
-
-		m_iFPS = 0;
-		m_dwTime = GetTickCount();
-	}
 
 
 	/** �������۸� ��ó�� �Դϴ�. **/
@@ -115,11 +111,25 @@ void CMainGame::Render(void)
 	DeleteObject(BackBit);
 	DeleteDC(MemDC);
 
+
+	// FPS ���
+	++m_iFPS;
+
+	if (m_dwTime + 1000 < GetTickCount())
+	{
+		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
+		SetWindowText(g_hWnd, m_szFPS);
+
+		m_iFPS = 0;
+		m_dwTime = GetTickCount();
+	}
 }
 
 void CMainGame::Release(void)
 {
 	CObjMgr::Get_Instance()->Destroy_Instance();
+	CScrollMgr::Get_Instance()->Destroy_Instance();
+	CUIMgr::Get_Instance()->Destroy_Instance();
 
 	ReleaseDC(g_hWnd, m_hDC);
 }

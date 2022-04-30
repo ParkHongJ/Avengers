@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MovingBlock.h"
 
+#include "ScrollMgr.h"
+
 CMovingBlock::CMovingBlock()
 {
 }
@@ -46,7 +48,8 @@ void CMovingBlock::Late_Update(void)
 
 void CMovingBlock::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CMovingBlock::Release(void)

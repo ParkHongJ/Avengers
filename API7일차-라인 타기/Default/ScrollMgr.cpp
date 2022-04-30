@@ -14,6 +14,7 @@ CScrollMgr::~CScrollMgr()
 
 void CScrollMgr::Initialize(void)
 {
+	m_fScrollX = 0.f;
 }
 
 void CScrollMgr::Update()
@@ -21,13 +22,8 @@ void CScrollMgr::Update()
 	if (!m_pTarget)
 		return;
 
-	m_fScrollX = -m_pTarget->Get_Info().fX + 400.f;
+	m_fScrollX = - m_pTarget->Get_Info().fX + 400.f;
 
-	// Fixe Wall
-	//if (MAPSIZE_LEFT >= -m_fScrollX)
-	//	m_fScrollX = 0.f;
-	//if (MAPSIZE_RIGHT <= -m_fScrollX)
-	//	m_fScrollX = -1600.f;
 
 	if (MAPSIZE_LEFT + 400.f >= m_pTarget->Get_Info().fX)
 		m_fScrollX = 0.f;

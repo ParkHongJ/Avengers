@@ -28,7 +28,7 @@ void CollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 	}
 }
 // 고정되어 있는 물체  // 움직이는 물체		
-void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
+void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour, bool _bIsPush)
 {
 	for (auto& Dest : _Dest)
 	{
@@ -44,14 +44,14 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					// 상 충돌
 					if (Dest->Get_Info().fY > Sour->Get_Info().fY)
 					{
-						Sour->Set_PosY(-fY);
+						if(_bIsPush) Sour->Set_PosY(-fY);
 						Dest->OnCollision(DIR_UP,Sour);
 						Sour->OnCollision(DIR_UP, Dest);
 					}
 
 					else // 하 충돌
 					{
-						Sour->Set_PosY(fY);
+						if (_bIsPush) Sour->Set_PosY(fY);
 						Dest->OnCollision(DIR_DOWN, Sour);
 						Sour->OnCollision(DIR_DOWN, Dest);
 					}
@@ -62,7 +62,7 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					// 좌 충돌
 					if (Dest->Get_Info().fX > Sour->Get_Info().fX)
 					{
-						Sour->Set_PosX(-fX);
+						if (_bIsPush) Sour->Set_PosX(-fX);
 						Dest->OnCollision(DIR_LEFT, Sour);
 						Sour->OnCollision(DIR_LEFT, Dest);
 					}
@@ -71,7 +71,7 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					// 우 충돌
 					else
 					{
-						Sour->Set_PosX(fX);
+						if (_bIsPush) Sour->Set_PosX(fX);
 						Dest->OnCollision(DIR_RIGHT, Sour);
 						Sour->OnCollision(DIR_RIGHT, Dest);
 					}

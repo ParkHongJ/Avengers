@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Turtle.h"
 
+#include "ScrollMgr.h"
+
 CTurtle::CTurtle()
 {
 }
@@ -43,13 +45,16 @@ void CTurtle::Late_Update()
 
 void CTurtle::Render(HDC hDC)
 {
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+
 	switch (m_eState)
 	{
 	case Idle:
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 		break;
 	case Hide:
-		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+
+		Ellipse(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 		break;
 	default:
 		break;

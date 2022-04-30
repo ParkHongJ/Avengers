@@ -41,7 +41,6 @@ private:
 	static CScrollMgr* m_pInstance;
 
 	CObj*					m_pTarget;
-	float					m_fScrollX = 0.f;
-	float					m_fScrollY = 0.f;
+	float					m_fScrollX;
 };
 
