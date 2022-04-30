@@ -49,7 +49,7 @@ void CCoin::OnCollision()
 	
 }
 
-void CCoin::OnCollision(DIRECTION eDir)
+void CCoin::OnCollision(DIRECTION eDir, CObj* other)
 {
 	Set_Dead();
 }
