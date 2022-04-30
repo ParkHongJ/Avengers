@@ -45,15 +45,15 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					if (Dest->Get_Info().fY > Sour->Get_Info().fY)
 					{
 						Sour->Set_PosY(-fY);
-						Dest->OnCollision(DIR_UP);
-						Sour->OnCollision(DIR_UP);
+						Dest->OnCollision(DIR_UP,Sour);
+						Sour->OnCollision(DIR_UP, Dest);
 					}
 
 					else // 하 충돌
 					{
 						Sour->Set_PosY(fY);
-						Dest->OnCollision(DIR_DOWN);
-						Sour->OnCollision(DIR_DOWN);
+						Dest->OnCollision(DIR_DOWN, Sour);
+						Sour->OnCollision(DIR_DOWN, Dest);
 					}
 				}
 				// 좌우 충돌
@@ -63,8 +63,8 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					if (Dest->Get_Info().fX > Sour->Get_Info().fX)
 					{
 						Sour->Set_PosX(-fX);
-						Dest->OnCollision(DIR_LEFT);
-						Sour->OnCollision(DIR_LEFT);
+						Dest->OnCollision(DIR_LEFT, Sour);
+						Sour->OnCollision(DIR_LEFT, Dest);
 					}
 
 
@@ -72,13 +72,11 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour)
 					else
 					{
 						Sour->Set_PosX(fX);
-						Dest->OnCollision(DIR_RIGHT);
-						Sour->OnCollision(DIR_RIGHT);
+						Dest->OnCollision(DIR_RIGHT, Sour);
+						Sour->OnCollision(DIR_RIGHT, Dest);
 					}
 
 				}
-				/*Sour->OnTriggerStay(Dest);
-				Dest->OnTriggerStay(Sour);*/
 			}
 		}
 	}
