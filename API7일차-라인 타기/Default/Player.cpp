@@ -4,7 +4,7 @@
 #include "KeyMgr.h"
 #include "ObjMgr.h"
 #include "LineMgr.h"
-#include "ScrollMgr.h"
+#include "ScrollMgr.h" 
 CPlayer::CPlayer()
 {
 }
@@ -16,7 +16,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
-	m_tInfo.fX = 500.f;
+	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
 
 	m_tInfo.fCX = 16.f;
@@ -78,6 +78,7 @@ void CPlayer::Render(HDC hDC)
 	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	//MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	// // ���� �׸���
