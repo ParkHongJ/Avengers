@@ -118,8 +118,10 @@ void CPlayer::OnCollision(DIRECTION eDir)
 	switch (eDir)
 	{
 	case DIR_UP:
-		m_bOnBlock = true;
-		m_bJump = false;
+		/*m_bOnBlock = true;
+		m_bJump = false;*/
+		/*m_fJumpPower *= 1.5f;
+		m_fGTime = 0.f;*/
 		break;
 	case DIR_DOWN:
 		m_fJumpPower = 0.f;

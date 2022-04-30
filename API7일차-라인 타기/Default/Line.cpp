@@ -5,6 +5,15 @@
 CLine::CLine()
 	: m_tInfo()
 {
+	m_tInfo.m_tXInfo.tLPoint.fX = 200.f;
+	m_tInfo.m_tXInfo.tLPoint.fY = 100.f;
+	m_tInfo.m_tXInfo.tRPoint.fX = 300.f;
+	m_tInfo.m_tXInfo.tRPoint.fY = 100.f;
+
+	//Y축 위쪽 점을 L포인트라고 해놨음
+	m_tInfo.m_tYInfo.tLPoint.fX = 250.f;
+
+
 }
 
 
