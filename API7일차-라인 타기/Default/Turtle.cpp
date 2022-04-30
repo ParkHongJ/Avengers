@@ -63,6 +63,9 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_UP:
 		m_eState = Hide;
 		m_fSpeed = 0.f;
+
+		//¶¥¿¡ºÙ±â
+		m_bOnBlock = true;
 		break;
 	case DIR_DOWN:
 		break;

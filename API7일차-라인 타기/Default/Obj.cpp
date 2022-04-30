@@ -54,6 +54,31 @@ void CObj::UpdateGravity()
 
 	m_bOnBlock = false;
 }
+void CObj::UpdateGravity(float _fGravity)
+{// 1,공중이냐 바닥이냐
+	
+	if (m_bOnBlock)
+	{// 블럭 위다
+		m_bOnAir = false;
+	}
+	else
+	{// 공중이다
+		m_bOnAir = true;
+	}
+
+	// 공중이면 중력을 준다.
+	if (m_bOnAir)
+	{
+		m_tInfo.fY -= -_fGravity * m_fGTime * 0.5f;
+		m_fGTime += 0.1f;
+	}
+	else
+	{
+		m_fGTime = 0.f;
+	}
+
+	m_bOnBlock = false;
+}
 bool CObj::CompareTag(string _Tag)
 {
 	if (m_Tag == _Tag)

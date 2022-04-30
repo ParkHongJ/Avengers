@@ -21,11 +21,11 @@ void CBlock::Initialize(void)
 	m_fSpeed = 1.f;
 
 	m_eDir = DIR_LEFT;
-	m_tItemInfo.fX = 256.f;
+	/*m_tItemInfo.fX = 256.f;
 	m_tItemInfo.fY = 300.f;
 
 	m_tItemInfo.fCX = 32.f;
-	m_tItemInfo.fCY = 32.f;
+	m_tItemInfo.fCY = 32.f;*/
 }
 
 int CBlock::Update(void)
