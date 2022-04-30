@@ -80,7 +80,8 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 	}
 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER]); // �׽�Ʈ 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]); // �׽�Ʈ 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
 	// CollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_RectEx(m_ObjList[OBJ_INTERACTION], m_ObjList[OBJ_PLAYER]);
 	//CCollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);

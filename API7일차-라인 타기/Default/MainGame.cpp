@@ -11,6 +11,8 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "Block.h"
+#include "MovingBlock.h"
 
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
@@ -35,9 +37,11 @@ void CMainGame::Initialize(void)
 
 	for (int i = 0; i < 100; ++i)
 	{
-		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(32 * i, 400.f, 0.f));
-		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(256 + 32 * i, 300.f, 0.f));
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(32 * i, 400.f, 0.f));
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(256 + 32 * i, 300.f, 0.f));
 	}
+
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
 	//dynamic_cast<CPlayer*>(m_pPlayer)->Set_BulletList(&m_BulletList);*/
 
 }

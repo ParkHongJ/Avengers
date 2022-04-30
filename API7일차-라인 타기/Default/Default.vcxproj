@@ -148,6 +148,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="MovingBlock.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CBox.h" />
@@ -176,6 +178,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="MovingBlock.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBox.cpp" />
