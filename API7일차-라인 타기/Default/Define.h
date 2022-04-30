@@ -3,6 +3,9 @@
 #define		WINCX		800
 #define		WINCY		600
 
+#define		MAPSIZE_LEFT	0
+#define		MAPSIZE_RIGHT	1600
+
 #define		PI			3.141592f
 
 #define		PURE		= 0

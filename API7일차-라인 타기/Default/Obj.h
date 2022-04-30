@@ -36,10 +36,10 @@ public:
 	virtual		void		Release(void)		PURE;
 	virtual	void	OnCollision() {};
 	virtual	void	OnCollision(DIRECTION eDir) {};
+	virtual	void	OnCollision(DIRECTION eDir, CObj* other) {};
 
 public:
 	virtual void	UpdateGravity();
-
 	// virtual		void	Initialize(void)	PURE;
 	// virtual		int		Update(void)		PURE;
 	// virtual		void	Late_Update(void)	PURE;
@@ -49,8 +49,8 @@ public:
 	// virtual		void	OnTriggerStay(CObj* other) {};
 	// virtual		void	OnTriggerStay(CObj* other, DIRECTION dir) {};
 	// virtual		void	OnTriggerExit(CObj* other) {};
-	// bool CompareTag(string _Tag);
-	// void SetTag(string _Tag);
+	bool CompareTag(string _Tag);
+	void SetTag(string _Tag);
 protected:
 	void		Update_Rect(void);
 
@@ -63,11 +63,11 @@ protected:
 
 	DIRECTION	m_eDir;
 	bool		m_bDead;
-
-	CObj* m_pTarget;
+	string		m_Tag;
+	CObj*		m_pTarget;
 
 protected:
-	float					m_fGTime;	// ���� �� ���� �ð�
+	float					m_fGTime;	// 자유 낙하공식의 Time;
 	bool					m_bOnAir;
 	bool					m_bOnBlock;
 };

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Monster.h"
 
+#include "ScrollMgr.h"
 
 CMonster::CMonster()
 {
@@ -71,8 +72,8 @@ void CMonster::Late_Update(void)
 
 void CMonster::Render(HDC hDC)
 {
-
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int iRenderX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iRenderX, m_tRect.top, m_tRect.right + iRenderX, m_tRect.bottom);
 	Ellipse(hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
 }
 
@@ -81,7 +82,7 @@ void CMonster::Release(void)
 
 }
 
-void CMonster::OnCollision(DIRECTION eDir)
+void CMonster::OnCollision(DIRECTION eDir, CObj* other)
 {
 	switch (eDir)
 	{

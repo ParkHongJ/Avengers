@@ -16,10 +16,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
-	m_tInfo.fX = 400.f;
+	m_tInfo.fX = 500.f;
 	m_tInfo.fY = 0.f;
 
-	m_tInfo.fCX = 32.f;
+	m_tInfo.fCX = 16.f;
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 5.f;
@@ -75,10 +75,10 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	//MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	// Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	// // ���� �׸���
 	// MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
@@ -100,9 +100,15 @@ void CPlayer::Render(HDC hDC)
 void CPlayer::Key_Input(void)
 {
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+	{
 		m_tInfo.fX -= m_fSpeed;
+		//CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
+	}
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+	{
 		m_tInfo.fX += m_fSpeed;
+		//CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
+	}
 
 	// Jump
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE) && !m_bJump)
@@ -111,22 +117,44 @@ void CPlayer::Key_Input(void)
 		m_bJump = true;
 		return;
 	}
+
+	if (MAPSIZE_LEFT >= m_tInfo.fX)
+		m_tInfo.fX = MAPSIZE_LEFT;
+	else if (MAPSIZE_RIGHT <= m_tInfo.fX)
+		m_tInfo.fX = MAPSIZE_RIGHT;
 }
 
-void CPlayer::OnCollision(DIRECTION eDir)
+void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 {
 	switch (eDir)
 	{
 	case DIR_UP:
-		m_bOnBlock = true;
-		m_bJump = false;
+	
+		if (other->CompareTag("Monster"))
+		{
+			m_fJumpPower *= 0.9f;
+			m_fGTime = 0.f;
+		}
+		else
+		{
+			m_bOnBlock = true;
+			m_bJump = false;
+		}
 		break;
 	case DIR_DOWN:
 		m_fJumpPower = 0.f;
 		break;
 	case DIR_LEFT:
+		if (other->CompareTag("Monster"))
+		{
+			//PostQuitMessage(0);
+		}
 		break;
 	case DIR_RIGHT:
+		if (other->CompareTag("Monster"))
+		{
+			//PostQuitMessage(0);
+		}
 		break;
 	default:
 		break;
@@ -148,6 +176,10 @@ void CPlayer::OffSet(void)
 }
 
 void CPlayer::OnCollision()
+{
+}
+
+void CPlayer::OnCollision(DIRECTION eDir)
 {
 }
 
