@@ -168,6 +168,12 @@
     <ClInclude Include="Default.h">
       <Filter>헤더 파일\99. Header</Filter>
     </ClInclude>
+    <ClInclude Include="Gumba.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -232,6 +238,12 @@
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="Gumba.cpp">
+      <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
+      <Filter>Hong</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

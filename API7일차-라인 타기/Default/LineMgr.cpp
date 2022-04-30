@@ -104,9 +104,6 @@ void CLineMgr::Load_Line()
 		m_LineList.push_back(new CLine(tInfo));
 	}
 
-
 	// 3. 파일 소멸
 	CloseHandle(hFile);
-
-	MessageBox(g_hWnd, _T("Load 완료"), _T("성공"), MB_OK);
 }

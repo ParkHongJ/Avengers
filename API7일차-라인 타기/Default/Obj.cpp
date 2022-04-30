@@ -54,3 +54,19 @@ void CObj::UpdateGravity()
 
 	m_bOnBlock = false;
 }
+bool CObj::CompareTag(string _Tag)
+{
+	if (m_Tag == _Tag)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void CObj::SetTag(string _Tag)
+{
+	m_Tag = _Tag;
+}

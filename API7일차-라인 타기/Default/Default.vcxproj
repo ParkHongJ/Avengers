@@ -158,6 +158,7 @@
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Functor.h" />
     <ClInclude Include="GuideBullet.h" />
+    <ClInclude Include="Gumba.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Line.h" />
@@ -175,12 +176,14 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Turtle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBox.cpp" />
+    <ClCompile Include="Gumba.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
@@ -203,6 +206,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Turtle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc" />
