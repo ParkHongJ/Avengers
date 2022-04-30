@@ -11,6 +11,8 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "Gumba.h"
+#include "Turtle.h"
 
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
@@ -37,7 +39,10 @@ void CMainGame::Initialize(void)
 	{
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(32 * i, 400.f, 0.f));
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(256 + 32 * i, 300.f, 0.f));
-	}
+	}		
+	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 350.f));
+	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 350.f));
+
 	//dynamic_cast<CPlayer*>(m_pPlayer)->Set_BulletList(&m_BulletList);*/
 
 }
