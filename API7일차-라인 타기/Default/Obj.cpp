@@ -30,7 +30,8 @@ void CObj::Update_Rect(void)
 
 void CObj::UpdateGravity()
 {
-	// 1, 공중이냐 바닥이냐
+	// 1,공중이냐 바닥이냐
+	
 	if (m_bOnBlock)
 	{// 블럭 위다
 		m_bOnAir = false;

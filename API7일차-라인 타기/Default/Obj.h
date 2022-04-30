@@ -67,7 +67,7 @@ protected:
 	CObj* m_pTarget;
 
 protected:
-	float					m_fGTime;	// ���� �� ���� �ð�
+	float					m_fGTime;	// 자유 낙하공식의 Time;
 	bool					m_bOnAir;
 	bool					m_bOnBlock;
 };
