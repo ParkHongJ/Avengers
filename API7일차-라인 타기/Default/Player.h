@@ -31,6 +31,7 @@ public:
 private:
 	bool					m_bJump;		// ���� ���� Ȯ��
 	float					m_fJumpPower;	// ���� ��
+	float					m_fGravity;
 //hong
 // public:
 // public:

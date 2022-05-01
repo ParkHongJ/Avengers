@@ -46,10 +46,10 @@ void CTurtle::Render(HDC hDC)
 	switch (m_eState)
 	{
 	case Idle:
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 		break;
 	case Hide:
-		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 		break;
 	default:
 		break;
@@ -61,10 +61,23 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 	switch (eDir)
 	{
 	case DIR_UP:
-		m_eState = Hide;
-		m_fSpeed = 0.f;
+		if (other->CompareTag("Player"))
+		{
+			if (m_eState == Hide)
+			{
+				m_fSpeed = 0.f;
+			}
+			else
+			{
+				m_eState = Hide;
+				m_fSpeed = 0.f;
+			}
+		}
+		//¶¥¿¡ºÙ±â
+		m_bOnBlock = true;
 		break;
 	case DIR_DOWN:
+		
 		break;
 	case DIR_LEFT:
 		if (m_eState == Hide)

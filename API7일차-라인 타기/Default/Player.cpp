@@ -5,6 +5,7 @@
 #include "ObjMgr.h"
 #include "LineMgr.h"
 #include "ScrollMgr.h" 
+#include "MainGame.h"
 CPlayer::CPlayer()
 {
 }
@@ -26,36 +27,15 @@ void CPlayer::Initialize(void)
 
 	m_bJump = false;
 	m_fJumpPower = 10.f;
-	//hong
-	// m_tInfo.fCX = 16.f;
-	// m_tInfo.fCY = 16.f;
-
-	// m_fSpeed = 3.f;
-	
-	// m_fDiagonal = 100.f;
-
-	// m_bJump = false;
-	// m_fJumpPower = 15.f;
-	// m_fJumpTime = 0.f;
-	// m_bOnGrounded = false;
-	// m_bAbility = false;
-	// m_bDBJump = false;
-	// m_iJumpCount = 0;
-	// m_bDrawAbility = false;
-	// temp = 1;
-	// m_bOnAir = true;
+	m_Tag = "Player";
+	m_fGravity = 9.8f;
 }
 
 int CPlayer::Update(void)
 {
-	if (m_bDead)
+	if (m_bDead || m_tInfo.fY >= WINCY)
 		return OBJ_DEAD;
-
-	// 2. �Է��� �޴´�.
 	Key_Input();
-	//Jumping();
-	
-	//OffSet();
 
 	Update_Rect();
 
@@ -64,9 +44,7 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	CObj::UpdateGravity();
-
-	// 3. ������ ���� �ش�.
+	CObj::UpdateGravity(m_fGravity);
 	if (m_bJump)
 	{
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
@@ -77,9 +55,9 @@ void CPlayer::Render(HDC hDC)
 {
 	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	//MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	int	iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	// // ���� �׸���
 	// MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
@@ -110,7 +88,27 @@ void CPlayer::Key_Input(void)
 		m_tInfo.fX += m_fSpeed;
 		//CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
 	}
-
+	if (CKeyMgr::Get_Instance()->Key_Down('V'))
+	{
+		if (CMainGame::m_fTime == 0.1f)
+			CMainGame::m_fTime = 1.f;
+		else
+			CMainGame::m_fTime = 0.1f;
+	}
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_DOWN))
+	{
+		if (m_bJump && m_tInfo.fY <= 300.f)
+		{
+			m_fGravity = 15.f;
+		}
+	}
+	
+	if (CKeyMgr::Get_Instance()->Key_Down('B'))
+	{
+		m_fJumpPower = 5.f;
+		m_fGTime = 0.f;
+		m_bJump = true;
+	}
 	// Jump
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE) && !m_bJump)
 	{
@@ -135,11 +133,13 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 		{
 			m_fJumpPower *= 0.9f;
 			m_fGTime = 0.f;
+			m_fGravity = 9.8f;
 		}
 		else
 		{
 			m_bOnBlock = true;
 			m_bJump = false;
+			m_fGravity = 9.8f;
 		}
 		break;
 	case DIR_DOWN:

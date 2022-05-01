@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Bullet.h"
+#include "MainGame.h"
 
 
 CBullet::CBullet()
@@ -14,10 +15,11 @@ CBullet::~CBullet()
 
 void CBullet::Initialize(void)
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 50.f;
+	m_tInfo.fCY = 50.f;
 
-	m_fSpeed = 5.f;
+	m_fSpeed = 2.f;
+	m_bDown = false;
 }
 
 int CBullet::Update(void)
@@ -25,33 +27,15 @@ int CBullet::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
-#pragma region 복습
-
-/*
-// 	switch (m_eDir)
-// 	{
-// 	case DIR_LEFT:
-// 		m_tInfo.fX -= m_fSpeed;
-// 		break;
-// 	case DIR_UP:
-// 		m_tInfo.fY -= m_fSpeed;
-// 		break;
-// 
-// 	case DIR_RIGHT:
-// 		m_tInfo.fX += m_fSpeed;
-// 		break;
-// 
-// 	case DIR_DOWN:
-// 		m_tInfo.fY += m_fSpeed;
-// 		break;
-// 	}
-*/
-
-#pragma endregion 복습
-
-	
-	m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
-	m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+	if (!m_bDown)
+	{
+		m_tInfo.fX += CMainGame::m_fTime * m_fSpeed * cosf((m_fAngle * PI) / 180.f);
+		m_tInfo.fY -= CMainGame::m_fTime * m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+	}
+	else
+	{
+		m_tInfo.fY += CMainGame::m_fTime * m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+	}
 	
 	Update_Rect();
 
@@ -60,9 +44,19 @@ int CBullet::Update(void)
 
 void CBullet::Late_Update(void)
 {
-	/*if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right ||
-		100 >= m_tRect.top || WINCY - 100 <= m_tRect.bottom)
-		m_bDead = true; */
+
+	if (m_tInfo.fY >= WINCY + 50)
+	{
+		m_bDead = true;
+	}
+	if (m_tInfo.fY <= -400)
+	{
+		m_fSpeed *= -1;
+		m_fAngle = -90.f;
+		m_tInfo.fY = -1 * (rand() % (350 + 1 - 100) + 100);
+		m_tInfo.fX = rand() % (WINCX + 1);
+		m_bDown = true;
+	}
 }
 
 void CBullet::Render(HDC hDC)

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MovingBlock.h"
+#include "MainGame.h"
 
 CMovingBlock::CMovingBlock()
 {
@@ -26,7 +27,7 @@ int CMovingBlock::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	m_tInfo.fY -= m_fSpeed;
+	m_tInfo.fY -= m_fSpeed * CMainGame::m_fTime;
 
 	Update_Rect();
 

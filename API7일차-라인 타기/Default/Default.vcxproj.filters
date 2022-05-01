@@ -76,13 +76,12 @@
     <Filter Include="98. Design\ScrollMgr">
       <UniqueIdentifier>{f05d82ca-3a67-424a-a650-e00cf6ad0151}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="Hero\UIMgr">
       <UniqueIdentifier>{13c89d70-a8e3-47d0-b006-bf7065f404c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\99. Header">
       <UniqueIdentifier>{fbe2a4a3-fba0-4c49-8f48-026bfd31270f}</UniqueIdentifier>
-     </Filter>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -188,6 +187,9 @@
     <ClInclude Include="Turtle.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="CKoopa.h">
+      <Filter>Hong</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -249,13 +251,13 @@
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Saeng</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="UIMgr.cpp">
       <Filter>Hero\UIMgr</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>MinSung</Filter>
     </ClCompile>
@@ -263,6 +265,9 @@
       <Filter>Hong</Filter>
     </ClCompile>
     <ClCompile Include="Turtle.cpp">
+      <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
     </ClCompile>
   </ItemGroup>
@@ -276,6 +281,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Default.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="bitmap1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
