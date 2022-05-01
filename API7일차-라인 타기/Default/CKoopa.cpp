@@ -5,6 +5,7 @@
 #include "AbstractFactory.h"
 #include "Bullet.h"
 #include "resource.h"
+#include "ScrollMgr.h"
 CKoopa::CKoopa()
 {
 	srand(unsigned int(time(NULL)));
@@ -16,7 +17,10 @@ CKoopa::~CKoopa()
 
 void CKoopa::Initialize(void)
 {
+	//현재상태
 	m_eCurrentState = IdleState;
+	m_Sprite = IDB_KOOPA_IDLE;
+
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
 
@@ -30,8 +34,12 @@ void CKoopa::Initialize(void)
 	m_bTurtle = false;
 	m_iHp = 3;
 	m_BulletDelay = GetTickCount();
-	m_bActivatePattern = false;
+	
+	//대기상태 카운트 이유: 랜덤으로 뽑기때문에 계속 Idle뽑힐 가능성이 있음. 그래서 넣어둠
 	IdleCount = 0;
+
+	//패턴 강제실행
+	m_bActivatePattern = false;
 }
 
 int CKoopa::Update(void)
@@ -81,6 +89,7 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
+		m_Sprite = IDB_KOOPA_TURTLE;
 		if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
 		{
 			m_fTurtleSpeed *= -1.f;
@@ -102,6 +111,7 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
+		m_Sprite = IDB_KOOPA_IDLE;
 		if (GetTickCount() - m_BulletDelay >= 100)
 		{
 			if (m_fBulletAngle >= 140.f)
@@ -115,6 +125,7 @@ int CKoopa::Update(void)
 		}
 		break;
 	case BulletPlayerFire:
+		m_Sprite = IDB_KOOPA_IDLE;
 		//int m_fDistance = (m_pTarget->Get_Info().fX - m_tInfo.fX) + (m_pTarget->Get_Info().fY - m_tInfo.fY);
 		//m_fAngle = m_pTarget->Get_Info().fX
 		break;
@@ -124,6 +135,8 @@ int CKoopa::Update(void)
 		break;
 	}
 	Update_Rect();
+
+	
 	return OBJ_NOEVENT;
 }
 
@@ -151,19 +164,13 @@ void CKoopa::Render(HDC hDC)
 {
 	HDC MemDC;
 	HBITMAP MyBitmap, OldBitmap;
-	
-	/*if (!m_bTurtle)
-	{
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	}
-	else if(m_bTurtle)
-	{
-		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	}*/
-	HINSTANCE hinst{};
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	m_tRect.right += iScrollX;
+	m_tRect.left += iScrollX;
 	MemDC = CreateCompatibleDC(hDC);
-	MyBitmap = LoadBitmap(hinst, MAKEINTRESOURCE(IDB_BITMAP1));
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+
 	BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
 
 	SelectObject(MemDC, OldBitmap);
@@ -185,7 +192,11 @@ void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
 		m_fJumpPower = 0.f;
 		if (other->CompareTag("Player"))
 		{
+			if (m_eCurrentState == Turtle || m_eCurrentState == TutleChase)
+				break;
 			m_iHp--;
+			m_Sprite = IDB_KOOPA_HIT;
+			m_eCurrentState = HIT;
 			if (m_iHp <= 0)
 			{
 				m_eCurrentState = Dead;
@@ -195,7 +206,6 @@ void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_DOWN:
 		if (m_eCurrentState == TutleChase)
 			break;
-		
 		break;
 	case DIR_LEFT:
 		break;

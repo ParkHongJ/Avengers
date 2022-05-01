@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
 #include "MainGame.h"
+#include "ScrollMgr.h"
 
 
 CBullet::CBullet()
@@ -44,7 +45,6 @@ int CBullet::Update(void)
 
 void CBullet::Late_Update(void)
 {
-
 	if (m_tInfo.fY >= WINCY + 50)
 	{
 		m_bDead = true;
@@ -57,6 +57,10 @@ void CBullet::Late_Update(void)
 		m_tInfo.fX = rand() % (WINCX + 1);
 		m_bDown = true;
 	}
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	m_tInfo.fX += iScrollX;
+	m_tRect.left += iScrollX;
+	m_tRect.right += iScrollX;
 }
 
 void CBullet::Render(HDC hDC)
@@ -67,4 +71,9 @@ void CBullet::Render(HDC hDC)
 void CBullet::Release(void)
 {
 	
+}
+
+void CBullet::OnCollision(DIRECTION eDir, CObj* other)
+{
+	m_bDead = true;
 }
