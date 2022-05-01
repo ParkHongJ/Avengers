@@ -34,6 +34,8 @@ private:
 	bool					m_bJump;
 	float					m_fJumpPower;
 	bool					m_bSniperMode;
+  float					m_fGravity;
+
 
 	POINT					m_tPosin;
 	CObj*					m_pRelexBullet;

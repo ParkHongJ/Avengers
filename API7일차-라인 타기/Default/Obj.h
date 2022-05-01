@@ -40,6 +40,7 @@ public:
 
 public:
 	virtual void	UpdateGravity();
+	virtual void	UpdateGravity(float _fGravity);
 	// virtual		void	Initialize(void)	PURE;
 	// virtual		int		Update(void)		PURE;
 	// virtual		void	Late_Update(void)	PURE;

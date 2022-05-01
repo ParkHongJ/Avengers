@@ -5,7 +5,9 @@
 #include "KeyMgr.h"
 #include "ObjMgr.h"
 #include "LineMgr.h"
-#include "ScrollMgr.h"
+
+#include "ScrollMgr.h" 
+#include "MainGame.h"
 #include "ReflexBullet.h"
 
 CPlayer::CPlayer()
@@ -31,12 +33,15 @@ void CPlayer::Initialize(void)
 	m_bSniperMode = false;
 	m_bJump = false;
 	m_fJumpPower = 10.f;
-	
+
+	m_Tag = "Player";
+	m_fGravity = 9.8f;
+
 }
 
 int CPlayer::Update(void)
 {
-	if (m_bDead)
+	if (m_bDead || m_tInfo.fY >= WINCY)
 		return OBJ_DEAD;
 
 	Key_Input();
@@ -48,7 +53,8 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	CObj::UpdateGravity();
+
+	CObj::UpdateGravity(m_fGravity);
 
 	if (m_bJump)
 	{
@@ -58,6 +64,7 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
+
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
@@ -107,7 +114,27 @@ void CPlayer::Key_Input(void)
 		if (CKeyMgr::Get_Instance()->Key_Pressing('E'))
 			m_fAngle -= 1.5f;
 	}
-
+	if (CKeyMgr::Get_Instance()->Key_Down('V'))
+	{
+		if (CMainGame::m_fTime == 0.1f)
+			CMainGame::m_fTime = 1.f;
+		else
+			CMainGame::m_fTime = 0.1f;
+	}
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_DOWN))
+	{
+		if (m_bJump && m_tInfo.fY <= 300.f)
+		{
+			m_fGravity = 15.f;
+		}
+	}
+	
+	if (CKeyMgr::Get_Instance()->Key_Down('B'))
+	{
+		m_fJumpPower = 5.f;
+		m_fGTime = 0.f;
+		m_bJump = true;
+	}
 	// Jump
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE) && !m_bJump)
 	{
@@ -139,11 +166,13 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 		{
 			m_fJumpPower *= 0.9f;
 			m_fGTime = 0.f;
+			m_fGravity = 9.8f;
 		}
 		else
 		{
 			m_bOnBlock = true;
 			m_bJump = false;
+			m_fGravity = 9.8f;
 		}
 		break;
 	case DIR_DOWN:

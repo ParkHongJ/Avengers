@@ -150,6 +150,7 @@
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="MapEditor.h" />
+    <ClInclude Include="CKoopa.h" />
     <ClInclude Include="MovingBlock.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Coin.h" />
@@ -186,6 +187,7 @@
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="MapEditor.cpp" />
+    <ClCompile Include="CKoopa.cpp" />
     <ClCompile Include="MovingBlock.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Coin.cpp" />
@@ -221,6 +223,7 @@
     <ResourceCompile Include="Default.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bitmap1.bmp" />
     <Image Include="Default.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
