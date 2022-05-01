@@ -18,5 +18,10 @@ public:
 public:
 	virtual void	OnCollision();
 	virtual	void	OnCollision(DIRECTION eDir);
+	virtual	void	OnCollision(DIRECTION eDir, CObj* other);
+
+private:
+	CObj*	m_pPlayer;
+
 };
 
