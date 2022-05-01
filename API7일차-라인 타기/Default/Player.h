@@ -17,6 +17,9 @@ public:
 	virtual void	Release(void)		override;
 
 
+public:
+	void		Set_RelexBulletToNull() { m_pRelexBullet = nullptr; }
+
 private:
 	void		Key_Input(void);
 	void		OffSet(void);
@@ -33,4 +36,5 @@ private:
 	bool					m_bSniperMode;
 
 	POINT					m_tPosin;
+	CObj*					m_pRelexBullet;
 };

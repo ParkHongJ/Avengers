@@ -6,7 +6,6 @@
 #include "ObjMgr.h"
 #include "LineMgr.h"
 #include "ScrollMgr.h"
-
 #include "ReflexBullet.h"
 
 CPlayer::CPlayer()
@@ -20,6 +19,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
+	m_pRelexBullet = nullptr;
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
 
@@ -81,14 +81,24 @@ void CPlayer::SniperRender(HDC hDC)
 
 void CPlayer::Key_Input(void)
 {
+	// SnipingMode
+	if (CKeyMgr::Get_Instance()->Key_Pressing('R') && m_pRelexBullet)
+	{
+		m_tInfo.fX = m_pRelexBullet->Get_Info().fX;
+		m_tInfo.fY = m_pRelexBullet->Get_Info().fY;
+		m_pRelexBullet->Set_Dead();
+		m_pRelexBullet = nullptr;
+	}
 	// Sniping
-	if (CKeyMgr::Get_Instance()->Key_Up('W') && m_bSniperMode)
+	if (CKeyMgr::Get_Instance()->Key_Up('W') && m_bSniperMode && !m_pRelexBullet)
 	{
 		m_bSniperMode = false;
-		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, CAbstractFactory<CReflexBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle));
+		m_pRelexBullet = CAbstractFactory<CReflexBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
+		m_pRelexBullet->Set_Target(this);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, m_pRelexBullet);
 	}
 	// SnipingMode
-	if (CKeyMgr::Get_Instance()->Key_Pressing('W'))
+	if (CKeyMgr::Get_Instance()->Key_Pressing('W') && !m_pRelexBullet)
 	{
 		m_bSniperMode = true;
 

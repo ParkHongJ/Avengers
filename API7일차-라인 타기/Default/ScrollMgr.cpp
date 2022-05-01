@@ -24,7 +24,6 @@ void CScrollMgr::Update()
 
 	m_fScrollX = - m_pTarget->Get_Info().fX + 400.f;
 
-
 	if (MAPSIZE_LEFT + 400.f >= m_pTarget->Get_Info().fX)
 		m_fScrollX = 0.f;
 	else if (MAPSIZE_RIGHT - 400.f <= m_pTarget->Get_Info().fX)

@@ -85,6 +85,9 @@
     <Filter Include="Hero\ReflexBullet">
       <UniqueIdentifier>{36eeff27-7508-4775-8101-fef4853452dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hero\MapEditor">
+      <UniqueIdentifier>{4dd06063-7c97-496b-8662-246c0ec441f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -193,6 +196,9 @@
     <ClInclude Include="ReflexBullet.h">
       <Filter>Hero\ReflexBullet</Filter>
     </ClInclude>
+    <ClInclude Include="MapEditor.h">
+      <Filter>Hero\MapEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -272,6 +278,9 @@
     </ClCompile>
     <ClCompile Include="ReflexBullet.cpp">
       <Filter>Hero\ReflexBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditor.cpp">
+      <Filter>Hero\MapEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

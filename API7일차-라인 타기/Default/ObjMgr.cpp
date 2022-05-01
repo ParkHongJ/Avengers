@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjMgr.h"
 #include "CollisionMgr.h"
+#include "UIMgr.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -81,14 +82,16 @@ void CObjMgr::Late_Update(void)
 	}
 
 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]); // �׽�Ʈ 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_BULLET], false); 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_BULLET]); // 반사총알 벽 충돌
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_BLOCK], false);  // 에디터 마우스 블럭 충돌
+
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
 	
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);
 	// 코인과 플레이어의 충돌 체크 추가했어요 -민성-
 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TEMP]); // �׽�Ʈ 
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TEMP]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TEMP], m_ObjList[OBJ_PLAYER]);
 
 
@@ -103,6 +106,9 @@ void CObjMgr::Render(HDC hDC)
 		for (auto& iter : m_ObjList[i])
 			iter->Render(hDC);
 	}
+
+	CUIMgr::Get_Instance()->CoinRender(hDC);
+	CUIMgr::Get_Instance()->LifeCountRender(hDC);
 }
 
 void CObjMgr::Release(void)

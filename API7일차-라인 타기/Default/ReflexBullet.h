@@ -22,7 +22,12 @@ public:
 	virtual	void	OnCollision(DIRECTION eDir, CObj* other);
 
 private:
-	bool		m_bIsBouns;
+	bool		m_bIsBounce;
+	int			m_iBounceCount;
+	int			m_iMaxBounceCount;
+
+	float		m_fOldTime;
+	float		m_fLifeTime;
 
 };
 

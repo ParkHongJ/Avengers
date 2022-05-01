@@ -21,6 +21,8 @@ void CMovingBlock::Initialize(void)
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 1.f;
+
+	m_Tag = "Block";
 }
 
 int CMovingBlock::Update(void)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Include.h"
+
 class CUIMgr
 {
 public:
@@ -39,6 +41,9 @@ public:
 	void	CoinRender(HDC hDC);
 	void	LifeCountRender(HDC hDC);
 
+	void	MapEditorRender(HDC hDC, BLOCKID eID);
+	void	DrawBlockUI(HDC hDC, float left, float top, float right, float bottom, int iID);
+
 private:
 	static CUIMgr* m_pInstance;
 
@@ -46,5 +51,7 @@ private:
 	POINT	m_pLifeCountPos;
 	int		m_iScore;
 	int		m_iLifeCount;
+
+	POINT	m_pEditTopDown;
 };
 
