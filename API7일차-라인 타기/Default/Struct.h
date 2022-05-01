@@ -33,3 +33,9 @@ typedef struct  LineInfo {
 	LINE		m_tXInfo;
 	LINE		m_tYInfo;
 }LADDER;
+
+typedef struct BlockInfo{
+	float	fX;
+	float	fY;
+	BLOCKID	eID;
+};

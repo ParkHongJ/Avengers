@@ -2,6 +2,8 @@
 #include "MovingBlock.h"
 #include "MainGame.h"
 
+#include "ScrollMgr.h"
+
 CMovingBlock::CMovingBlock()
 {
 }
@@ -20,6 +22,8 @@ void CMovingBlock::Initialize(void)
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 1.f;
+
+	m_Tag = "Block";
 }
 
 int CMovingBlock::Update(void)
@@ -47,7 +51,8 @@ void CMovingBlock::Late_Update(void)
 
 void CMovingBlock::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CMovingBlock::Release(void)

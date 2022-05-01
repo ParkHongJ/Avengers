@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Block.h"
 
+#include "SCrollMgr.h"
+
 CBlock::CBlock()
 {
 }
@@ -12,8 +14,8 @@ CBlock::~CBlock()
 
 void CBlock::Initialize(void)
 {
-	m_tInfo.fX = 600.f;		// ÁßÁ¡ X
-	m_tInfo.fY = 300.f;		// ÁßÁ¡ Y
+	m_tInfo.fX = 600.f;		// ì¤‘ì  X
+	m_tInfo.fY = 300.f;		// ì¤‘ì  Y
 
 	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
@@ -25,7 +27,9 @@ void CBlock::Initialize(void)
 	m_tItemInfo.fY = 300.f;
 
 	m_tItemInfo.fCX = 32.f;
-	m_tItemInfo.fCY = 32.f;*/
+	m_tItemInfo.fCY = 32.f;
+
+	m_Tag = "Block";
 }
 
 int CBlock::Update(void)
@@ -35,7 +39,7 @@ int CBlock::Update(void)
 
 	Update_Rect();
 
-	//if(¾ÆÀÌÅÛÀÌ È°¼ºÈ­ µÇ¾îÀÖ³ª?) -> ÀÌ°Å´Â ¾ÆÀÌÅÛ¸»°í ºí·°È°¼ºÈ­·Î ¹Ù²Ù´Â°Ô ÁÁÀ»µí
+	//if(ì•„ì´í…œì´ í™œì„±í™” ë˜ì–´ìžˆë‚˜?) -> ì´ê±°ëŠ” ì•„ì´í…œë§ê³  ë¸”ëŸ­í™œì„±í™”ë¡œ ë°”ê¾¸ëŠ”ê²Œ ì¢‹ì„ë“¯
 	if (m_tItemInfo.fY >= m_tInfo.fY - 32.f)
 	{
 		m_tItemInfo.fY -= m_fItemSpeed;
@@ -55,8 +59,11 @@ void CBlock::Late_Update(void)
 
 void CBlock::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	Ellipse(hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Ellipse(hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
+
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CBlock::Release(void)

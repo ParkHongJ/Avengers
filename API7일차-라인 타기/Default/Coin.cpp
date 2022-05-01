@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Coin.h"
 
+#include "ScrollMgr.h"
+
 CCoin::CCoin()
 {
 }
@@ -37,7 +39,8 @@ void CCoin::Late_Update(void)
 
 void CCoin::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 void CCoin::Release(void)
 {

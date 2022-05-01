@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "AbstractFactory.h"
+
 #include "KeyMgr.h"
 #include "ObjMgr.h"
 #include "LineMgr.h"
+
 #include "ScrollMgr.h" 
 #include "MainGame.h"
+#include "ReflexBullet.h"
+
 CPlayer::CPlayer()
 {
 }
@@ -17,6 +21,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
+	m_pRelexBullet = nullptr;
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
 
@@ -25,16 +30,20 @@ void CPlayer::Initialize(void)
 
 	m_fSpeed = 5.f;
 
+	m_bSniperMode = false;
 	m_bJump = false;
 	m_fJumpPower = 10.f;
+
 	m_Tag = "Player";
 	m_fGravity = 9.8f;
+
 }
 
 int CPlayer::Update(void)
 {
 	if (m_bDead || m_tInfo.fY >= WINCY)
 		return OBJ_DEAD;
+
 	Key_Input();
 
 	Update_Rect();
@@ -44,7 +53,9 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
+
 	CObj::UpdateGravity(m_fGravity);
+
 	if (m_bJump)
 	{
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
@@ -53,40 +64,55 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	//MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
-	int	iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	//Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
-	// // ���� �׸���
-	// MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
-	// LineTo(hDC, (int)m_tPosin.x + iScrollX, (int)m_tPosin.y);
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
-	/*if (m_bAbility)
-	{
-		MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
-		POINT mouse = {};
-		GetCursorPos(&mouse);
-		ScreenToClient(g_hWnd, &mouse);
-		LineTo(hDC, (int)mouse.x, (int)mouse.y);
-	}*/
-	
+	SniperRender(hDC);
 }
 
+void CPlayer::SniperRender(HDC hDC)
+{
+	if (!m_bSniperMode)
+		return;
+
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+
+	m_tPosin.x = long(m_tInfo.fX + 30.f * cosf((m_fAngle * PI) / 180.f));
+	m_tPosin.y = long(m_tInfo.fY - 30.f * sinf((m_fAngle * PI) / 180.f));
+
+	MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
+	LineTo(hDC, (int)m_tPosin.x + iScrollX, (int)m_tPosin.y);
+}
 
 
 void CPlayer::Key_Input(void)
 {
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+	// SnipingMode
+	if (CKeyMgr::Get_Instance()->Key_Pressing('R') && m_pRelexBullet)
 	{
-		m_tInfo.fX -= m_fSpeed;
-		//CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
+		m_tInfo.fX = m_pRelexBullet->Get_Info().fX;
+		m_tInfo.fY = m_pRelexBullet->Get_Info().fY;
+		m_pRelexBullet->Set_Dead();
+		m_pRelexBullet = nullptr;
 	}
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+	// Sniping
+	if (CKeyMgr::Get_Instance()->Key_Up('W') && m_bSniperMode && !m_pRelexBullet)
 	{
-		m_tInfo.fX += m_fSpeed;
-		//CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
+		m_bSniperMode = false;
+		m_pRelexBullet = CAbstractFactory<CReflexBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle);
+		m_pRelexBullet->Set_Target(this);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, m_pRelexBullet);
+	}
+	// SnipingMode
+	if (CKeyMgr::Get_Instance()->Key_Pressing('W') && !m_pRelexBullet)
+	{
+		m_bSniperMode = true;
+
+		if (CKeyMgr::Get_Instance()->Key_Pressing('Q'))
+			m_fAngle += 1.5f;
+		if (CKeyMgr::Get_Instance()->Key_Pressing('E'))
+			m_fAngle -= 1.5f;
 	}
 	if (CKeyMgr::Get_Instance()->Key_Down('V'))
 	{
@@ -110,13 +136,20 @@ void CPlayer::Key_Input(void)
 		m_bJump = true;
 	}
 	// Jump
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE) && !m_bJump)
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE) && !m_bJump)
 	{
 		m_fJumpPower = 10.f;
 		m_bJump = true;
-		return;
 	}
 
+	// Move
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+		m_tInfo.fX -= m_fSpeed;
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+		m_tInfo.fX += m_fSpeed;
+
+
+	// Limit Player Pos in MapSize
 	if (MAPSIZE_LEFT >= m_tInfo.fX)
 		m_tInfo.fX = MAPSIZE_LEFT;
 	else if (MAPSIZE_RIGHT <= m_tInfo.fX)
@@ -175,6 +208,7 @@ void CPlayer::OffSet(void)
 	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
 		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
 }
+
 
 void CPlayer::OnCollision()
 {

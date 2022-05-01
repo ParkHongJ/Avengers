@@ -23,7 +23,7 @@ public:
 	void		Set_PosY(float _fY) { m_tInfo.fY += _fY; }
 
 	bool		Get_Dead() { return m_bDead; }
-
+	CObj*		Get_Target() { return m_pTarget; }
 	const INFO& Get_Info(void) const { return m_tInfo; }
 	const RECT& Get_Rect(void) const { return m_tRect; }
 

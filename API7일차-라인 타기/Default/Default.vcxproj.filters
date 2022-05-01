@@ -82,6 +82,12 @@
     <Filter Include="헤더 파일\99. Header">
       <UniqueIdentifier>{fbe2a4a3-fba0-4c49-8f48-026bfd31270f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hero\ReflexBullet">
+      <UniqueIdentifier>{36eeff27-7508-4775-8101-fef4853452dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\MapEditor">
+      <UniqueIdentifier>{4dd06063-7c97-496b-8662-246c0ec441f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -187,6 +193,12 @@
     <ClInclude Include="Turtle.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="ReflexBullet.h">
+      <Filter>Hero\ReflexBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditor.h">
+      <Filter>Hero\MapEditor</Filter>
+      </ClInclude>
     <ClInclude Include="CKoopa.h">
       <Filter>Hong</Filter>
     </ClInclude>
@@ -267,6 +279,12 @@
     <ClCompile Include="Turtle.cpp">
       <Filter>Hong</Filter>
     </ClCompile>
+    <ClCompile Include="ReflexBullet.cpp">
+      <Filter>Hero\ReflexBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditor.cpp">
+      <Filter>Hero\MapEditor</Filter>
+      </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
     </ClCompile>

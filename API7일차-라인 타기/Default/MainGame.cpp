@@ -15,10 +15,14 @@
 #include "ScrollMgr.h"
 #include "Gumba.h"
 #include "Turtle.h"
+#include "Coin.h"
+#include "UIMgr.h"
+#include "MapEditor.h"
 
 float CMainGame::m_fTime = 1.f;
 #include "Coin.h"
 #include "CKoopa.h"
+
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
 	, m_dwTime(GetTickCount())
@@ -34,26 +38,23 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
-
-	// main�� �ִ� hWnd ID ���� ���´�
 	m_hDC = GetDC(g_hWnd);
+
+	CMapEditor::Get_Instance()->Initialize();
+	// CMapEditor::Get_Instance()->Load();
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
 	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 	CScrollMgr::Get_Instance()->Initialize();
+	CUIMgr::Get_Instance()->Initialize();
 
-	for (int i = 0; i < 100; ++i)
-	{
-		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(32 * i, 400.f, 0.f));
-		//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(256 + 32 * i, 300.f, 0.f));
-	}
-
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CCoin>::Create(rand()%500+300, rand()%300+100, 0.f));	
-	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 350.f));
+  
+  CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 350.f));
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 350.f));
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));
-	
+
 }
 
 
@@ -61,6 +62,7 @@ void CMainGame::Update(void)
 {
 	CObjMgr::Get_Instance()->Update();
 	CScrollMgr::Get_Instance()->Update();
+	CMapEditor::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update(void)
@@ -70,8 +72,8 @@ void CMainGame::Late_Update(void)
 
 void CMainGame::Render(void)
 {
+#pragma region 더블 버퍼링 시작
 	//출처 : https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=kyed203&logNo=20187732037&beginTime=0&jumpingVid=&from=section&redirect=Log&widgetTypeCall=true
-/** �������۸� ����ó���Դϴ�. **/
 	HDC MemDC, tmpDC;
 	HBITMAP BackBit, oldBackBit;
 	RECT bufferRT;
@@ -84,15 +86,26 @@ void CMainGame::Render(void)
 	tmpDC = m_hDC;
 	m_hDC = MemDC;
 	MemDC = tmpDC;
+#pragma endregion
 
-	// TODO: ���⿡ �׸��� �ڵ带 �߰��մϴ�.
-
-	// ū �׸� �׷��� ���� ������ �׸��� �����ش�.
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	// =========Render============
 
 	CObjMgr::Get_Instance()->Render(m_hDC);
+	CMapEditor::Get_Instance()->Render(m_hDC);
 
-	// FPS ���
+	// ===========================
+
+#pragma region 더블 버퍼링 끝
+	tmpDC = m_hDC;
+	m_hDC = MemDC;
+	MemDC = tmpDC;
+	GetClientRect(g_hWnd, &bufferRT);
+	BitBlt(m_hDC, 0, 0, bufferRT.right, bufferRT.bottom, MemDC, 0, 0, SRCCOPY);
+	SelectObject(MemDC, oldBackBit);
+	DeleteObject(BackBit);
+#pragma endregion
+
+#pragma region FPS
 	++m_iFPS;
 
 	if (m_dwTime + 1000 < GetTickCount())
@@ -103,23 +116,16 @@ void CMainGame::Render(void)
 		m_iFPS = 0;
 		m_dwTime = GetTickCount();
 	}
-
-
-	/** �������۸� ��ó�� �Դϴ�. **/
-	tmpDC = m_hDC;
-	m_hDC = MemDC;
-	MemDC = tmpDC;
-	GetClientRect(g_hWnd, &bufferRT);
-	BitBlt(m_hDC, 0, 0, bufferRT.right, bufferRT.bottom, MemDC, 0, 0, SRCCOPY);
-	SelectObject(MemDC, oldBackBit);
-	DeleteObject(BackBit);
-	DeleteDC(MemDC);
+#pragma endregion
 
 }
 
 void CMainGame::Release(void)
 {
 	CObjMgr::Get_Instance()->Destroy_Instance();
+	CScrollMgr::Get_Instance()->Destroy_Instance();
+	CUIMgr::Get_Instance()->Destroy_Instance();
+	CMapEditor::Get_Instance()->Destroy_Instance();
 
 	ReleaseDC(g_hWnd, m_hDC);
 }

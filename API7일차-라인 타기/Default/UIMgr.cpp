@@ -2,6 +2,7 @@
 #include "UIMgr.h"
 
 CUIMgr* CUIMgr::m_pInstance = nullptr;
+
 CUIMgr::CUIMgr()
 {
 }
@@ -10,9 +11,18 @@ CUIMgr::~CUIMgr()
 {
 }
 
-void CUIMgr::Initialize(void)
+void CUIMgr::Initialize()
 {
+	m_iScore = 999;
+	m_iLifeCount = 10;
 
+	m_pScorePos.x = 400.f;
+	m_pScorePos.y = 0.f;
+	m_pLifeCountPos.x = 0.f;
+	m_pLifeCountPos.y = 0.f;
+
+	m_pEditTopDown.x = 200.f;
+	m_pEditTopDown.y = 530.f;
 }
 
 void CUIMgr::Update(void)
@@ -20,7 +30,102 @@ void CUIMgr::Update(void)
 
 }
 
-void CUIMgr::Render(void)
+void CUIMgr::Render(HDC hDC)
 {
-
+	// CoinRender(hDC);
+	// LifeCountRender(hDC);
+	// MapEditorRender(hDC);
 }
+
+void CUIMgr::CoinRender(HDC hDC)
+{
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 215, 0));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+	Ellipse(hDC, 10 + m_pScorePos.x, 10 + m_pScorePos.y, 30 + m_pScorePos.x, 35 + m_pScorePos.y);
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+
+	TCHAR lpOut[1024];
+	SetBkMode(hDC, 1);
+
+	wsprintf(lpOut, TEXT("$"));
+	TextOut(hDC, m_pScorePos.x + 16, m_pScorePos.y + 14, lpOut, lstrlen(lpOut));
+
+	wsprintf(lpOut, TEXT("x %d"), m_iScore);
+	TextOut(hDC, 35 + m_pScorePos.x, 15 + m_pScorePos.y, lpOut, lstrlen(lpOut));
+}
+
+void CUIMgr::LifeCountRender(HDC hDC)
+{
+	float fIntv = 0.f;
+	for (int i = 0; i < m_iLifeCount; ++i)
+	{
+		HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+		Ellipse(hDC, 10 + m_pLifeCountPos.x + fIntv, 10 + m_pLifeCountPos.y, 30 + m_pLifeCountPos.x + fIntv, 35 + m_pLifeCountPos.y);
+
+		SelectObject(hDC, oldBrush);
+		DeleteObject(myBrush);
+
+		TCHAR lpOut[1024];
+		SetBkMode(hDC, 1);
+		wsprintf(lpOut, TEXT("¢¾"));
+		TextOut(hDC, 10 + m_pLifeCountPos.x + fIntv + 2, 10 + m_pLifeCountPos.y + 5, lpOut, lstrlen(lpOut));
+
+		fIntv += 25.f;
+	}
+}
+
+void CUIMgr::MapEditorRender(HDC hDC, BLOCKID eID)
+{
+	int iFrameSize = BLOCK_SIZE + 20;
+	int iInterval = iFrameSize + 2;
+
+	for (int i = 0; i < BLOCKID::BLK_END; ++i)
+	{
+		if (eID == i)
+		{
+			HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 255, 0));
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+			Rectangle(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize);
+
+			SelectObject(hDC, oldBrush);
+			DeleteObject(myBrush);
+		}
+		else
+		{
+			Rectangle(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize);
+		}
+
+		DrawBlockUI(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize, i);
+
+		TCHAR lpOut[1024];
+		wsprintf(lpOut, TEXT("%d"), i + 1);
+		TextOut(hDC, m_pEditTopDown.x + iInterval + 5, m_pEditTopDown.y + 5, lpOut, lstrlen(lpOut));
+
+		iInterval += iInterval;
+	}
+}
+
+void CUIMgr::DrawBlockUI(HDC hDC, float left, float top, float right, float bottom, int iID)
+{
+	BLOCKID eID = (BLOCKID)iID;
+
+	int iterval = 10;
+	switch (eID)
+	{
+	case BLK_BLOCK:
+		Rectangle(hDC, left + iterval, top + iterval, right - iterval, bottom - iterval);
+		break;
+	case BLK_MOVINGBLOCK:
+		Rectangle(hDC, left + iterval, top + iterval + 5, right - iterval, bottom - iterval - 5);
+		break;
+	case BLK_END:
+		break;
+	}
+}
+

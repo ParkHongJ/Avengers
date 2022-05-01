@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Gumba.h"
+#include "ScrollMgr.h"
 #include "MainGame.h"
+
 CGumba::CGumba()
 {
 }
@@ -42,7 +44,10 @@ void CGumba::Late_Update(void)
 void CGumba::Render(HDC hDC)
 {
 	if (!m_bDead)
-		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	{
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	}
 }
 
 void CGumba::OnCollision(DIRECTION eDir, CObj* other)
