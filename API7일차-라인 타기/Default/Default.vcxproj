@@ -219,6 +219,7 @@
     <ResourceCompile Include="Default.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bitmap1.bmp" />
     <Image Include="Default.ico" />
     <Image Include="small.ico" />
   </ItemGroup>

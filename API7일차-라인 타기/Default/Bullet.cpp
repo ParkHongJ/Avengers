@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Bullet.h"
+#include "MainGame.h"
 
 
 CBullet::CBullet()
@@ -28,12 +29,12 @@ int CBullet::Update(void)
 
 	if (!m_bDown)
 	{
-		m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
-		m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+		m_tInfo.fX += CMainGame::m_fTime * m_fSpeed * cosf((m_fAngle * PI) / 180.f);
+		m_tInfo.fY -= CMainGame::m_fTime * m_fSpeed * sinf((m_fAngle * PI) / 180.f);
 	}
 	else
 	{
-		m_tInfo.fY += m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+		m_tInfo.fY += CMainGame::m_fTime * m_fSpeed * sinf((m_fAngle * PI) / 180.f);
 	}
 	
 	Update_Rect();
@@ -43,9 +44,6 @@ int CBullet::Update(void)
 
 void CBullet::Late_Update(void)
 {
-	/*if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right ||
-		100 >= m_tRect.top || WINCY - 100 <= m_tRect.bottom)
-		m_bDead = true; */
 
 	if (m_tInfo.fY >= WINCY + 50)
 	{

@@ -13,7 +13,6 @@ void CGumba::Initialize(void)
 {
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
-
 	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
 	m_fSpeed = -0.8f;
@@ -46,9 +45,6 @@ void CGumba::Render(HDC hDC)
 		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
-void CGumba::Release(void)
-{
-}
 void CGumba::OnCollision(DIRECTION eDir, CObj* other)
 {
 	switch (eDir)
@@ -72,4 +68,7 @@ void CGumba::OnCollision(DIRECTION eDir, CObj* other)
 	default:
 		break;
 	}
+}
+void CGumba::Release(void)
+{
 }
