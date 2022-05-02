@@ -44,7 +44,7 @@ void CollisionMgr::Collision_RectEx(list<CObj*> _Dest, list<CObj*> _Sour, bool _
 					// »ó Ãæµ¹
 					if (Dest->Get_Info().fY > Sour->Get_Info().fY)
 					{
-						if(_bIsPush) Sour->Set_PosY(-fY);
+	 					if(_bIsPush) Sour->Set_PosY(-fY);
 						Dest->OnCollision(DIR_UP,Sour);
 						Sour->OnCollision(DIR_UP, Dest);
 					}

@@ -1,12 +1,11 @@
 #pragma once
 #include "Obj.h"
-
-class CMovingBlock :
-	public CObj
+class CMovingBlockLR :
+    public CObj
 {
 public:
-	CMovingBlock();
-    virtual ~CMovingBlock();
+	CMovingBlockLR();
+	virtual ~CMovingBlockLR();
 
 public:
 	virtual void	Initialize(void)	override;
@@ -21,7 +20,6 @@ public:
 	virtual	void	OnCollision(DIRECTION eDir, CObj* other);
 
 private:
-	CObj*	m_pPlayer;
-
+	CObj* m_pPlayer;
 };
 
