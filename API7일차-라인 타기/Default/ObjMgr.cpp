@@ -87,6 +87,7 @@ void CObjMgr::Late_Update(void)
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_BULLET]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_BLOCK], false);  // 에디터 마우스 블럭 충돌
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_MOVINGBLOCK], false);  // 에디터 마우스 블럭 충돌
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_TEMP], false);  // 에디터 마우스 몬스터 충돌
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER], false);
 	
@@ -94,12 +95,9 @@ void CObjMgr::Late_Update(void)
 	CollisionMgr::Collision_Rect(m_ObjList[OBJ_MUSHROOM], m_ObjList[OBJ_PLAYER]);
 	// 코인과 플레이어의 충돌 체크 추가했어요 -민성-
 
-	//랜덤박스와 코인 테스트용 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
-
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TEMP]);
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TEMP], m_ObjList[OBJ_PLAYER]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TEMP], m_ObjList[OBJ_PLAYER], false);	// Player Monster
 
 
 	//CCollisionMgr::Collision_RectEx(m_ObjList[OBJ_INTERACTION], m_ObjList[OBJ_PLAYER]);

@@ -135,6 +135,12 @@ void CUIMgr::DrawBlockUI(HDC hDC, float left, float top, float right, float bott
 	case BLK_MOVINGBLOCKLR:
 		Rectangle(hDC, left + iterval, top + iterval + 5, right - iterval, bottom - iterval - 5);
 		break;
+	case BLK_RANDOMBOX:
+		Rectangle(hDC, left + iterval, top + iterval + 5, right - iterval, bottom - iterval);
+		TCHAR lpOut[1024];
+		wsprintf(lpOut, TEXT("?"));
+		TextOut(hDC, left + iterval + 10, top + iterval + 10, lpOut, lstrlen(lpOut));
+		break;
 	case BLK_GUMBA:
 		Ellipse(hDC, left + iterval, top + iterval, right - iterval, bottom - iterval);
 		break;

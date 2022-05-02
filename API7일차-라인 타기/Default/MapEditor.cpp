@@ -17,6 +17,7 @@
 #include "Turtle.h"
 #include "Gumba.h"
 #include "Coin.h"
+#include "Randbox.h"
 
 
 #include "Randbox.h"
@@ -131,6 +132,9 @@ void CMapEditor::CreateBlock(BLOCKID eId, float fX, float fY)
 		break;
 	case BLK_MOVINGBLOCKLR:
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlockLR>::Create(fX, fY, 0.f));
+		break;
+	case BLK_RANDOMBOX:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CRandbox>::Create(fX, fY, 0.f));
 		break;
 	case BLK_GUMBA:
 		CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(fX, fY, 0.f));

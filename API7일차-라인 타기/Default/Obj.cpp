@@ -8,6 +8,7 @@ CObj::CObj()
 	, m_bOnBlock(false)
 	, m_bOnAir(true)
 	, m_fGTime(0.f)
+	, m_pTarget(nullptr)
 
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));

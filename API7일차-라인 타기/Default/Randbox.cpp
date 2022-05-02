@@ -62,7 +62,7 @@ void CRandbox::Release(void)
 
 void CRandbox::OnCollision(DIRECTION eDir, CObj* other)
 {
-	int irand = rand() % 3;
+	int irand = rand() % 2;
 
 
 
@@ -78,16 +78,12 @@ void CRandbox::OnCollision(DIRECTION eDir, CObj* other)
 			switch (irand)
 			{
 			case 0:
-				CObjMgr::Get_Instance()->Add_Object(OBJ_COIN, CAbstractFactory<CCoin>::Create(m_tInfo.fX, m_tInfo.fY, true));
+				CObjMgr::Get_Instance()->Add_Object(OBJ_MUSHROOM, CAbstractFactory<CMushroom>::Create(m_tInfo.fX, m_tInfo.fY, true));
 				m_bCheck = true;
 				break;
 			case 1:
-				CObjMgr::Get_Instance()->Add_Object(OBJ_MUSHROOM, CAbstractFactory<CMushroom>::Create(m_tInfo.fX, m_tInfo.fY, true));
-				m_bCheck = true;
-
-				break;
-			case 2:
 				CObjMgr::Get_Instance()->Add_Object(OBJ_COIN, CAbstractFactory<CTimeitem>::Create(m_tInfo.fX, m_tInfo.fY, true));
+				m_bCheck = true;
 				break;
 			}
 			break;

@@ -26,7 +26,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 100.f;
 
-	m_tInfo.fCX = 16.f;
+	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 5.f;
@@ -37,7 +37,16 @@ void CPlayer::Initialize(void)
 
 	m_Tag = "Player";
 	m_fGravity = 9.8f;
-	m_Sprite = IDB_SMALLMARIO;
+
+	// m_Sprite = IDB_SMALLMARIO;
+	m_Sprite = IDB_SUPERMARIO;
+	m_fSmallY = 16;
+	m_fBigY = 32;
+
+	m_bUnbtb = false;
+	m_fOldTime = GetTickCount64();
+	m_fUnbtbTime = 3000.f;
+
 	m_fAngle = 0;
 
 	m_bDieTrigger = false;
@@ -51,6 +60,12 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+
+	if (m_fOldTime + m_fUnbtbTime < GetTickCount64() && m_bUnbtb)
+	{
+		m_bUnbtb = false;
+	}
+
 
 	Key_Input();
 
@@ -93,14 +108,8 @@ void CPlayer::DieDie()
 }
 void CPlayer::Die()
 {
-	if (0 >= m_fLifeCount)
-	{
-		// TODO ���� ����
-		Set_Dead();
-		return;
-	}
-
 	DownLife();
+
 	m_fGTime = 0.f;
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 100.f;
@@ -118,7 +127,12 @@ void CPlayer::Render(HDC hDC)
 
 	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
-	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(255, 255, 255));
+
+	if(m_Sprite == IDB_SUPERMARIO)
+		TransparentBlt(hDC, m_tRect.left, m_tRect.top - 32, 32, 64, MemDC, 0, 0, 16, m_fBigY, RGB(255, 255, 255));
+	else if (m_Sprite == IDB_SMALLMARIO)
+		TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, m_fSmallY, RGB(255, 255, 255));
+	
 	SelectObject(MemDC, OldBitmap);
 	DeleteObject(MyBitmap);
 	DeleteDC(MemDC);
@@ -216,7 +230,6 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	switch (eDir)
 	{
 	case DIR_UP:
-	
 		if (other->CompareTag("Monster"))
 		{
 			m_fJumpPower *= 0.9f;
@@ -236,6 +249,12 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_LEFT:
 		if (other->CompareTag("Monster"))
 		{
+			if (m_bUnbtb)
+				break;
+
+			m_bUnbtb = true;
+			m_fOldTime = GetTickCount64();
+			DownLife();
 			if (m_Sprite == IDB_SUPERMARIO)
 			{
 				m_Sprite = IDB_SMALLMARIO;
@@ -245,6 +264,12 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_RIGHT:
 		if (other->CompareTag("Monster"))
 		{
+			if (m_bUnbtb)
+				break;
+
+			m_bUnbtb = true;
+			m_fOldTime = GetTickCount64();
+			DownLife();
 			if (m_Sprite == IDB_SUPERMARIO)
 			{
 				m_Sprite = IDB_SMALLMARIO;
@@ -260,14 +285,28 @@ void CPlayer::UpLife()
 {
 	++m_fLifeCount;
 	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
-	UpGradeBody();
+
+	if (0 >= m_fLifeCount)
+	{
+		Set_Dead();
+		return;
+	}
+
+	// UpGradeBody();
 }
 
 void CPlayer::DownLife()
 {
 	--m_fLifeCount;
 	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
-	DownGradeBody();
+
+	if (0 >= m_fLifeCount)
+	{
+		Set_Dead();
+		return;
+	}
+
+	// DownGradeBody();
 }
 
 

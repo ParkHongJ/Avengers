@@ -50,7 +50,14 @@ private:
 
 	POINT					m_tPosin;
 	CObj*					m_pRelexBullet;
+
 	int						m_Sprite;
+	float					m_fSmallY;
+	float					m_fBigY;
+	
+	bool					m_bUnbtb;
+	float					m_fOldTime;
+	float					m_fUnbtbTime;
 
 	bool	m_bDieTrigger;
 };

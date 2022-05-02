@@ -21,7 +21,7 @@ void CMovingBlock::Initialize(void)
 	//m_tInfo.fY = 250.f;		// ÁßÁ¡ Y
 
 	m_pPlayer = nullptr;
-	m_tInfo.fCX = 64.f;
+	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 1.f;
@@ -44,13 +44,13 @@ int CMovingBlock::Update(void)
 	m_tInfo.fY -= m_fSpeed * CMainGame::m_fTime;
 	if (m_pPlayer != nullptr)
 	{
-		if (m_tInfo.fCX > abs(m_pPlayer->Get_Info().fX - m_tInfo.fX) && m_tInfo.fCY > abs(m_pPlayer->Get_Info().fY - m_tInfo.fY))
+		if (m_tInfo.fCX >= abs(m_pPlayer->Get_Info().fX - m_tInfo.fX) && m_tInfo.fCY >= abs(m_pPlayer->Get_Info().fY - m_tInfo.fY))
 		{
-			m_pPlayer->Set_Pos(m_pPlayer->Get_Info().fX, (m_tInfo.fY - m_tInfo.fCY + 2.1));
+			m_pPlayer->Set_Pos(m_pPlayer->Get_Info().fX, (m_tInfo.fY - m_tInfo.fCY + 2.2f));
 		}
 		m_pPlayer = nullptr;
 	}
-
+	
 	Update_Rect();
 
 	return OBJ_NOEVENT;
