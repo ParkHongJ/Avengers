@@ -50,7 +50,7 @@ void CPlayer::Initialize(void)
 
 	m_bDieTrigger = false;
 
-	m_fLifeCount = 2;
+	m_fLifeCount = 10;
 	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
 
 }

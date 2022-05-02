@@ -73,7 +73,8 @@ int CObjMgr::Update(void)
 
 	if (m_ObjList[OBJ_PLAYER].empty())
 	{
-		CSceneMgr::Get_Instance()->ChangeScene(SCENEID::SCENE_START);
+		if(CSceneMgr::Get_Instance()->GetCurScene() != SCENE_EDIT)
+			CSceneMgr::Get_Instance()->ChangeScene(SCENEID::SCENE_START);
 		return 0;
 	}
 	if (2650.f < Get_Player()->Get_Info().fX && CSceneMgr::Get_Instance()->GetCurScene() != SCENE_BOSS)
