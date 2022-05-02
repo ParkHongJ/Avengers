@@ -38,8 +38,7 @@ void CPlayer::Initialize(void)
 	m_Tag = "Player";
 	m_fGravity = 9.8f;
 
-	// m_Sprite = IDB_SMALLMARIO;
-	m_Sprite = IDB_SUPERMARIO;
+	m_Sprite = IDB_SMALLMARIO;
 	m_fSmallY = 16;
 	m_fBigY = 32;
 
