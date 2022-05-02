@@ -17,7 +17,7 @@ CStartScene::~CStartScene()
 void CStartScene::Initailize(void)
 {
 	CUIMgr::Get_Instance()->Initialize();
-	m_eCurScene = SCENE_PLAYE;
+	m_eCurScene = SCENE_START;
 }
 
 void CStartScene::Update(void)

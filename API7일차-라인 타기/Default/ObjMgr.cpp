@@ -2,6 +2,7 @@
 #include "ObjMgr.h"
 #include "CollisionMgr.h"
 #include "UIMgr.h"
+#include "SceneMgr.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -70,6 +71,12 @@ int CObjMgr::Update(void)
 		}
 	}
 
+	if (2650.f < Get_Player()->Get_Info().fX && CSceneMgr::Get_Instance()->GetCurScene() != SCENE_BOSS)
+	{
+		CSceneMgr::Get_Instance()->ChangeScene(SCENEID::SCENE_BOSS);
+		return OBJ_NOEVENT;
+	}
+
 	return 0;
 }
 
@@ -88,6 +95,7 @@ void CObjMgr::Late_Update(void)
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_BLOCK], false);  // 에디터 마우스 블럭 충돌
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_MOVINGBLOCK], false);  // 에디터 마우스 블럭 충돌
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_TEMP], false);  // 에디터 마우스 몬스터 충돌
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_COIN], false);  // 에디터 마우스 몬스터 충돌
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER], false);
 	

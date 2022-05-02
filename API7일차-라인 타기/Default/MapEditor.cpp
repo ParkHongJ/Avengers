@@ -88,9 +88,9 @@ void CMapEditor::Update_GetKey()
 {
 	// �¿� ȭ�� �̵�
 	if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
-		CScrollMgr::Get_Instance()->Set_ScrollX(5.f);
+		CScrollMgr::Get_Instance()->Set_ScrollX(10.f);
 	if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
-		CScrollMgr::Get_Instance()->Set_ScrollX(-5.f);
+		CScrollMgr::Get_Instance()->Set_ScrollX(-10.f);
 
 	// ���� ���� 1~9
 	for (int i = 1; i <= BLOCKID::BLK_END; ++i)
@@ -170,84 +170,75 @@ void CMapEditor::Edit_DeleteBlock()
 
 void CMapEditor::Save()
 {
-	// 1. ���� ����
-
-// CreateFile : api ���� ���� �Լ�, ���� ���� �� INVALID_HANDLE_VALUE�ϱ� ������ null������ ����ó���� �� �� ����.
-
-	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ���� ��ο� �̸� ����
-		GENERIC_WRITE,				// ���� ���� ��� (GENERIC_WRITE ���� ����, GENERIC_READ �б� ����)
-		NULL,						// �������, ������ �����ִ� ���¿��� �ٸ� ���μ����� ������ �� ����� ���ΰ�, NULL�� ��� �������� �ʴ´�
-		NULL,						// ���� �Ӽ�, �⺻��	
-		CREATE_ALWAYS,				// ���� ���, CREATE_ALWAYS�� ������ ���ٸ� ����, �ִٸ� ���� ����, OPEN_EXISTING ������ ���� ��쿡�� ����
-		FILE_ATTRIBUTE_NORMAL,		// ���� �Ӽ�(�б� ����, ���� ��), FILE_ATTRIBUTE_NORMAL �ƹ��� �Ӽ��� ���� �Ϲ� ���� ����
-		NULL);						// �������� ������ �Ӽ��� ������ ���ø� ����, �츮�� ������� �ʾƼ� NULL
+	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",
+		GENERIC_WRITE,				
+		NULL,						
+		NULL,						
+		CREATE_ALWAYS,				
+		FILE_ATTRIBUTE_NORMAL,		
+		NULL);						
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		// �˾� â�� ������ִ� ����� �Լ�
-		// 1. �ڵ� 2. �˾� â�� �������ϴ� �޽��� 3. �˾� â �̸� 4. ��ư �Ӽ�
 		MessageBox(g_hWnd, _T("Save File"), _T("Fail"), MB_OK);
 		return;
 	}
-
-	// 2. ���� ����
-
+	
 	DWORD		dwByte = 0;
 
 	for (auto& iter : m_BlockList)
 	{
-		WriteFile(hFile, &iter, sizeof(BlockInfo), &dwByte, nullptr);
+		bool s = WriteFile(hFile, &iter, sizeof(BlockInfo), &dwByte, nullptr);
+		if (!s)
+		{
+			return;
+		}
 	}
 
-
-	// 3. ���� �Ҹ�
 	CloseHandle(hFile);
 
-	MessageBox(g_hWnd, _T("Save �Ϸ�"), _T("����"), MB_OK);
+	MessageBox(g_hWnd, _T("Save"), _T(""), MB_OK);
 }
 
 void CMapEditor::Load()
 {
-	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ���� ��ο� �̸� ����
-		GENERIC_READ,				// ���� ���� ��� (GENERIC_WRITE ���� ����, GENERIC_READ �б� ����)
-		NULL,						// �������, ������ �����ִ� ���¿��� �ٸ� ���μ����� ������ �� ����� ���ΰ�, NULL�� ��� �������� �ʴ´�
-		NULL,						// ���� �Ӽ�, �⺻��	
-		OPEN_EXISTING,				// ���� ���, CREATE_ALWAYS�� ������ ���ٸ� ����, �ִٸ� ���� ����, OPEN_EXISTING ������ ���� ��쿡�� ����
-		FILE_ATTRIBUTE_NORMAL,		// ���� �Ӽ�(�б� ����, ���� ��), FILE_ATTRIBUTE_NORMAL �ƹ��� �Ӽ��� ���� �Ϲ� ���� ����
-		NULL);						// �������� ������ �Ӽ��� ������ ���ø� ����, �츮�� ������� �ʾƼ� NULL
+	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",
+		GENERIC_READ,				
+		NULL,						
+		NULL,						
+		OPEN_EXISTING,				
+		FILE_ATTRIBUTE_NORMAL,		
+		NULL);						
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		// �˾� â�� ������ִ� ����� �Լ�
-		// 1. �ڵ� 2. �˾� â�� �������ϴ� �޽��� 3. �˾� â �̸� 4. ��ư �Ӽ�
 		MessageBox(g_hWnd, _T("Load File"), _T("Fail"), MB_OK);
 		return;
 	}
-
-	// 2. ���� ����
 
 	DWORD		dwByte = 0;
 	BlockInfo		tInfo{};
 
 	while (true)
 	{
-		ReadFile(hFile, &tInfo, sizeof(BlockInfo), &dwByte, nullptr);
+		bool s = ReadFile(hFile, &tInfo, sizeof(BlockInfo), &dwByte, nullptr);
 
-		if (0 == dwByte)	// ���̻� ���� �����Ͱ� ���� ���
+		if (!s)
+		{
+			return;
+		}
+
+		if (0 == dwByte)
 			break;
 
 		m_BlockList.push_back(BlockInfo{ (float)tInfo.fX, (float)tInfo.fY, tInfo.eID });
 	}
 
-
-	// 3. ���� �Ҹ�
 	CloseHandle(hFile);
 
 	CreateAllBlockInList();
 	if(CSceneMgr::Get_Instance()->GetCurScene() == SCENEID::SCENE_EDIT)
-		MessageBox(g_hWnd, _T("Load �Ϸ�"), _T("����"), MB_OK);
-
-	// 글자깨져서 바꾸기
+		MessageBox(g_hWnd, _T("Load"), _T(""), MB_OK);
 }
 
 void CMapEditor::CreateAllBlockInList()

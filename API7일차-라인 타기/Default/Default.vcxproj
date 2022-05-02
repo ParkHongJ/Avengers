@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="BossScene.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="EditScene.h" />
     <ClInclude Include="GameScene.h" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="Randbox.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Timeitem.cpp" />

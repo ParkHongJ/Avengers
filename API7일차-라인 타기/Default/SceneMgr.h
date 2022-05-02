@@ -43,7 +43,7 @@ private:
 	static CSceneMgr* m_pInstance;
 
 private:
-	CScene*     	m_SceneList[SCENE_END];
+	CScene*     	m_SceneList[SCENE_REAL_END];
 	SCENEID			m_eCurScene;
 };
 
