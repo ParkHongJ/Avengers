@@ -118,5 +118,6 @@ void CObjMgr::Release(void)
 			Safe_Delete<CObj*>(iter);
 
 		m_ObjList[i].clear();
+		
 	}
 }

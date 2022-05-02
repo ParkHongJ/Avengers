@@ -221,5 +221,5 @@ void CPlayer::OnCollision(DIRECTION eDir)
 
 void CPlayer::Release(void)
 {
-
+	//m_pRelexBullet = nullptr;
 }

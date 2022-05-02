@@ -19,7 +19,7 @@ void CKoopa::Initialize(void)
 {
 	//현재상태
 	m_eCurrentState = IdleState;
-	m_Sprite = IDB_KOOPA_IDLE;
+	m_Sprite = IDB_KOOPA_IDLE_LEFT;
 
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
@@ -49,6 +49,14 @@ int CKoopa::Update(void)
 	switch (m_eCurrentState)
 	{
 	case IdleState:
+		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		{
+			m_Sprite = IDB_KOOPA_IDLE_LEFT;
+		}
+		else
+		{
+			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+		}
 		IdleCount++;
 		if (IdleCount >= 2)
 		{
@@ -107,7 +115,14 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
-		m_Sprite = IDB_KOOPA_IDLE;
+		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		{
+			m_Sprite = IDB_KOOPA_IDLE_LEFT;
+		}
+		else
+		{
+			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+		}
 		if (GetTickCount() - m_BulletDelay >= 100)
 		{
 			if (m_fBulletAngle >= 140.f)
@@ -121,7 +136,14 @@ int CKoopa::Update(void)
 		}
 		break;
 	case BulletPlayerFire:
-		m_Sprite = IDB_KOOPA_IDLE;
+		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		{
+			m_Sprite = IDB_KOOPA_IDLE_LEFT;
+		}
+		else
+		{
+			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+		}
 		//int m_fDistance = (m_pTarget->Get_Info().fX - m_tInfo.fX) + (m_pTarget->Get_Info().fY - m_tInfo.fY);
 		//m_fAngle = m_pTarget->Get_Info().fX
 		break;
@@ -145,6 +167,7 @@ void CKoopa::Late_Update(void)
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
 	}
 	//m_eCurrentState = BulletUpFire;
+
 	if (GetTickCount() - m_fPatternTimer >= 6000 || m_bActivatePattern)
 	{
 		m_eCurrentState = (KooPaState)(rand() % 7 + 1);
@@ -166,9 +189,9 @@ void CKoopa::Render(HDC hDC)
 	MemDC = CreateCompatibleDC(hDC);
 	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+
+	
 	GdiTransparentBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, 150, 150, RGB(255, 255, 255));
-	//BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
-	//BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
 
 	SelectObject(MemDC, OldBitmap);
 	DeleteObject(MyBitmap);
@@ -177,6 +200,7 @@ void CKoopa::Render(HDC hDC)
 
 void CKoopa::Release(void)
 {
+
 }
 
 void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
@@ -190,7 +214,10 @@ void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
 		if (other->CompareTag("Player"))
 		{
 			if (m_eCurrentState == Turtle || m_eCurrentState == TutleChase)
+			{
+				//거북이거나 거북이 쫓고있을때 위에서 내려찍으면 플레이어가 데미지 입어야함
 				break;
+			}
 			m_iHp--;
 			m_Sprite = IDB_KOOPA_HIT;
 			m_eCurrentState = HIT;

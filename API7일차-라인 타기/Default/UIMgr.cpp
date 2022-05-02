@@ -9,6 +9,11 @@ CUIMgr::CUIMgr()
 
 CUIMgr::~CUIMgr()
 {
+	if (m_pInstance)
+	{
+
+		Release();
+	}
 }
 
 void CUIMgr::Initialize()
