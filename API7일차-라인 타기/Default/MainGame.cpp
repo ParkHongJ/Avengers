@@ -41,11 +41,11 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 
 	CMapEditor::Get_Instance()->Initialize();
-	CMapEditor::Get_Instance()->Load();
+	//CMapEditor::Get_Instance()->Load();
 
-	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
-	CScrollMgr::Get_Instance()->Initialize();
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	//CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
+	//CScrollMgr::Get_Instance()->Initialize();
 	CUIMgr::Get_Instance()->Initialize();
 
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));

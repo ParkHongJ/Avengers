@@ -11,6 +11,7 @@
 #include "Mouse.h"
 #include "Block.h"
 #include "MovingBlock.h"
+#include "MovingBlockLR.h"
 
 CMapEditor* CMapEditor::m_pInstance = nullptr;
 
@@ -118,7 +119,7 @@ void CMapEditor::CreateBlock(BLOCKID eId, float fX, float fY)
 		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(fX, fY, 0.f));
 		break;
 	case BLOCKID::BLK_MOVINGBLOCK:
-		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlock>::Create(fX, fY, 0.f));
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlockLR>::Create(fX, fY, 0.f));
 		break;
 	}
 }
