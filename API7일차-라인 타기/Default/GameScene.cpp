@@ -35,7 +35,7 @@ void CGameScene::Initailize(void)
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 150.f));
 	//CObjMgr::Get_Instance()->Get_Player()
 
-	//매우 위험한 코드, 나중에 수정필요 일단 작동은됨
+	
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));
 	CUIMgr::Get_Instance()->Initialize();
 

@@ -16,5 +16,7 @@ public:
 	void		Release(void);
 public:
 	void	OnCollision(CObj* other);
+private:
+	int m_Sprite;
 };
 

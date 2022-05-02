@@ -2,7 +2,7 @@
 #include "Bullet.h"
 #include "MainGame.h"
 #include "ScrollMgr.h"
-
+#include "Resource.h"
 
 CBullet::CBullet()
 {
@@ -21,6 +21,7 @@ void CBullet::Initialize(void)
 
 	m_fSpeed = 2.f;
 	m_bDown = false;
+	m_Sprite = IDB_BULLET;
 }
 
 int CBullet::Update(void)
@@ -57,15 +58,23 @@ void CBullet::Late_Update(void)
 		m_tInfo.fX = rand() % (WINCX + 1);
 		m_bDown = true;
 	}
-	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-	m_tInfo.fX += iScrollX;
-	m_tRect.left += iScrollX;
-	m_tRect.right += iScrollX;
 }
 
 void CBullet::Render(HDC hDC)
 {
-	Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 50, 50, MemDC, 0, 0, 16, 16, RGB(0, 0, 0));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CBullet::Release(void)

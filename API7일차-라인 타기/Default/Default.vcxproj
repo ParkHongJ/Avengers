@@ -253,10 +253,12 @@
     <Image Include="DestroyBlock.bmp" />
     <Image Include="Gumba.bmp" />
     <Image Include="Gumba_hit.bmp" />
+    <Image Include="Mushroom.bmp" />
     <Image Include="RandomBlock.bmp" />
     <Image Include="small.ico" />
     <Image Include="SmallMario.bmp" />
     <Image Include="SuperMario.bmp" />
+    <Image Include="TimeItem.bmp" />
     <Image Include="Turtle.bmp" />
     <Image Include="Turtle_Hide.bmp" />
   </ItemGroup>
