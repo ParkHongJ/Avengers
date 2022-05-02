@@ -103,6 +103,9 @@
     <Filter Include="Hero\Scene\EditScene">
       <UniqueIdentifier>{7dd1a2e3-e389-49b4-a724-0d38ac3b87b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hero\Scene\BossScene">
+      <UniqueIdentifier>{afe2a0be-6f0e-4574-a26a-6bd6c1c392cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -247,6 +250,9 @@
     <ClInclude Include="Randbox.h">
       <Filter>MinSung</Filter>
     </ClInclude>
+    <ClInclude Include="BossScene.h">
+      <Filter>Hero\Scene\BossScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -362,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="Randbox.cpp">
       <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="BossScene.cpp">
+      <Filter>Hero\Scene\BossScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

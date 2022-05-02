@@ -252,6 +252,17 @@ void CUIMgr::GameSceneBackGround(HDC hDC)
 	DeleteObject(myBrush);
 }
 
+void CUIMgr::BossSceneBackGround(HDC hDC)
+{
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(157, 90, 90));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+	Rectangle(hDC, MAPSIZE_LEFT, 0, MAPSIZE_RIGHT, 600);
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+}
+
 void CUIMgr::Release()
 {
 	m_iScore = 0;

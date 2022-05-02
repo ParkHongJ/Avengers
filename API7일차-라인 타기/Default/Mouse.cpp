@@ -53,6 +53,6 @@ void CMouse::Release(void)
 
 void CMouse::OnCollision(DIRECTION eDir, CObj* other)
 {
-	if (other->CompareTag("Block") || other->CompareTag("Monster"))
+	if (other->CompareTag("Block") || other->CompareTag("Monster") || other->CompareTag("Coin"))
 		m_pTarget = other;
 }

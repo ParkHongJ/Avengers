@@ -20,7 +20,7 @@ void CCoin::Initialize(void)
 	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
 
-
+	m_Tag = "Coin";
 	
 }
 

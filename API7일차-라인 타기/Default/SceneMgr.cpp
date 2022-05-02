@@ -4,6 +4,7 @@
 #include "StartScene.h"
 #include "GameScene.h"
 #include "EditScene.h"
+#include "BossScene.h"
 
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
@@ -18,11 +19,13 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initailize(void)
 {
+	m_eCurScene = SCENEID::SCENE_START;
+
 	m_SceneList[SCENEID::SCENE_START] = new CStartScene;
 	m_SceneList[SCENEID::SCENE_PLAYE] = new CGameScene;
 	m_SceneList[SCENEID::SCENE_EDIT] = new CEditScene;
+	m_SceneList[SCENEID::SCENE_BOSS] = new CBossScene;
 
-	m_eCurScene = SCENEID::SCENE_START;
 	m_SceneList[m_eCurScene]->Initailize();
 }
 
@@ -43,8 +46,11 @@ void CSceneMgr::Render(HDC hDC)
 
 void CSceneMgr::Release(void)
 {
-	for (int i = 0; i < SCENEID::SCENE_END; ++i)
+	for (int i = 0; i < SCENEID::SCENE_REAL_END; ++i)
 	{
+		if (i == SCENE_END)
+			continue;
+
 		Safe_Delete<CScene*>(m_SceneList[i]);
 	}
 }

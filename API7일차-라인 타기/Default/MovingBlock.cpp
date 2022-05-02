@@ -58,7 +58,7 @@ int CMovingBlock::Update(void)
 
 void CMovingBlock::Late_Update(void)
 {
-	if (m_fCenter_Pos - 50 >= m_tRect.top || m_fCenter_Pos + 50 <= m_tRect.bottom)
+	if (m_fCenter_Pos - 100 >= m_tRect.top || m_fCenter_Pos + 100 <= m_tRect.bottom)
 		m_fSpeed *= -1.f;
 }
 

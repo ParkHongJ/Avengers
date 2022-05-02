@@ -23,8 +23,8 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize(void)
 {
 	m_pRelexBullet = nullptr;
-	m_tInfo.fX = 400.f;
-	m_tInfo.fY = 100.f;
+	m_tInfo.fX = 0.f;
+	m_tInfo.fY = 0.f;
 
 	m_tInfo.fCX = 32.f;
 	m_tInfo.fCY = 32.f;
@@ -60,6 +60,7 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+		
 
 	if (m_fOldTime + m_fUnbtbTime < GetTickCount64() && m_bUnbtb)
 	{
@@ -156,12 +157,12 @@ void CPlayer::SniperRender(HDC hDC)
 
 void CPlayer::Key_Input(void)
 {
-	if (CKeyMgr::Get_Instance()->Key_Down('B'))
-	{
-		m_bJump = true;
-		m_fJumpPower = 5.f;
-		m_fGTime = 0.f;
-	}
+	//if (CKeyMgr::Get_Instance()->Key_Down('B'))
+	//{
+	//	m_bJump = true;
+	//	m_fJumpPower = 5.f;
+	//	m_fGTime = 0.f;
+	//}
 	// SnipingMode
 	if (CKeyMgr::Get_Instance()->Key_Pressing('R') && m_pRelexBullet)
 	{
@@ -207,7 +208,7 @@ void CPlayer::Key_Input(void)
 	// Jump
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE) && !m_bJump)
 	{
-		m_fJumpPower = 10.f;
+		m_fJumpPower = 12.f;
 		m_bJump = true;
 	}
 

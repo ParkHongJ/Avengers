@@ -4,7 +4,7 @@
 #define		WINCY		600
 
 #define		MAPSIZE_LEFT	0
-#define		MAPSIZE_RIGHT	1600
+#define		MAPSIZE_RIGHT	3200
 
 #define		BLOCK_SIZE	32
 

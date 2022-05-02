@@ -49,6 +49,7 @@ public:
 
 	void	StartSceneBackGround(HDC hDC);
 	void	GameSceneBackGround(HDC hDC);
+	void	BossSceneBackGround(HDC hDC);
 
 private:
 	static CUIMgr* m_pInstance;
