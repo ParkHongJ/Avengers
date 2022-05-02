@@ -24,7 +24,7 @@ void CKoopa::Initialize(void)
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 0.f;
 
-	m_tInfo.fCX = 150.f;
+	m_tInfo.fCX = 140.f;
 	m_tInfo.fCY = 150.f;
 	m_fSpeed = 1.5f;
 	m_fTurtleSpeed = 3.f;
@@ -97,11 +97,7 @@ int CKoopa::Update(void)
 		m_tInfo.fX += m_fTurtleSpeed;
 		break;
 	case Jump:
-		if (m_bJump)
-		{
-			m_bActivatePattern = true;
-			break;
-		}
+		m_bActivatePattern = true;
 		m_fJumpPower = 10.f;
 		m_bJump = true;
 		break;
@@ -165,13 +161,14 @@ void CKoopa::Render(HDC hDC)
 	HDC MemDC;
 	HBITMAP MyBitmap, OldBitmap;
 	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-	m_tRect.right += iScrollX;
-	m_tRect.left += iScrollX;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
 	MemDC = CreateCompatibleDC(hDC);
 	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
-
-	BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
+	GdiTransparentBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, 150, 150, RGB(255, 255, 255));
+	//BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
+	//BitBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, SRCCOPY);
 
 	SelectObject(MemDC, OldBitmap);
 	DeleteObject(MyBitmap);
