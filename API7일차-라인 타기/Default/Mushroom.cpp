@@ -26,6 +26,10 @@ int CMushroom::Update(void)
 	if (m_bDead)               // 살았니 죽었니 코드 
 		return OBJ_DEAD;
 
+	if (m_tInfo.fY >= m_itembox_y)
+	{
+		--m_tInfo.fY;
+	}
 	Update_Rect();
 
 	return 0;

@@ -12,9 +12,11 @@ public:
 	void		Late_Update(void);
 	void		Render(HDC hDC);
 	void		Release(void);
+
 public:
 	// 기존의 온콜리전 삭제 
 	void	OnCollision(CObj* other);
+	
 
 
 

@@ -244,6 +244,9 @@
     <ClInclude Include="EditScene.h">
       <Filter>Hero\Scene\EditScene</Filter>
     </ClInclude>
+    <ClInclude Include="Randbox.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -356,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="EditScene.cpp">
       <Filter>Hero\Scene\EditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Randbox.cpp">
+      <Filter>MinSung</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "Timeitem.h"
 #include "GameMgr.h"
 #include "ScrollMgr.h"
+
 CTimeitem::CTimeitem()
 {
 }
@@ -13,8 +14,8 @@ CTimeitem::~CTimeitem()
 
 void CTimeitem::Initialize(void)
 {
-	m_tInfo.fCX = 40.f;
-	m_tInfo.fCY = 40.f;
+	m_tInfo.fCX = 30.f;
+	m_tInfo.fCY = 30.f;
 
 }
 
@@ -22,6 +23,11 @@ int CTimeitem::Update(void)
 {
 	if (m_bDead)               // 살았니 죽었니 코드 
 		return OBJ_DEAD;
+
+	if (m_tInfo.fY >= m_itembox_y)
+	{
+		--m_tInfo.fY;
+	}
 
 	Update_Rect();
 	return 0;
