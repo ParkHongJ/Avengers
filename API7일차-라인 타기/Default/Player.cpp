@@ -9,7 +9,7 @@
 #include "ScrollMgr.h" 
 #include "MainGame.h"
 #include "ReflexBullet.h"
-
+#include "UIMgr.h"
 CPlayer::CPlayer()
 {
 }
@@ -88,6 +88,12 @@ void CPlayer::SniperRender(HDC hDC)
 
 void CPlayer::Key_Input(void)
 {
+	if (CKeyMgr::Get_Instance()->Key_Down('B'))
+	{
+		m_bJump = true;
+		m_fJumpPower = 5.f;
+		m_fGTime = 0.f;
+	}
 	// SnipingMode
 	if (CKeyMgr::Get_Instance()->Key_Pressing('R') && m_pRelexBullet)
 	{
@@ -129,12 +135,7 @@ void CPlayer::Key_Input(void)
 		}
 	}
 	
-	if (CKeyMgr::Get_Instance()->Key_Down('B'))
-	{
-		m_fJumpPower = 5.f;
-		m_fGTime = 0.f;
-		m_bJump = true;
-	}
+	
 	// Jump
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE) && !m_bJump)
 	{
@@ -181,7 +182,7 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_LEFT:
 		if (other->CompareTag("Monster"))
 		{
-			//PostQuitMessage(0);
+
 		}
 		break;
 	case DIR_RIGHT:

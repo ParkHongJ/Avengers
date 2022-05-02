@@ -226,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bitmap1.bmp" />
+    <Image Include="bitmap2.bmp" />
+    <Image Include="bmp00001.bmp" />
+    <Image Include="C:\Users\qkrgh\Desktop\34기이혜진Texture(Mario,D2D)\TextureMario\Objects.bmp" />
     <Image Include="Default.ico" />
     <Image Include="small.ico" />
   </ItemGroup>

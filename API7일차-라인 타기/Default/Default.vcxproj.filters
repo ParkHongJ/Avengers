@@ -310,5 +310,14 @@
     <Image Include="bitmap1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="bitmap2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="bmp00001.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="C:\Users\qkrgh\Desktop\34기이혜진Texture(Mario,D2D)\TextureMario\Objects.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
