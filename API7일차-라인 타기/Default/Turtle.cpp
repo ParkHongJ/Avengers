@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Turtle.h"
-
+#include "ObjMgr.h"
 #include "ScrollMgr.h"
-
+#include "Resource.h"
 CTurtle::CTurtle()
 {
 }
@@ -22,6 +22,7 @@ void CTurtle::Initialize()
 	m_bDead = false;
 	m_Tag = "Monster";
 	m_eState = Idle;
+	
 }
 
 int CTurtle::Update()
@@ -37,10 +38,6 @@ int CTurtle::Update()
 void CTurtle::Late_Update()
 {
 	CObj::UpdateGravity();
-	if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
-	{
-		m_fSpeed *= -1.f;
-	}
 }
 
 void CTurtle::Render(HDC hDC)
@@ -50,14 +47,27 @@ void CTurtle::Render(HDC hDC)
 	switch (m_eState)
 	{
 	case Idle:
-		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+		m_Sprite = IDB_TURTEL_IDLE;
 		break;
 	case Hide:
-		Ellipse(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+		m_Sprite = IDB_TURTLE_HIDE;
 		break;
 	default:
 		break;
 	}
+
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(255, 0, 0));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
@@ -86,11 +96,19 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_LEFT:
 		if (m_eState == Hide)
 		{
+			m_fSpeed = 8.f;
+		}
+		if (other->CompareTag("Player") && m_eState == Hide)
+		{
 			m_fSpeed = -8.f;
 		}
 		break;
 	case DIR_RIGHT:
 		if (m_eState == Hide)
+		{
+			m_fSpeed = -8.f;
+		}
+		if (other->CompareTag("Player") && m_eState == Hide)
 		{
 			m_fSpeed = 8.f;
 		}

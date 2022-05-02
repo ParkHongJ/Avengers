@@ -17,6 +17,7 @@ public:
 	// 기존의 온콜리전 삭제 
 	void	OnCollision(CObj* other);
 
-
+private:
+	int m_Sprite;
 };
 

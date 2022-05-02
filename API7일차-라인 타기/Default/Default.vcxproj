@@ -244,10 +244,23 @@
     <Image Include="bitmap1.bmp" />
     <Image Include="bitmap2.bmp" />
     <Image Include="bitmap4.bmp" />
+    <Image Include="bitmapRight.bmp" />
+    <Image Include="Block.bmp" />
     <Image Include="bmp00001.bmp" />
+    <Image Include="Bullet.bmp" />
     <Image Include="C:\Users\qkrgh\Desktop\34기이혜진Texture(Mario,D2D)\TextureMario\Objects.bmp" />
     <Image Include="Default.ico" />
+    <Image Include="DestroyBlock.bmp" />
+    <Image Include="Gumba.bmp" />
+    <Image Include="Gumba_hit.bmp" />
+    <Image Include="Mushroom.bmp" />
+    <Image Include="RandomBlock.bmp" />
     <Image Include="small.ico" />
+    <Image Include="SmallMario.bmp" />
+    <Image Include="SuperMario.bmp" />
+    <Image Include="TimeItem.bmp" />
+    <Image Include="Turtle.bmp" />
+    <Image Include="Turtle_Hide.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

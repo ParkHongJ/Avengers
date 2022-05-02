@@ -36,6 +36,7 @@ void CPlayer::Initialize(void)
 
 	m_Tag = "Player";
 	m_fGravity = 9.8f;
+	m_Sprite = IDB_SMALLMARIO;
 
 }
 
@@ -66,8 +67,18 @@ void CPlayer::Render(HDC hDC)
 {
 
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
 
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(255, 255, 255));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 	SniperRender(hDC);
 }
 
@@ -182,13 +193,19 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_LEFT:
 		if (other->CompareTag("Monster"))
 		{
-
+			if (m_Sprite == IDB_SUPERMARIO)
+			{
+				m_Sprite = IDB_SMALLMARIO;
+			}
 		}
 		break;
 	case DIR_RIGHT:
 		if (other->CompareTag("Monster"))
 		{
-			//PostQuitMessage(0);
+			if (m_Sprite == IDB_SUPERMARIO)
+			{
+				m_Sprite = IDB_SMALLMARIO;
+			}
 		}
 		break;
 	default:
@@ -196,28 +213,6 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	}
 }
 
-void CPlayer::OffSet(void)
-{
-	int		iOffSetX = WINCX >> 1;
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	int		iItv = 300;
-
-
-	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
-		CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
-
-	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
-		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
-}
-
-
-void CPlayer::OnCollision()
-{
-}
-
-void CPlayer::OnCollision(DIRECTION eDir)
-{
-}
 
 void CPlayer::Release(void)
 {

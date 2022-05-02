@@ -16,6 +16,6 @@ public:
 	virtual void	OnCollision(DIRECTION eDir, CObj* other);
 
 private:
-
+	int m_Sprite;
 };
 

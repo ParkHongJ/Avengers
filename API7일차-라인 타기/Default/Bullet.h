@@ -17,5 +17,6 @@ public:
 	virtual void OnCollision(DIRECTION eDir, CObj* other) override;
 private:
 	bool m_bDown;
+	int m_Sprite;
 };
 

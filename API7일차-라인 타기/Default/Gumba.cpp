@@ -2,7 +2,7 @@
 #include "Gumba.h"
 #include "ScrollMgr.h"
 #include "MainGame.h"
-
+#include "Resource.h"
 CGumba::CGumba()
 {
 }
@@ -20,6 +20,7 @@ void CGumba::Initialize(void)
 	m_fSpeed = -0.8f;
 	m_bDead = false;
 	m_Tag = "Monster";
+	m_Sprite = IDB_GUMBA_IDLE;
 }
 
 int CGumba::Update(void)
@@ -43,11 +44,20 @@ void CGumba::Late_Update(void)
 
 void CGumba::Render(HDC hDC)
 {
-	if (!m_bDead)
-	{
-		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-		Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
-	}
+
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(255, 255, 255));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CGumba::OnCollision(DIRECTION eDir, CObj* other)
