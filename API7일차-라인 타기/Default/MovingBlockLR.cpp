@@ -4,8 +4,10 @@
 #include "Player.h"
 
 #include "ScrollMgr.h"
+#include "KeyMgr.h"
 
 CMovingBlockLR::CMovingBlockLR()
+	: m_bCenter_Check(false)
 {
 }
 
@@ -21,6 +23,7 @@ void CMovingBlockLR::Initialize(void)
 	m_tInfo.fCY = 32.f;
 
 	m_fSpeed = 1.f;
+	m_iTest = 0;
 
 	m_Tag = "Block";
 }
@@ -30,12 +33,30 @@ int CMovingBlockLR::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
+	if (!m_bCenter_Check)
+	{
+		m_fCenter_Pos = m_tInfo.fX;
+		m_bCenter_Check = true;
+	}
+	
 	m_tInfo.fX -= m_fSpeed * CMainGame::m_fTime;
 	if (m_pPlayer != nullptr)
 	{
 		if (m_tInfo.fCX > abs(m_pPlayer->Get_Info().fX - m_tInfo.fX) && m_tInfo.fCY > abs(m_pPlayer->Get_Info().fY - m_tInfo.fY))
 		{
-			m_pPlayer->Set_Pos(m_pPlayer->Get_Info().fX, m_pPlayer->Get_Info().fY);
+			// 플레이어가 움직이고 있는지 판단
+			if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT) || CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+			{
+				m_iTest = 0;
+			}
+			else // 블럭x - 플레이어x + 블럭x
+			{
+				if (m_iTest == 0)
+				{
+					m_iTest = m_pPlayer->Get_Info().fX - m_tInfo.fX;
+				}
+				m_pPlayer->Set_Pos(m_tInfo.fX + m_iTest, m_pPlayer->Get_Info().fY);
+			}
 		}
 		m_pPlayer = nullptr;
 	}
@@ -47,7 +68,7 @@ int CMovingBlockLR::Update(void)
 
 void CMovingBlockLR::Late_Update(void)
 {
-	if ( 200 >= m_tRect.left || 300 <= m_tRect.right)
+	if ( m_fCenter_Pos - 50 >= m_tRect.left || m_fCenter_Pos + 50 <= m_tRect.right)
 		m_fSpeed *= -1.f;
 }
 
