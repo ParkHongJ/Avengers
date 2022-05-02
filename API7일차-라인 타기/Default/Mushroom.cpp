@@ -15,8 +15,8 @@ CMushroom::~CMushroom()
 
 void CMushroom::Initialize(void)
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 32.f;
+	m_tInfo.fCY = 32.f;
 
 	m_Tag = "Mushroom";                         //태그 추가 
 	m_Sprite = IDB_MUSHROOM;

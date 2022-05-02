@@ -14,8 +14,8 @@ CTimeitem::~CTimeitem()
 
 void CTimeitem::Initialize(void)
 {
-	m_tInfo.fCX = 40.f;
-	m_tInfo.fCY = 40.f;
+	m_tInfo.fCX = 32.f;
+	m_tInfo.fCY = 32.f;
 	m_Sprite = IDB_TIMEITEM;
 }
 
