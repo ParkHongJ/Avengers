@@ -16,6 +16,7 @@ CMovingBlockLR::~CMovingBlockLR()
 
 void CMovingBlockLR::Initialize(void)
 {
+	m_pPlayer = nullptr;
 	m_tInfo.fCX = 64.f;
 	m_tInfo.fCY = 32.f;
 

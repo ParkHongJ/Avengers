@@ -9,11 +9,9 @@ CUIMgr::CUIMgr()
 
 CUIMgr::~CUIMgr()
 {
-	if (m_pInstance)
-	{
 
-		Release();
-	}
+	Release();
+
 }
 
 void CUIMgr::Initialize()
@@ -83,7 +81,7 @@ void CUIMgr::LifeCountRender(HDC hDC)
 
 		TCHAR lpOut[1024];
 		SetBkMode(hDC, 1);
-		wsprintf(lpOut, TEXT("¢¾"));
+		wsprintf(lpOut, TEXT("Â¢Â¾"));
 		TextOut(hDC, 10 + m_pLifeCountPos.x + fIntv + 2, 10 + m_pLifeCountPos.y + 5, lpOut, lstrlen(lpOut));
 
 		fIntv += 25.f;

@@ -106,7 +106,8 @@ void CMainGame::Release(void)
 	CUIMgr::		Get_Instance()->Destroy_Instance();
 	CMapEditor::	Get_Instance()->Destroy_Instance();
 	CKeyMgr::		Get_Instance()->Destroy_Instance();
-	
+	CGameMgr::		Get_Instance()->Destroy_Instance();
+
   // Gamemanager 싱글톤 파괴추가
 	ReleaseDC(g_hWnd, m_hDC);
 }

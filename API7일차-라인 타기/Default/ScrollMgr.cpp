@@ -4,7 +4,6 @@
 CScrollMgr* CScrollMgr::m_pInstance = nullptr;
 
 CScrollMgr::CScrollMgr()
-	:m_pTarget(nullptr)
 {
 }
 
@@ -14,6 +13,7 @@ CScrollMgr::~CScrollMgr()
 
 void CScrollMgr::Initialize(void)
 {
+	m_pTarget = nullptr;
 	m_fScrollX = 0.f;
 }
 

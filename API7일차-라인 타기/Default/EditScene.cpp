@@ -22,6 +22,7 @@ void CEditScene::Initailize(void)
 {
 	CMapEditor::Get_Instance()->Initialize();
 	CUIMgr::Get_Instance()->Initialize();
+	CScrollMgr::Get_Instance()->Initialize();
 }
 
 void CEditScene::Update(void)
