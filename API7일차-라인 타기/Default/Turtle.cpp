@@ -56,6 +56,21 @@ void CTurtle::Render(HDC hDC)
 	default:
 		break;
 	}
+
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+	
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+
+	GdiTransparentBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, 150, 150, RGB(255, 255, 255));
+
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CTurtle::OnCollision(DIRECTION eDir, CObj* other)

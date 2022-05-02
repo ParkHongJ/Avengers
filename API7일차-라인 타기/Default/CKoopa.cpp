@@ -108,10 +108,7 @@ int CKoopa::Update(void)
 			break;
 		}
 		m_Sprite = IDB_KOOPA_TURTLE;
-		if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
-		{
-			m_fTurtleSpeed *= -1.f;
-		}
+		
 		m_tInfo.fX += m_fTurtleSpeed;
 		break;
 	case Jump:
@@ -163,15 +160,17 @@ int CKoopa::Update(void)
 		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
+			m_fAngle = 180;
 		}
 		else if (m_pTarget->Get_Info().fX >= m_tInfo.fX)
 		{
 			m_Sprite = IDB_KOOPA_RIGHT_COL;
+			m_fAngle = 0;
 		}
 		if (GetTickCount() - m_BulletDelay >= 1000)
 		{
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET,
-				CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY));
+				CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, m_fAngle));
 			m_BulletDelay = GetTickCount();
 		}
 		break;
@@ -194,8 +193,6 @@ void CKoopa::Late_Update(void)
 	{
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
 	}
-	//m_eCurrentState = BulletUpFire;
-
 	if (GetTickCount() - m_fPatternTimer >= 6000 || m_bActivatePattern)
 	{
 		m_eCurrentState = (KooPaState)(rand() % 7 + 1);
@@ -259,8 +256,16 @@ void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
 			break;
 		break;
 	case DIR_LEFT:
+		if (m_eCurrentState == TutleChase)
+		{
+			m_fTurtleSpeed *= -1.f;
+		}
 		break;
 	case DIR_RIGHT:
+		if (m_eCurrentState == TutleChase)
+		{
+			m_fTurtleSpeed *= 1.f;
+		}
 		break;
 	default:
 		break;

@@ -388,5 +388,35 @@
     <Image Include="bitmapRight.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Gumba.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Block.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Bullet.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="DestroyBlock.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Gumba_hit.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="RandomBlock.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="SmallMario.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="SuperMario.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Turtle.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Turtle_Hide.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

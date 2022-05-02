@@ -21,5 +21,6 @@ public:
 
 private:
     State m_eState;
+    int m_Sprite;
 };
 
