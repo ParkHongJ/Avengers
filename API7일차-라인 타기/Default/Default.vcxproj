@@ -178,6 +178,7 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Randbox.h" />
     <ClInclude Include="ReflexBullet.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Randbox.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Timeitem.cpp" />
     <ClCompile Include="Mushroom.cpp" />

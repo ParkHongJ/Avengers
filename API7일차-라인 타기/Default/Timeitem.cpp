@@ -21,8 +21,13 @@ void CTimeitem::Initialize(void)
 
 int CTimeitem::Update(void)
 {
-	if (m_bDead)               // »ì¾Ò´Ï Á×¾ú´Ï ÄÚµå 
+	if (m_bDead)               // ï¿½ï¿½Ò´ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ ï¿½Úµï¿½ 
 		return OBJ_DEAD;
+
+	if (m_tInfo.fY >= m_itembox_y)
+	{
+		--m_tInfo.fY;
+	}
 
 	Update_Rect();
 	return 0;
@@ -55,7 +60,7 @@ void CTimeitem::Release(void)
 
 void CTimeitem::OnCollision(CObj* other)
 {
-	Set_Dead();                                //Á×¾úÀ»‹š GameManagerÀÇ ½Ã°£À» ±º¹ÙÀÇ ½Ã°£À» ¹Ù²ã¿ä 
+	Set_Dead();                                //ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ GameManagerï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ 
 	CGameMgr::Get_Instance()->Set_Time(0.1);
 
 }

@@ -18,6 +18,10 @@ public:
 	void		Set_Dead() { m_bDead = true; }
 	void		Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void		Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
+	void		Set_Item_Y() {
+		m_itembox_y = m_tInfo.fY - m_tInfo.fCY;
+	}
+
 
 	void		Set_PosX(float _fX) { m_tInfo.fX += _fX; }
 	void		Set_PosY(float _fY) { m_tInfo.fY += _fY; }
@@ -34,8 +38,8 @@ public:
 	virtual		void		Late_Update(void)	PURE;
 	virtual		void		Render(HDC hDC)		PURE;
 	virtual		void		Release(void)		PURE;
-	virtual	void	OnCollision() {};
 
+	virtual	void	OnCollision() {};
 	virtual	void	OnCollision(DIRECTION eDir) {};
 	virtual	void	OnCollision(CObj* other) {};
 	virtual	void	OnCollision(DIRECTION eDir, CObj* other) {};
@@ -64,6 +68,7 @@ protected:
 	float					m_fGTime;	// 자유 낙하공식의 Time;
 	bool					m_bOnAir;
 	bool					m_bOnBlock;
+	float					m_itembox_y;
 };
 
 
