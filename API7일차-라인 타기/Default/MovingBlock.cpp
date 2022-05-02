@@ -6,6 +6,7 @@
 #include "ScrollMgr.h"
 
 CMovingBlock::CMovingBlock()
+	: m_bCenter_Check(false)
 {
 }
 
@@ -33,6 +34,12 @@ int CMovingBlock::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
+	if (!m_bCenter_Check)
+	{
+		m_fCenter_Pos = m_tInfo.fY;
+		m_bCenter_Check = true;
+	}
+
 	m_tInfo.fY -= m_fSpeed * CMainGame::m_fTime;
 	if (m_pPlayer != nullptr)
 	{
@@ -50,13 +57,8 @@ int CMovingBlock::Update(void)
 
 void CMovingBlock::Late_Update(void)
 {
-	// m_tInfo.fY에서 +-50으로 직접 설정해준 값
-	if ( 200 >= m_tRect.top || 300 <= m_tRect.bottom)
+	if (m_fCenter_Pos - 50 >= m_tRect.top || m_fCenter_Pos + 50 <= m_tRect.bottom)
 		m_fSpeed *= -1.f;
-
-	// MovingBlock을 랜덤 소환하면 그에 따라 +-50으로 설정해준 값?
-	/*if (m_tInfo.fY - 50 >= m_tRect.top || m_tInfo.fY + 50 <= m_tRect.bottom)
-		m_fSpeed *= -1.f;*/
 }
 
 void CMovingBlock::Render(HDC hDC)

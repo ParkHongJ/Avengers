@@ -41,16 +41,16 @@ void CMapEditor::Update(void)
 {
 	POINT	pt{};
 
-	// È­¸é»ó ¸¶¿ì½º ÁÂÇ¥
+	// È­ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ç¥
 	GetCursorPos(&pt);				
 	ScreenToClient(g_hWnd, &pt);	
 
-	// °ÔÀÓ»ó ¸¶¿ì½º ÁÂÇ¥
+	// ï¿½ï¿½ï¿½Ó»ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ç¥
 	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
 	m_sMousePos.x = (float)pt.x - iScrollX;
 	m_sMousePos.y = (float)pt.y;
 
-	// ÇöÀç ºí·° À§Ä¡
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 	int iIdx_X = m_sMousePos.x / BLOCK_SIZE;
 	int iIdx_Y = m_sMousePos.y / BLOCK_SIZE;
 	m_sCurBlockPos.x = BLOCK_SIZE * iIdx_X + 16;
@@ -80,13 +80,13 @@ void CMapEditor::Release()
 
 void CMapEditor::Update_GetKey()
 {
-	// ÁÂ¿ì È­¸é ÀÌµ¿
+	// ï¿½Â¿ï¿½ È­ï¿½ï¿½ ï¿½Ìµï¿½
 	if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
 		CScrollMgr::Get_Instance()->Set_ScrollX(5.f);
 	if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
 		CScrollMgr::Get_Instance()->Set_ScrollX(-5.f);
 
-	// ºí·° ¼±ÅÃ 1~9
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1~9
 	for (int i = 1; i <= BLOCKID::BLK_END; ++i)
 	{
 		char temp = 48 + i;
@@ -95,10 +95,10 @@ void CMapEditor::Update_GetKey()
 			m_eCurBlockID = (BLOCKID)(i - 1);
 	}
 
-	// ºí·° ¼³Ä¡
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_SPACE))
 		Edit_CreateBlock();
-	// ºí·° »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (CKeyMgr::Get_Instance()->Key_Down('X'))
 		Edit_DeleteBlock();
 
@@ -122,7 +122,10 @@ void CMapEditor::CreateBlock(BLOCKID eId, float fX, float fY)
 		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(fX, fY, 0.f));
 		break;
 	case BLOCKID::BLK_MOVINGBLOCK:
+	//ë°”ê¿ˆ
+	
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CRandbox>::Create(fX, fY, 0.f));
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlockLR>::Create(fX, fY, 0.f));
 		break;
 	}
 }
@@ -146,27 +149,27 @@ void CMapEditor::Edit_DeleteBlock()
 
 void CMapEditor::Save()
 {
-	// 1. ÆÄÀÏ °³¹æ
+	// 1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-// CreateFile : api ÆÄÀÏ °³¹æ ÇÔ¼ö, °³¹æ ½ÇÆÐ ½Ã INVALID_HANDLE_VALUEÇÏ±â ¶§¹®¿¡ null°ªÀ¸·Î ¿¹¿ÜÃ³¸®¸¦ ÇÒ ¼ö ¾ø´Ù.
+// CreateFile : api ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ INVALID_HANDLE_VALUEï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
-	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ÆÄÀÏ °æ·Î¿Í ÀÌ¸§ ¸í½Ã
-		GENERIC_WRITE,				// ÆÄÀÏ Á¢±Ù ¸ðµå (GENERIC_WRITE ¾²±â Àü¿ë, GENERIC_READ ÀÐ±â Àü¿ë)
-		NULL,						// °øÀ¯¹æ½Ä, ÆÄÀÏÀÌ ¿­·ÁÀÖ´Â »óÅÂ¿¡¼­ ´Ù¸¥ ÇÁ·Î¼¼½º°¡ ¿ÀÇÂÇÒ ¶§ Çã¿ëÇÒ °ÍÀÎ°¡, NULLÀÎ °æ¿ì °øÀ¯ÇÏÁö ¾Ê´Â´Ù
-		NULL,						// º¸¾È ¼Ó¼º, ±âº»°ª	
-		CREATE_ALWAYS,				// »ý¼º ¹æ½Ä, CREATE_ALWAYS´Â ÆÄÀÏÀÌ ¾ø´Ù¸é »ý¼º, ÀÖ´Ù¸é µ¤¾î ¾²±â, OPEN_EXISTING ÆÄÀÏÀÌ ÀÖÀ» °æ¿ì¿¡¸é ¿­±â
-		FILE_ATTRIBUTE_NORMAL,		// ÆÄÀÏ ¼Ó¼º(ÀÐ±â Àü¿ë, ¼û±â µî), FILE_ATTRIBUTE_NORMAL ¾Æ¹«·± ¼Ó¼ºÀÌ ¾ø´Â ÀÏ¹Ý ÆÄÀÏ »ý¼º
-		NULL);						// »ý¼ºµµ¸® ÆÄÀÏÀÇ ¼Ó¼ºÀ» Á¦°øÇÒ ÅÛÇÃ¸´ ÆÄÀÏ, ¿ì¸®´Â »ç¿ëÇÏÁö ¾Ê¾Æ¼­ NULL
+	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+		GENERIC_WRITE,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (GENERIC_WRITE ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, GENERIC_READ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½)
+		NULL,						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½, NULLï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
+		NULL,						// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½, ï¿½âº»ï¿½ï¿½	
+		CREATE_ALWAYS,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, CREATE_ALWAYSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, OPEN_EXISTING ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		FILE_ATTRIBUTE_NORMAL,		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½(ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½), FILE_ATTRIBUTE_NORMAL ï¿½Æ¹ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		NULL);						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¼ï¿½ NULL
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		// ÆË¾÷ Ã¢À» Ãâ·ÂÇØÁÖ´Â ±â´ÉÀÇ ÇÔ¼ö
-		// 1. ÇÚµé 2. ÆË¾÷ Ã¢¿¡ ¶ç¿ì°íÀÚÇÏ´Â ¸Þ½ÃÁö 3. ÆË¾÷ Ã¢ ÀÌ¸§ 4. ¹öÆ° ¼Ó¼º
+		// ï¿½Ë¾ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+		// 1. ï¿½Úµï¿½ 2. ï¿½Ë¾ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ 3. ï¿½Ë¾ï¿½ Ã¢ ï¿½Ì¸ï¿½ 4. ï¿½ï¿½Æ° ï¿½Ó¼ï¿½
 		MessageBox(g_hWnd, _T("Save File"), _T("Fail"), MB_OK);
 		return;
 	}
 
-	// 2. ÆÄÀÏ ¾²±â
+	// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	DWORD		dwByte = 0;
 
@@ -176,31 +179,31 @@ void CMapEditor::Save()
 	}
 
 
-	// 3. ÆÄÀÏ ¼Ò¸ê
+	// 3. ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
 	CloseHandle(hFile);
 
-	MessageBox(g_hWnd, _T("Save ¿Ï·á"), _T("¼º°ø"), MB_OK);
+	MessageBox(g_hWnd, _T("Save ï¿½Ï·ï¿½"), _T("ï¿½ï¿½ï¿½ï¿½"), MB_OK);
 }
 
 void CMapEditor::Load()
 {
-	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ÆÄÀÏ °æ·Î¿Í ÀÌ¸§ ¸í½Ã
-		GENERIC_READ,				// ÆÄÀÏ Á¢±Ù ¸ðµå (GENERIC_WRITE ¾²±â Àü¿ë, GENERIC_READ ÀÐ±â Àü¿ë)
-		NULL,						// °øÀ¯¹æ½Ä, ÆÄÀÏÀÌ ¿­·ÁÀÖ´Â »óÅÂ¿¡¼­ ´Ù¸¥ ÇÁ·Î¼¼½º°¡ ¿ÀÇÂÇÒ ¶§ Çã¿ëÇÒ °ÍÀÎ°¡, NULLÀÎ °æ¿ì °øÀ¯ÇÏÁö ¾Ê´Â´Ù
-		NULL,						// º¸¾È ¼Ó¼º, ±âº»°ª	
-		OPEN_EXISTING,				// »ý¼º ¹æ½Ä, CREATE_ALWAYS´Â ÆÄÀÏÀÌ ¾ø´Ù¸é »ý¼º, ÀÖ´Ù¸é µ¤¾î ¾²±â, OPEN_EXISTING ÆÄÀÏÀÌ ÀÖÀ» °æ¿ì¿¡¸é ¿­±â
-		FILE_ATTRIBUTE_NORMAL,		// ÆÄÀÏ ¼Ó¼º(ÀÐ±â Àü¿ë, ¼û±â µî), FILE_ATTRIBUTE_NORMAL ¾Æ¹«·± ¼Ó¼ºÀÌ ¾ø´Â ÀÏ¹Ý ÆÄÀÏ »ý¼º
-		NULL);						// »ý¼ºµµ¸® ÆÄÀÏÀÇ ¼Ó¼ºÀ» Á¦°øÇÒ ÅÛÇÃ¸´ ÆÄÀÏ, ¿ì¸®´Â »ç¿ëÇÏÁö ¾Ê¾Æ¼­ NULL
+	HANDLE		hFile = CreateFile(L"../Data/MapData.dat",			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+		GENERIC_READ,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (GENERIC_WRITE ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, GENERIC_READ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½)
+		NULL,						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½, NULLï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½
+		NULL,						// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½, ï¿½âº»ï¿½ï¿½	
+		OPEN_EXISTING,				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, CREATE_ALWAYSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, OPEN_EXISTING ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		FILE_ATTRIBUTE_NORMAL,		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½(ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½), FILE_ATTRIBUTE_NORMAL ï¿½Æ¹ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		NULL);						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¼ï¿½ NULL
 
 	if (INVALID_HANDLE_VALUE == hFile)
 	{
-		// ÆË¾÷ Ã¢À» Ãâ·ÂÇØÁÖ´Â ±â´ÉÀÇ ÇÔ¼ö
-		// 1. ÇÚµé 2. ÆË¾÷ Ã¢¿¡ ¶ç¿ì°íÀÚÇÏ´Â ¸Þ½ÃÁö 3. ÆË¾÷ Ã¢ ÀÌ¸§ 4. ¹öÆ° ¼Ó¼º
+		// ï¿½Ë¾ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+		// 1. ï¿½Úµï¿½ 2. ï¿½Ë¾ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ 3. ï¿½Ë¾ï¿½ Ã¢ ï¿½Ì¸ï¿½ 4. ï¿½ï¿½Æ° ï¿½Ó¼ï¿½
 		MessageBox(g_hWnd, _T("Load File"), _T("Fail"), MB_OK);
 		return;
 	}
 
-	// 2. ÆÄÀÏ ¾²±â
+	// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	DWORD		dwByte = 0;
 	BlockInfo		tInfo{};
@@ -209,18 +212,18 @@ void CMapEditor::Load()
 	{
 		ReadFile(hFile, &tInfo, sizeof(BlockInfo), &dwByte, nullptr);
 
-		if (0 == dwByte)	// ´õÀÌ»ó ÀÐÀ» µ¥ÀÌÅÍ°¡ ¾øÀ» °æ¿ì
+		if (0 == dwByte)	// ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			break;
 
 		m_BlockList.push_back(BlockInfo{ (float)tInfo.fX, (float)tInfo.fY, tInfo.eID });
 	}
 
 
-	// 3. ÆÄÀÏ ¼Ò¸ê
+	// 3. ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
 	CloseHandle(hFile);
 
 	CreateAllBlockInList();
-	MessageBox(g_hWnd, _T("Load ¿Ï·á"), _T("¼º°ø"), MB_OK);
+	MessageBox(g_hWnd, _T("Load ï¿½Ï·ï¿½"), _T("ï¿½ï¿½ï¿½ï¿½"), MB_OK);
 }
 
 void CMapEditor::CreateAllBlockInList()
