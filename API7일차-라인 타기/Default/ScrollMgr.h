@@ -36,6 +36,7 @@ public:
 public:
 	void	Update(void);
 	void	Initialize(void);
+	void	Release(void);
 
 private:
 	static CScrollMgr* m_pInstance;

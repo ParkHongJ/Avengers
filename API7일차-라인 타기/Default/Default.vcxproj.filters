@@ -88,6 +88,21 @@
     <Filter Include="Hero\MapEditor">
       <UniqueIdentifier>{4dd06063-7c97-496b-8662-246c0ec441f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hero\SceneMgr">
+      <UniqueIdentifier>{f642c35c-7ebf-460b-bfa4-abe9516e0ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\Scene">
+      <UniqueIdentifier>{3b10e7e8-5c8c-4391-b175-ef48edd7658e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\Scene\GameScene">
+      <UniqueIdentifier>{22057efc-d614-45ad-9126-42f6a3cf36a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\Scene\StartScene">
+      <UniqueIdentifier>{8f89a10d-e2ff-4b1d-94fe-0bad03ccd31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hero\Scene\EditScene">
+      <UniqueIdentifier>{7dd1a2e3-e389-49b4-a724-0d38ac3b87b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -168,9 +183,6 @@
     <ClInclude Include="CTile.h">
       <Filter>Hong</Filter>
     </ClInclude>
-    <ClInclude Include="ScrollMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="MovingBlock.h">
       <Filter>Saeng</Filter>
     </ClInclude>
@@ -198,9 +210,27 @@
     </ClInclude>
     <ClInclude Include="MapEditor.h">
       <Filter>Hero\MapEditor</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="CKoopa.h">
       <Filter>Hong</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>Hero\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Hero\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>Hero\Scene\StartScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Hero\Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EditScene.h">
+      <Filter>Hero\Scene\EditScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +314,24 @@
     </ClCompile>
     <ClCompile Include="MapEditor.cpp">
       <Filter>Hero\MapEditor</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>Hero\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Hero\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Hero\Scene\StartScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Hero\Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EditScene.cpp">
+      <Filter>Hero\Scene\EditScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

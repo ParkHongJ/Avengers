@@ -71,6 +71,7 @@ void CMapEditor::Render(HDC hDC)
 
 void CMapEditor::Release()
 {
+	m_BlockList.clear();
 }
 
 

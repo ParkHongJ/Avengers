@@ -106,9 +106,6 @@ void CObjMgr::Render(HDC hDC)
 		for (auto& iter : m_ObjList[i])
 			iter->Render(hDC);
 	}
-
-	CUIMgr::Get_Instance()->CoinRender(hDC);
-	CUIMgr::Get_Instance()->LifeCountRender(hDC);
 }
 
 void CObjMgr::Release(void)
