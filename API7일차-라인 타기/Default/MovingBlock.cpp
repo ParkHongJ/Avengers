@@ -2,7 +2,7 @@
 #include "MovingBlock.h"
 #include "MainGame.h"
 #include "Player.h"
-
+#include "Resource.h"
 #include "ScrollMgr.h"
 
 CMovingBlock::CMovingBlock()
@@ -27,6 +27,7 @@ void CMovingBlock::Initialize(void)
 	m_fSpeed = 1.f;
 
 	m_Tag = "Block";
+	m_Sprite = IDB_FLOOR_BLOCK;
 }
 
 int CMovingBlock::Update(void)
@@ -64,7 +65,18 @@ void CMovingBlock::Late_Update(void)
 void CMovingBlock::Render(HDC hDC)
 {
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(0, 0, 0));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CMovingBlock::Release(void)

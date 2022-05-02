@@ -10,6 +10,7 @@
 #include "MainGame.h"
 #include "ReflexBullet.h"
 #include "UIMgr.h"
+
 CPlayer::CPlayer()
 {
 }
@@ -23,7 +24,7 @@ void CPlayer::Initialize(void)
 {
 	m_pRelexBullet = nullptr;
 	m_tInfo.fX = 400.f;
-	m_tInfo.fY = 0.f;
+	m_tInfo.fY = 100.f;
 
 	m_tInfo.fCX = 16.f;
 	m_tInfo.fCY = 32.f;
@@ -37,12 +38,18 @@ void CPlayer::Initialize(void)
 	m_Tag = "Player";
 	m_fGravity = 9.8f;
 	m_Sprite = IDB_SMALLMARIO;
+	m_fAngle = 0;
+
+	m_bDieTrigger = false;
+
+	m_fLifeCount = 2;
+	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
 
 }
 
 int CPlayer::Update(void)
 {
-	if (m_bDead || m_tInfo.fY >= WINCY)
+	if (m_bDead)
 		return OBJ_DEAD;
 
 	Key_Input();
@@ -54,18 +61,54 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-
 	CObj::UpdateGravity(m_fGravity);
 
 	if (m_bJump)
 	{
 		m_tInfo.fY -= m_fJumpPower * sinf((90.f * PI) / 180.f);
 	}
+
+	DieDie();
+}
+
+void CPlayer::DieDie()
+{
+	// �׾��� ��
+	if (m_tInfo.fY >= WINCY && !m_bDieTrigger)
+	{
+		m_bDieTrigger = true;
+		m_fGTime = 0.f;
+	}
+	else if (m_bDieTrigger)
+	{
+		m_bJump = true;
+		m_fJumpPower = 10.f;
+		m_fGravity = 9.8f;
+	}
+
+	if (m_tInfo.fY >= WINCY + 500)
+	{
+		Die();
+	}
+}
+void CPlayer::Die()
+{
+	if (0 >= m_fLifeCount)
+	{
+		// TODO ���� ����
+		Set_Dead();
+		return;
+	}
+
+	DownLife();
+	m_fGTime = 0.f;
+	m_tInfo.fX = 400.f;
+	m_tInfo.fY = 100.f;
+	m_bDieTrigger = false;
 }
 
 void CPlayer::Render(HDC hDC)
 {
-
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 	HDC MemDC;
 	HBITMAP MyBitmap, OldBitmap;
@@ -211,6 +254,20 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	default:
 		break;
 	}
+}
+
+void CPlayer::UpLife()
+{
+	++m_fLifeCount;
+	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
+	UpGradeBody();
+}
+
+void CPlayer::DownLife()
+{
+	--m_fLifeCount;
+	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
+	DownGradeBody();
 }
 
 

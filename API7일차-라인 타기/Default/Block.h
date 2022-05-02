@@ -22,4 +22,5 @@ private:
 	float m_fItemSpeed = 0.f;
 	RECT m_tItemRect;
 	INFO m_tItemInfo;
+	int m_Sprite;
 };

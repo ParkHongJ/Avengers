@@ -17,7 +17,9 @@ CKoopa::~CKoopa()
 
 void CKoopa::Initialize(void)
 {
-	//ÇöÀç»óÅÂ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	m_pTarget = nullptr;
+
 	m_eCurrentState = IdleState;
 	m_Sprite = IDB_KOOPA_IDLE_LEFT;
 
@@ -35,10 +37,10 @@ void CKoopa::Initialize(void)
 	m_iHp = 3;
 	m_BulletDelay = GetTickCount();
 	
-	//´ë±â»óÅÂ Ä«¿îÆ® ÀÌÀ¯: ·£´ýÀ¸·Î »Ì±â¶§¹®¿¡ °è¼Ó Idle»ÌÈú °¡´É¼ºÀÌ ÀÖÀ½. ±×·¡¼­ ³Ö¾îµÒ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Idleï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½
 	IdleCount = 0;
 
-	//ÆÐÅÏ °­Á¦½ÇÇà
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_bActivatePattern = false;
 
 	m_pTarget = CObjMgr::Get_Instance()->Get_Player();
@@ -55,7 +57,7 @@ int CKoopa::Update(void)
 	switch (m_eCurrentState)
 	{
 	case IdleState:
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
@@ -130,7 +132,7 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
-		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
@@ -157,7 +159,7 @@ int CKoopa::Update(void)
 			break;
 		}
 		
-		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 			m_fAngle = 180;
@@ -239,7 +241,7 @@ void CKoopa::OnCollision(DIRECTION eDir, CObj* other)
 		{
 			if (m_eCurrentState == Turtle || m_eCurrentState == TutleChase)
 			{
-				//°ÅºÏÀÌ°Å³ª °ÅºÏÀÌ ÂÑ°íÀÖÀ»¶§ À§¿¡¼­ ³»·ÁÂïÀ¸¸é ÇÃ·¹ÀÌ¾î°¡ µ¥¹ÌÁö ÀÔ¾î¾ßÇÔ
+				//ï¿½Åºï¿½ï¿½Ì°Å³ï¿½ ï¿½Åºï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½
 				break;
 			}
 			m_iHp--;

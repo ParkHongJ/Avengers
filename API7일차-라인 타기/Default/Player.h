@@ -27,22 +27,30 @@ private:
 public:
 	virtual void OnCollision(DIRECTION eDir, CObj* other);
 
-public:     //¹Î¼ºÀü¿ë ÇÃ·¹ÀÌ¾î ¸ö¶×¾Æ¸® Ä¿Áö´Â ÄÚµå 
-	void UpGradeBody() {
-		m_tInfo.fCX *= 1.3; m_tInfo.fCY *= 1.3; 
-		m_Sprite = IDB_SUPERMARIO;
-	}
-	//½´ÆÛ¸¶¸®¿ÀÀÏ¶§ º®»Ñ¼ö±â
+public:     //ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½×¾Æ¸ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ 
+	//ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½
 	const int GetState() { return m_Sprite; };
+	void UpGradeBody() { m_tInfo.fCX += 1.0; m_tInfo.fCY += 1.0;
+	m_Sprite = IDB_SUPERMARIO; }
+	void DownGradeBody() { m_tInfo.fCX -= 1.0; m_tInfo.fCY -= 1.0;
+	m_Sprite = IDB_SMALLMARIO; }
+	void UpLife();
+	void DownLife();
+
+	void DieDie();
+	void Die();
 
 private:
 	bool					m_bJump;
 	float					m_fJumpPower;
 	bool					m_bSniperMode;
-	float					m_fGravity;
+    float					m_fGravity;
 
+	int						m_fLifeCount;
 
 	POINT					m_tPosin;
 	CObj*					m_pRelexBullet;
 	int						m_Sprite;
+
+	bool	m_bDieTrigger;
 };

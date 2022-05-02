@@ -49,9 +49,15 @@ void CSceneMgr::Release(void)
 	}
 }
 
-void CSceneMgr::ChangeScene(SCENEID eScene)
+void CSceneMgr::ChangeScene(int eScene)
 {
+	if (SCENE_END == eScene)
+	{
+		PostQuitMessage(0);
+		return;
+	}
+		
 	m_SceneList[(int)m_eCurScene]->Release();
-	m_eCurScene = eScene;
+	m_eCurScene = (SCENEID)eScene;
 	m_SceneList[(int)m_eCurScene]->Initailize();
 }

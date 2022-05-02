@@ -7,11 +7,16 @@
 #include "KeyMgr.h"
 #include "ObjMgr.h"
 #include "UIMgr.h"
+#include "SceneMgr.h"
 
 #include "Mouse.h"
 #include "Block.h"
 #include "MovingBlock.h"
 #include "MovingBlockLR.h"
+#include "CKoopa.h"
+#include "Turtle.h"
+#include "Gumba.h"
+#include "Coin.h"
 
 
 #include "Randbox.h"
@@ -118,14 +123,26 @@ void CMapEditor::CreateBlock(BLOCKID eId, float fX, float fY)
 {
 	switch (eId)
 	{
-	case BLOCKID::BLK_BLOCK:
+	case BLK_BLOCK:
 		CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(fX, fY, 0.f));
 		break;
-	case BLOCKID::BLK_MOVINGBLOCK:
-	//바꿈
-	
-		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CRandbox>::Create(fX, fY, 0.f));
+	case BLK_MOVINGBLOCK:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlock>::Create(fX, fY, 0.f));
+		break;
+	case BLK_MOVINGBLOCKLR:
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MOVINGBLOCK, CAbstractFactory<CMovingBlockLR>::Create(fX, fY, 0.f));
+		break;
+	case BLK_GUMBA:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(fX, fY, 0.f));
+		break;
+	case BLK_TURTLE:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(fX, fY, 0.f));
+		break;
+	case BLK_KOOPA:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(fX, fY, 0.f));
+		break;
+	case BLK_COIN:
+		CObjMgr::Get_Instance()->Add_Object(OBJ_COIN, CAbstractFactory<CCoin>::Create(fX, fY, 0.f));
 		break;
 	}
 }
@@ -223,7 +240,10 @@ void CMapEditor::Load()
 	CloseHandle(hFile);
 
 	CreateAllBlockInList();
-	MessageBox(g_hWnd, _T("Load �Ϸ�"), _T("����"), MB_OK);
+	if(CSceneMgr::Get_Instance()->GetCurScene() == SCENEID::SCENE_EDIT)
+		MessageBox(g_hWnd, _T("Load �Ϸ�"), _T("����"), MB_OK);
+
+	// 글자깨져서 바꾸기
 }
 
 void CMapEditor::CreateAllBlockInList()

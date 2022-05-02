@@ -24,5 +24,6 @@ private:
 	float m_fCenter_Pos;
 	bool  m_bCenter_Check;
 	int	  m_iTest;
+	int m_Sprite;
 };
 

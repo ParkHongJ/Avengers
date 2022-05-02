@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Randbox.h"
-
+#include "Resource.h"
 CRandbox::CRandbox()
 {
 }
@@ -19,6 +19,7 @@ void CRandbox::Initialize(void)
 	m_tInfo.fCY = 32.f;
 
 	m_Tag = "Randbox";
+	m_Sprite = IDB_RANDOM_BLOCK;
 }
 
 int CRandbox::Update(void)
@@ -41,7 +42,18 @@ void CRandbox::Late_Update(void)
 void CRandbox::Render(HDC hDC)
 {
 	int iScrollX = CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	HDC MemDC;
+	HBITMAP MyBitmap, OldBitmap;
+	m_tRect.right += iScrollX - 5;
+	m_tRect.left += iScrollX + 5;
+	MemDC = CreateCompatibleDC(hDC);
+
+	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
+	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
+	TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, 16, RGB(255, 255, 255));
+	SelectObject(MemDC, OldBitmap);
+	DeleteObject(MyBitmap);
+	DeleteDC(MemDC);
 }
 
 void CRandbox::Release(void)
