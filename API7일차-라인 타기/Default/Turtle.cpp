@@ -94,23 +94,37 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 		
 		break;
 	case DIR_LEFT:
-		if (m_eState == Hide)
+		/*if (m_eState == Hide)
 		{
 			m_fSpeed = 8.f;
-		}
-		if (other->CompareTag("Player") && m_eState == Hide)
+		}*/
+		 if (other->CompareTag("Player") && m_eState == Hide)
 		{
 			m_fSpeed = -8.f;
+			m_eState = Spine;
+		}
+		else
+		{
+			m_fSpeed *= -1;
 		}
 		break;
 	case DIR_RIGHT:
-		if (m_eState == Hide)
+		/*if (m_eState == Hide)
 		{
 			m_fSpeed = -8.f;
-		}
+		}*/
 		if (other->CompareTag("Player") && m_eState == Hide)
 		{
-			m_fSpeed = 8.f;
+			m_fSpeed = -8.f;
+			m_eState = Spine;
+		}
+		else if (other->CompareTag("Player") && m_eState == Spine)
+		{
+
+		}
+		else
+		{
+			m_fSpeed *= -1;
 		}
 		break;
 	default:

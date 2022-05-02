@@ -3,7 +3,8 @@
 enum State
 {
     Idle = 0, //껍데기 밖에있을때
-    Hide
+    Hide,
+    Spine
 };
 class CTurtle :
     public CObj
