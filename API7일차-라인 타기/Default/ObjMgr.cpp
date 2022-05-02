@@ -84,9 +84,10 @@ void CObjMgr::Late_Update(void)
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_BULLET]); // 반사총알 벽 충돌
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_BULLET]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOUSE], m_ObjList[OBJ_BLOCK], false);  // 에디터 마우스 블럭 충돌
 
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER], false);
 	
 	CollisionMgr::Collision_Rect(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);
 	CollisionMgr::Collision_Rect(m_ObjList[OBJ_MUSHROOM], m_ObjList[OBJ_PLAYER]);
@@ -107,9 +108,6 @@ void CObjMgr::Render(HDC hDC)
 		for (auto& iter : m_ObjList[i])
 			iter->Render(hDC);
 	}
-
-	CUIMgr::Get_Instance()->CoinRender(hDC);
-	CUIMgr::Get_Instance()->LifeCountRender(hDC);
 }
 
 void CObjMgr::Release(void)

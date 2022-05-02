@@ -150,6 +150,8 @@
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="GameMgr.h" />
+    <ClInclude Include="EditScene.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="CKoopa.h" />
     <ClInclude Include="MovingBlock.h" />
@@ -172,14 +174,18 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="MovingBlockLR.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReflexBullet.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="ScrewBullet.h" />
     <ClInclude Include="ScrollMgr.h" />
     <ClInclude Include="Shield.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
@@ -192,6 +198,8 @@
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="Timeitem.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="EditScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="CKoopa.cpp" />
     <ClCompile Include="MovingBlock.cpp" />
@@ -200,7 +208,10 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CBox.cpp" />
     <ClCompile Include="Gumba.cpp" />
+    <ClCompile Include="MovingBlockLR.cpp" />
     <ClCompile Include="ReflexBullet.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Default.cpp" />
@@ -216,6 +227,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScrewBullet.cpp" />
     <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -230,6 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bitmap1.bmp" />
+    <Image Include="bitmap2.bmp" />
+    <Image Include="bmp00001.bmp" />
+    <Image Include="C:\Users\qkrgh\Desktop\34기이혜진Texture(Mario,D2D)\TextureMario\Objects.bmp" />
     <Image Include="Default.ico" />
     <Image Include="small.ico" />
   </ItemGroup>

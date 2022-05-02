@@ -20,9 +20,15 @@ void CUIMgr::Initialize()
 	m_pScorePos.y = 0.f;
 	m_pLifeCountPos.x = 0.f;
 	m_pLifeCountPos.y = 0.f;
+	iR = 0;
+	iG = 0;
+	iB = 0;
 
 	m_pEditTopDown.x = 200.f;
 	m_pEditTopDown.y = 530.f;
+
+	m_pStartTopDown.x = 320.f;
+	m_pStartTopDown.y = 300.f;
 }
 
 void CUIMgr::Update(void)
@@ -129,3 +135,79 @@ void CUIMgr::DrawBlockUI(HDC hDC, float left, float top, float right, float bott
 	}
 }
 
+void CUIMgr::StartSceneRender(HDC hDC, SCENEID eID)
+{
+	int iFrameSize = BLOCK_SIZE + 40;
+	int iInterval = iFrameSize + 10;
+	int temp = 0;
+
+	for (int i = 1; i <= SCENEID::SCENE_END; ++i)
+	{
+		if (eID == i)
+		{
+			HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 255, 0));
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+			Rectangle(hDC, m_pStartTopDown.x, m_pStartTopDown.y + temp, m_pStartTopDown.x + iFrameSize + 100, m_pStartTopDown.y + iFrameSize + temp);
+
+			SelectObject(hDC, oldBrush);
+			DeleteObject(myBrush);
+		}
+		else
+		{
+			Rectangle(hDC, m_pStartTopDown.x, m_pStartTopDown.y + temp, m_pStartTopDown.x + iFrameSize + 100, m_pStartTopDown.y + iFrameSize + temp);
+		}
+
+		TCHAR lpOut[1024];
+		wsprintf(lpOut, TEXT("%d"), i);
+		TextOut(hDC, m_pStartTopDown.x + 5, m_pStartTopDown.y + temp + 5, lpOut, lstrlen(lpOut));
+
+		temp += iInterval;
+	}
+
+}
+
+void CUIMgr::StartSceneBackGround(HDC hDC)
+{
+	++iR;
+	if (255 <= iR)
+	{
+		iR = 255;
+		++iG;
+		if (255 <= iG)
+		{
+			iG = 255;
+			++iB;
+			if (255 <= iB)
+			{
+				iR = 0;
+				iG = 0;
+				iB = 0;
+			}
+		}
+	}
+
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(iR, iG, iB));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+	Rectangle(hDC, 0, 0, 800, 600);
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+}
+
+void CUIMgr::GameSceneBackGround(HDC hDC)
+{
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(80, 188, 223));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+	Rectangle(hDC, MAPSIZE_LEFT, 0, MAPSIZE_RIGHT, 600);
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+}
+
+void CUIMgr::Release()
+{
+
+}

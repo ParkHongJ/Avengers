@@ -9,6 +9,7 @@ enum KooPaState
 	Jump, // 거북이껍데기로 바뀌어서 플레이어 방향으로 점프하기 기본상태일때도 점프함
 	BulletUpFire, // 위로 1초마다 20발정도 쏘고 산성비처럼 총알이떨어짐
 	BulletPlayerFire, // 플레이어 방향으로 총알 N초마다 1발씩 3번쏘기
+	HIT,
 	Dead
 };
 class CKoopa :
@@ -37,5 +38,9 @@ private:
 	bool m_bActivatePattern;
 	int IdleCount;
 	float m_fTurtleSpeed;
+
+	int m_Sprite;
+
+	float m_fHitTime;
 };
 
