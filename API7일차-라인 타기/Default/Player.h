@@ -30,6 +30,10 @@ public:
 	virtual	void OnCollision(DIRECTION eDir);
 	virtual void OnCollision(DIRECTION eDir, CObj* other);
 
+public:     //민성전용 플레이어 몸뚱아리 커지는 코드 
+	void UpGradeBody() { m_tInfo.fCX *= 1.3; m_tInfo.fCY *= 1.3; }
+
+
 private:
 	bool					m_bJump;
 	float					m_fJumpPower;

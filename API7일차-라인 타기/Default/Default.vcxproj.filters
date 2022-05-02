@@ -214,6 +214,15 @@
     <ClInclude Include="CKoopa.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
+    <ClInclude Include="Timeitem.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
     <ClInclude Include="MovingBlockLR.h">
       <Filter>Saeng</Filter>
     </ClInclude>
@@ -320,6 +329,15 @@
     </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="Timeitem.cpp">
+      <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>MinSung</Filter>
     </ClCompile>
     <ClCompile Include="MovingBlockLR.cpp">
       <Filter>Saeng</Filter>

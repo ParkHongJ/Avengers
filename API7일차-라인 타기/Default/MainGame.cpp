@@ -13,6 +13,12 @@
 
 float CMainGame::m_fTime = 1.f;
 
+#include "Coin.h"
+#include "Mushroom.h"
+#include "GameMgr.h" // GameMgr 헤더추가 
+#include "Timeitem.h"
+
+
 CMainGame::CMainGame()
 	: m_hDC(nullptr)
 	, m_dwTime(GetTickCount())
@@ -29,6 +35,7 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
+
 	CSceneMgr::Get_Instance()->Initailize();
 }
 
@@ -99,7 +106,7 @@ void CMainGame::Release(void)
 	CMapEditor::	Get_Instance()->Destroy_Instance();
 	CSceneMgr::		Get_Instance()->Destroy_Instance();
 	CKeyMgr::		Get_Instance()->Destroy_Instance();
-
+  // Gamemanager 싱글톤 파괴추가
 	ReleaseDC(g_hWnd, m_hDC);
 }
 

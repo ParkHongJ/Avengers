@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="GameMgr.h" />
     <ClInclude Include="EditScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MapEditor.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MovingBlockLR.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
@@ -187,11 +189,15 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Timeitem.h" />
     <ClInclude Include="UIMgr.h" />
     <ClInclude Include="Turtle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="GameMgr.cpp" />
+    <ClCompile Include="Timeitem.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="EditScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MapEditor.cpp" />
