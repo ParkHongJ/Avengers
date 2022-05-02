@@ -29,7 +29,8 @@ public:
 	}
 
 public:
-	void	ChangeScene(SCENEID eScene);
+	void	ChangeScene(int eScene);
+	SCENEID GetCurScene() { return m_eCurScene; }
 
 public:
 	void		Initailize(void);

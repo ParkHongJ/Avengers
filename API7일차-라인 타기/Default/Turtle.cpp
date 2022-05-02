@@ -37,10 +37,10 @@ int CTurtle::Update()
 void CTurtle::Late_Update()
 {
 	CObj::UpdateGravity();
-	if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
-	{
-		m_fSpeed *= -1.f;
-	}
+	//if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
+	//{
+	//	m_fSpeed *= -1.f;
+	//}
 }
 
 void CTurtle::Render(HDC hDC)

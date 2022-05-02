@@ -31,16 +31,24 @@ public:
 	virtual void OnCollision(DIRECTION eDir, CObj* other);
 
 public:     //민성전용 플레이어 몸뚱아리 커지는 코드 
-	void UpGradeBody() { m_tInfo.fCX *= 1.3; m_tInfo.fCY *= 1.3; }
+	void UpGradeBody() { m_tInfo.fCX += 1.0; m_tInfo.fCY += 1.0; }
+	void DownGradeBody() { m_tInfo.fCX -= 1.0; m_tInfo.fCY -= 1.0; }
+	void UpLife();
+	void DownLife();
 
+	void DieDie();
+	void Die();
 
 private:
 	bool					m_bJump;
 	float					m_fJumpPower;
 	bool					m_bSniperMode;
-  float					m_fGravity;
+    float					m_fGravity;
 
+	int						m_fLifeCount;
 
 	POINT					m_tPosin;
 	CObj*					m_pRelexBullet;
+
+	bool	m_bDieTrigger;
 };

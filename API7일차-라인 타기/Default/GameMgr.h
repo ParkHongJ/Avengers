@@ -33,6 +33,9 @@ public:
 	void PlusScore();   // 영웅이형이 UI 수정할수 있게 만든 코드 
 	int Get_Time() { return time; }
 	void Set_Time(float _time) { time = _time; }
+
+	void Release();
+
 private:
 	static CGameMgr* m_pInstance;
 	int	m_iScore;

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UIMgr.h"
+#include "GameMgr.h"
 
 CUIMgr* CUIMgr::m_pInstance = nullptr;
 
@@ -9,15 +10,13 @@ CUIMgr::CUIMgr()
 
 CUIMgr::~CUIMgr()
 {
-
 	Release();
-
 }
 
 void CUIMgr::Initialize()
 {
-	m_iScore = 999;
-	m_iLifeCount = 10;
+	m_iScore = 0;
+	m_iLifeCount = 1;
 
 	m_pScorePos.x = 400.f;
 	m_pScorePos.y = 0.f;
@@ -81,8 +80,8 @@ void CUIMgr::LifeCountRender(HDC hDC)
 
 		TCHAR lpOut[1024];
 		SetBkMode(hDC, 1);
-		wsprintf(lpOut, TEXT("¢¾"));
-		TextOut(hDC, 10 + m_pLifeCountPos.x + fIntv + 2, 10 + m_pLifeCountPos.y + 5, lpOut, lstrlen(lpOut));
+		wsprintf(lpOut, TEXT("L"));
+		TextOut(hDC, 10 + m_pLifeCountPos.x + fIntv + 5, 10 + m_pLifeCountPos.y + 5, lpOut, lstrlen(lpOut));
 
 		fIntv += 25.f;
 	}
@@ -92,7 +91,7 @@ void CUIMgr::MapEditorRender(HDC hDC, BLOCKID eID)
 {
 	int iFrameSize = BLOCK_SIZE + 20;
 	int iInterval = iFrameSize + 2;
-
+	int temp = 0;
 	for (int i = 0; i < BLOCKID::BLK_END; ++i)
 	{
 		if (eID == i)
@@ -100,23 +99,23 @@ void CUIMgr::MapEditorRender(HDC hDC, BLOCKID eID)
 			HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 255, 0));
 			HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
 
-			Rectangle(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize);
+			Rectangle(hDC, m_pEditTopDown.x + temp, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + temp, m_pEditTopDown.y + iFrameSize);
 
 			SelectObject(hDC, oldBrush);
 			DeleteObject(myBrush);
 		}
 		else
 		{
-			Rectangle(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize);
+			Rectangle(hDC, m_pEditTopDown.x + temp, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + temp, m_pEditTopDown.y + iFrameSize);
 		}
 
-		DrawBlockUI(hDC, m_pEditTopDown.x + iInterval, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + iInterval, m_pEditTopDown.y + iFrameSize, i);
+		DrawBlockUI(hDC, m_pEditTopDown.x + temp, m_pEditTopDown.y, m_pEditTopDown.x + iFrameSize + temp, m_pEditTopDown.y + iFrameSize, i);
 
 		TCHAR lpOut[1024];
 		wsprintf(lpOut, TEXT("%d"), i + 1);
-		TextOut(hDC, m_pEditTopDown.x + iInterval + 5, m_pEditTopDown.y + 5, lpOut, lstrlen(lpOut));
+		TextOut(hDC, m_pEditTopDown.x + temp + 5, m_pEditTopDown.y + 5, lpOut, lstrlen(lpOut));
 
-		iInterval += iInterval;
+		temp += iInterval;
 	}
 }
 
@@ -132,6 +131,35 @@ void CUIMgr::DrawBlockUI(HDC hDC, float left, float top, float right, float bott
 		break;
 	case BLK_MOVINGBLOCK:
 		Rectangle(hDC, left + iterval, top + iterval + 5, right - iterval, bottom - iterval - 5);
+		break;
+	case BLK_MOVINGBLOCKLR:
+		Rectangle(hDC, left + iterval, top + iterval + 5, right - iterval, bottom - iterval - 5);
+		break;
+	case BLK_GUMBA:
+		Ellipse(hDC, left + iterval, top + iterval, right - iterval, bottom - iterval);
+		break;
+	case BLK_TURTLE:
+		Ellipse(hDC, left + iterval, top + iterval+5, right - iterval, bottom - iterval-5);
+		break;
+	case BLK_KOOPA:
+		Rectangle(hDC, left + iterval, top + iterval, right - iterval, bottom - iterval);
+		break;
+	case BLK_COIN:
+	{
+		HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 215, 0));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+		Ellipse(hDC, left+12, top+10, right-12, bottom-10);
+
+		SelectObject(hDC, oldBrush);
+		DeleteObject(myBrush);
+
+		TCHAR lpOut[1024];
+		SetBkMode(hDC, 1);
+
+		wsprintf(lpOut, TEXT("$"));
+		TextOut(hDC, left + 20, top + 16, lpOut, lstrlen(lpOut));
+	}
 		break;
 	case BLK_END:
 		break;
@@ -161,12 +189,20 @@ void CUIMgr::StartSceneRender(HDC hDC, SCENEID eID)
 			Rectangle(hDC, m_pStartTopDown.x, m_pStartTopDown.y + temp, m_pStartTopDown.x + iFrameSize + 100, m_pStartTopDown.y + iFrameSize + temp);
 		}
 
-		TCHAR lpOut[1024];
-		wsprintf(lpOut, TEXT("%d"), i);
-		TextOut(hDC, m_pStartTopDown.x + 5, m_pStartTopDown.y + temp + 5, lpOut, lstrlen(lpOut));
-
 		temp += iInterval;
 	}
+
+	TCHAR lpOut[1024];
+	SetBkMode(hDC, 1);
+
+	wsprintf(lpOut, TEXT("START"));
+	TextOut(hDC, m_pStartTopDown.x + 5 + 60, m_pStartTopDown.y + (iFrameSize + 10)*0 + 5 + 20, lpOut, lstrlen(lpOut));
+
+	wsprintf(lpOut, TEXT("EDIT MAP"));
+	TextOut(hDC, m_pStartTopDown.x + 5 + 50, m_pStartTopDown.y + (iFrameSize + 10)*1 + 5 + 20, lpOut, lstrlen(lpOut));
+
+	wsprintf(lpOut, TEXT("EXIT"));
+	TextOut(hDC, m_pStartTopDown.x + 5 + 65, m_pStartTopDown.y + (iFrameSize + 10)*2 + 5 + 20, lpOut, lstrlen(lpOut));
 
 }
 
@@ -212,5 +248,6 @@ void CUIMgr::GameSceneBackGround(HDC hDC)
 
 void CUIMgr::Release()
 {
-
+	m_iScore = 0;
+	m_iLifeCount = 0;
 }

@@ -8,6 +8,7 @@
 #include "SceneMgr.h"
 #include "ScrollMgr.h"
 #include "UIMgr.h"
+#include "GameMgr.h"
 
 CEditScene::CEditScene()
 {
@@ -50,6 +51,7 @@ void CEditScene::Render(HDC hDC)
 
 void CEditScene::Release(void)
 {
+	CGameMgr::Get_Instance()->Release();
 	CObjMgr::Get_Instance()->Release();
 	CMapEditor::Get_Instance()->Release();
 	CUIMgr::Get_Instance()->Release();

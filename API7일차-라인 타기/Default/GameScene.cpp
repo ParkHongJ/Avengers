@@ -9,6 +9,7 @@
 #include "SceneMgr.h"
 #include "ScrollMgr.h"
 #include "UIMgr.h"
+#include "GameMgr.h"
 
 #include "Player.h"
 
@@ -24,11 +25,11 @@ CGameScene::~CGameScene()
 void CGameScene::Initailize(void)
 {
 	CMapEditor::Get_Instance()->Load();
+	CUIMgr::Get_Instance()->Initialize();
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 	CScrollMgr::Get_Instance()->Initialize();
-	CUIMgr::Get_Instance()->Initialize();
+	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CCoin>::Create(rand()%500+300, rand()%300+100, 0.f));	
@@ -64,6 +65,7 @@ void CGameScene::Render(HDC hDC)
 
 void CGameScene::Release(void)
 {
+	CGameMgr::Get_Instance()->Release();
 	CObjMgr::Get_Instance()->Release();
 	CMapEditor::Get_Instance()->Release();
 	CUIMgr::Get_Instance()->Release();

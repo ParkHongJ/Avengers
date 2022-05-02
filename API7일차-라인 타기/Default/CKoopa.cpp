@@ -18,6 +18,8 @@ CKoopa::~CKoopa()
 void CKoopa::Initialize(void)
 {
 	//현재상태
+	m_pTarget = nullptr;
+
 	m_eCurrentState = IdleState;
 	m_Sprite = IDB_KOOPA_IDLE_LEFT;
 
@@ -49,7 +51,7 @@ int CKoopa::Update(void)
 	switch (m_eCurrentState)
 	{
 	case IdleState:
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
@@ -115,7 +117,7 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
@@ -136,7 +138,7 @@ int CKoopa::Update(void)
 		}
 		break;
 	case BulletPlayerFire:
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}

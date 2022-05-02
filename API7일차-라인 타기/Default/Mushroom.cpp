@@ -50,6 +50,6 @@ void CMushroom::OnCollision(CObj* other)
 	Set_Dead();                                      //죽어서
 	if (other->CompareTag("Player"))                 //플레이어 크기 커지는 코드
 	{
-		dynamic_cast<CPlayer*>(other)->UpGradeBody();
+		dynamic_cast<CPlayer*>(other)->UpLife();
 	}
 }

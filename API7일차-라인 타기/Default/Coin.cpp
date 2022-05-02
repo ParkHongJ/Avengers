@@ -38,7 +38,20 @@ void CCoin::Late_Update(void)
 void CCoin::Render(HDC hDC)
 {
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 215, 0));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+
+	Ellipse(hDC, m_tRect.left + iScrollX + 12, m_tRect.top + 10, m_tRect.right + iScrollX - 12, m_tRect.bottom - 10);
+
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+
+	TCHAR lpOut[1024];
+	SetBkMode(hDC, 1);
+
+	wsprintf(lpOut, TEXT("$"));
+	TextOut(hDC, m_tRect.left + iScrollX + 20, m_tRect.top + 16, lpOut, lstrlen(lpOut));
 }
 void CCoin::Release(void)
 {
