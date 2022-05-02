@@ -19,7 +19,7 @@ CSceneMgr::~CSceneMgr()
 
 void CSceneMgr::Initailize(void)
 {
-	m_eCurScene = SCENEID::SCENE_START;
+	m_eCurScene = SCENEID::SCENE_BOSS;
 
 	m_SceneList[SCENEID::SCENE_START] = new CStartScene;
 	m_SceneList[SCENEID::SCENE_PLAYE] = new CGameScene;

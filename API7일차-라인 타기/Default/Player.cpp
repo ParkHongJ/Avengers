@@ -60,15 +60,15 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-		
+
 
 	if (m_fOldTime + m_fUnbtbTime < GetTickCount64() && m_bUnbtb)
 	{
 		m_bUnbtb = false;
 
-		if (m_Sprite == IDB_SUPER_UNTBT&& m_bUnbtb)
+		if (m_Sprite == IDB_SUPER_UNTBT)// && m_bUnbtb)
 			m_Sprite = IDB_SUPERMARIO;
-		else if (m_Sprite == IDB_SMALL_UNTBT && m_bUnbtb)
+		else if (m_Sprite == IDB_SMALL_UNTBT)// && m_bUnbtb)
 			m_Sprite = IDB_SMALLMARIO;
 	}
 
@@ -327,5 +327,6 @@ void CPlayer::DownLife()
 
 void CPlayer::Release(void)
 {
-	//m_pRelexBullet = nullptr;
+	delete m_pRelexBullet;
+	m_pRelexBullet = nullptr;
 }

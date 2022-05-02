@@ -52,12 +52,16 @@ void CKoopa::Initialize(void)
 
 int CKoopa::Update(void)
 {
-	if (m_bDead)
+	if (m_bDead || m_pTarget == nullptr)
 		return OBJ_DEAD;
+
+
+	if (m_tInfo.fX <= MAPSIZE_LEFT || m_tInfo.fX >= MAPSIZE_RIGHT)
+		m_fSpeed *= -1;
 	switch (m_eCurrentState)
 	{
 	case IdleState:
-		if (m_pTarget != NULL && m_tInfo.fX > m_pTarget->Get_Info().fX)
+		if (m_pTarget != nullptr && m_tInfo.fX > m_pTarget->Get_Info().fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}

@@ -64,9 +64,10 @@ void CGameScene::Render(HDC hDC)
 
 void CGameScene::Release(void)
 {
-	CGameMgr::Get_Instance()->Release();
 	CObjMgr::Get_Instance()->Release();
+	CGameMgr::Get_Instance()->Release();
 	CMapEditor::Get_Instance()->Release();
+
 	CUIMgr::Get_Instance()->Release();
 	CScrollMgr::Get_Instance()->Release();
 }

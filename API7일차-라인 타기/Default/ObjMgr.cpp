@@ -71,6 +71,11 @@ int CObjMgr::Update(void)
 		}
 	}
 
+	if (m_ObjList[OBJ_PLAYER].empty())
+	{
+		CSceneMgr::Get_Instance()->ChangeScene(SCENEID::SCENE_START);
+		return 0;
+	}
 	if (2650.f < Get_Player()->Get_Info().fX && CSceneMgr::Get_Instance()->GetCurScene() != SCENE_BOSS)
 	{
 		CSceneMgr::Get_Instance()->ChangeScene(SCENEID::SCENE_BOSS);
@@ -111,8 +116,8 @@ void CObjMgr::Late_Update(void)
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TURTLE]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TURTLE], m_ObjList[OBJ_PLAYER]);
 	//==========================================================================
-	
-	CollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]); // 반사총알 벽 충돌
+
 }
 
 void CObjMgr::Render(HDC hDC)

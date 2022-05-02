@@ -22,6 +22,7 @@ void CBullet::Initialize(void)
 	m_fSpeed = 2.f;
 	m_bDown = false;
 	m_Sprite = IDB_BULLET;
+	m_Tag = "Monster";
 }
 
 int CBullet::Update(void)

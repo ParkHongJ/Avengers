@@ -22,4 +22,5 @@ void CGameMgr::Release()
 {
 	m_iScore = 0;
 	time = 0;
+
 }
