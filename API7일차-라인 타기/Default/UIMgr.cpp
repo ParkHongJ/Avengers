@@ -9,6 +9,7 @@ CUIMgr::CUIMgr()
 
 CUIMgr::~CUIMgr()
 {
+	Release();
 }
 
 void CUIMgr::Initialize()

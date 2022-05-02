@@ -19,6 +19,7 @@ void CMovingBlock::Initialize(void)
 	//m_tInfo.fX = 70.f;		// 중점 X
 	//m_tInfo.fY = 250.f;		// 중점 Y
 
+	m_pPlayer = nullptr;
 	m_tInfo.fCX = 64.f;
 	m_tInfo.fCY = 32.f;
 
