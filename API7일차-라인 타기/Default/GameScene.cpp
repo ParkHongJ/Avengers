@@ -11,6 +11,9 @@
 #include "UIMgr.h"
 
 #include "Player.h"
+#include "Gumba.h"
+#include "CKoopa.h"
+#include "Turtle.h"
 
 CGameScene::CGameScene()
 {
@@ -25,17 +28,21 @@ void CGameScene::Initailize(void)
 {
 	CMapEditor::Get_Instance()->Load();
 
-	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create(100.f,0.f));
 	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 	CScrollMgr::Get_Instance()->Initialize();
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 150.f));
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 150.f));
+	//CObjMgr::Get_Instance()->Get_Player()
+
+	//매우 위험한 코드, 나중에 수정필요 일단 작동은됨
+	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));
 	CUIMgr::Get_Instance()->Initialize();
 
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CCoin>::Create(rand()%500+300, rand()%300+100, 0.f));	
 
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 350.f));
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 350.f));
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));
+	
 }
 
 void CGameScene::Update(void)

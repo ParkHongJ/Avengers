@@ -40,6 +40,12 @@ void CKoopa::Initialize(void)
 
 	//패턴 강제실행
 	m_bActivatePattern = false;
+
+	m_pTarget = CObjMgr::Get_Instance()->Get_Player();
+	if (m_pTarget == NULL)
+	{
+		PostQuitMessage(0);
+	}
 }
 
 int CKoopa::Update(void)
@@ -55,7 +61,7 @@ int CKoopa::Update(void)
 		}
 		else
 		{
-			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+			m_Sprite = IDB_KOOPA_RIGHT_COL;
 		}
 		IdleCount++;
 		if (IdleCount >= 2)
@@ -71,15 +77,19 @@ int CKoopa::Update(void)
 			if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
 			{
 				m_tInfo.fX -= m_fSpeed;
+				m_Sprite = IDB_KOOPA_IDLE_LEFT;
 			}
 			else if (m_pTarget->Get_Info().fX >= m_tInfo.fX)
 			{
 				m_tInfo.fX += m_fSpeed;
+				m_Sprite = IDB_KOOPA_RIGHT_COL;
 			}
+			
 		}
 		else
 		{
 			m_bActivatePattern = true;
+			break;
 		}
 		break;
 	case Turtle:
@@ -108,6 +118,14 @@ int CKoopa::Update(void)
 		m_bActivatePattern = true;
 		m_fJumpPower = 10.f;
 		m_bJump = true;
+		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
+		{
+			m_Sprite = IDB_KOOPA_IDLE_LEFT;
+		}
+		else if (m_pTarget->Get_Info().fX >= m_tInfo.fX)
+		{
+			m_Sprite = IDB_KOOPA_RIGHT_COL;
+		}
 		break;
 	case BulletUpFire:
 		if (m_bTurtle)
@@ -115,13 +133,13 @@ int CKoopa::Update(void)
 			m_bActivatePattern = true;
 			break;
 		}
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
-		else
+		else if (m_pTarget->Get_Info().fX >= m_tInfo.fX)
 		{
-			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+			m_Sprite = IDB_KOOPA_RIGHT_COL;
 		}
 		if (GetTickCount() - m_BulletDelay >= 100)
 		{
@@ -136,16 +154,26 @@ int CKoopa::Update(void)
 		}
 		break;
 	case BulletPlayerFire:
-		if (m_tInfo.fX > m_pTarget->Get_Info().fX && m_pTarget != NULL)
+		if (m_bTurtle)
+		{
+			m_bActivatePattern = true;
+			break;
+		}
+		
+		if (m_pTarget->Get_Info().fX <= m_tInfo.fX)
 		{
 			m_Sprite = IDB_KOOPA_IDLE_LEFT;
 		}
-		else
+		else if (m_pTarget->Get_Info().fX >= m_tInfo.fX)
 		{
-			m_Sprite = IDB_KOOPA_IDLE_RIGHT;
+			m_Sprite = IDB_KOOPA_RIGHT_COL;
 		}
-		//int m_fDistance = (m_pTarget->Get_Info().fX - m_tInfo.fX) + (m_pTarget->Get_Info().fY - m_tInfo.fY);
-		//m_fAngle = m_pTarget->Get_Info().fX
+		if (GetTickCount() - m_BulletDelay >= 1000)
+		{
+			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET,
+				CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY));
+			m_BulletDelay = GetTickCount();
+		}
 		break;
 	case Dead:
 		return OBJ_DEAD;
@@ -190,7 +218,6 @@ void CKoopa::Render(HDC hDC)
 	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
 
-	
 	GdiTransparentBlt(hDC, m_tRect.left, m_tRect.top, 150, 150, MemDC, 0, 0, 150, 150, RGB(255, 255, 255));
 
 	SelectObject(MemDC, OldBitmap);

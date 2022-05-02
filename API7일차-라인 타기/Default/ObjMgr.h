@@ -12,6 +12,7 @@ public:
 	CObj*		Get_Player() { return m_ObjList[OBJ_PLAYER].front(); }
 	CObj*		Get_Mouse() { if(!m_ObjList[OBJ_MOUSE].empty()) return m_ObjList[OBJ_MOUSE].front(); }
 	CObj*		Get_Target(OBJID eID, CObj* pObj);
+	CObj*		Get_Boss() { return m_ObjList[OBJ_TEMP].back(); }
 
 public:
 	void		Add_Object(OBJID eID, CObj* pObj);

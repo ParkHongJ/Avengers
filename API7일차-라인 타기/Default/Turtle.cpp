@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Turtle.h"
 
+#include "ObjMgr.h"
 #include "ScrollMgr.h"
 
 CTurtle::CTurtle()
@@ -22,6 +23,7 @@ void CTurtle::Initialize()
 	m_bDead = false;
 	m_Tag = "Monster";
 	m_eState = Idle;
+	
 }
 
 int CTurtle::Update()
@@ -37,10 +39,6 @@ int CTurtle::Update()
 void CTurtle::Late_Update()
 {
 	CObj::UpdateGravity();
-	if (m_tInfo.fX <= 100 || m_tInfo.fX >= WINCX - 100)
-	{
-		m_fSpeed *= -1.f;
-	}
 }
 
 void CTurtle::Render(HDC hDC)
@@ -86,11 +84,19 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_LEFT:
 		if (m_eState == Hide)
 		{
+			m_fSpeed = 8.f;
+		}
+		if (other->CompareTag("Player") && m_eState == Hide)
+		{
 			m_fSpeed = -8.f;
 		}
 		break;
 	case DIR_RIGHT:
 		if (m_eState == Hide)
+		{
+			m_fSpeed = -8.f;
+		}
+		if (other->CompareTag("Player") && m_eState == Hide)
 		{
 			m_fSpeed = 8.f;
 		}
