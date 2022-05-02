@@ -198,9 +198,18 @@
     </ClInclude>
     <ClInclude Include="MapEditor.h">
       <Filter>Hero\MapEditor</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="CKoopa.h">
       <Filter>Hong</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>MinSung</Filter>
+    </ClInclude>
+    <ClInclude Include="Timeitem.h">
+      <Filter>MinSung</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +293,18 @@
     </ClCompile>
     <ClCompile Include="MapEditor.cpp">
       <Filter>Hero\MapEditor</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="Timeitem.cpp">
+      <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>MinSung</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>MinSung</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

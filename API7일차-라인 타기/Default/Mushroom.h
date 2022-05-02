@@ -1,11 +1,13 @@
 #pragma once
-#include  "Obj.h"
+#include "Obj.h"
 #include "GameMgr.h"
-class CCoin : public CObj
+
+class CMushroom : public CObj
 {
 public:
-	CCoin();
-	~CCoin();
+	CMushroom();
+	~CMushroom();
+
 public:
 	void		Initialize(void);
 	int			Update(void);
@@ -13,10 +15,6 @@ public:
 	void		Render(HDC hDC);
 	void		Release(void);
 public:
-	// 기존의 온콜리전 삭제 
 	void	OnCollision(CObj* other);
-
-
-
 };
 

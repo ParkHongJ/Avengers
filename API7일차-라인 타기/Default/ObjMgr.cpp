@@ -88,7 +88,8 @@ void CObjMgr::Late_Update(void)
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_MOVINGBLOCK], m_ObjList[OBJ_PLAYER]);
 	
-	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);
+	CollisionMgr::Collision_Rect(m_ObjList[OBJ_COIN], m_ObjList[OBJ_PLAYER]);
+	CollisionMgr::Collision_Rect(m_ObjList[OBJ_MUSHROOM], m_ObjList[OBJ_PLAYER]);
 	// 코인과 플레이어의 충돌 체크 추가했어요 -민성-
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TEMP]);
