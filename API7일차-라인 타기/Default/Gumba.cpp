@@ -77,8 +77,24 @@ void CGumba::OnCollision(DIRECTION eDir, CObj* other)
 	case DIR_DOWN:
 		break;
 	case DIR_LEFT:
+		if (other->CompareTag2("Turtle"))
+		{
+			m_bDead = true;
+		}
+		if (other->CompareTag("Block"))
+		{
+			m_fSpeed *= -1.f;
+		}
 		break;
 	case DIR_RIGHT:
+		if (other->CompareTag2("Turtle"))
+		{
+			m_bDead = true;
+		}
+		if (other->CompareTag("Block"))
+		{
+			m_fSpeed *= -1.f;
+		}
 		break;
 	default:
 		break;

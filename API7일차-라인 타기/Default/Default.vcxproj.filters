@@ -430,5 +430,14 @@
     <Image Include="TimeItem.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="RandomBlock_FALSE.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="SmallMarioUntbt.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="SuperMarioUntbt.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

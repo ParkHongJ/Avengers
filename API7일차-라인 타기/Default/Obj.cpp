@@ -92,7 +92,24 @@ bool CObj::CompareTag(string _Tag)
 	}
 }
 
+bool CObj::CompareTag2(string _Tag)
+{
+	if (m_Tag2 == _Tag)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void CObj::SetTag(string _Tag)
 {
 	m_Tag = _Tag;
+}
+
+void CObj::SetTag2(string _Tag)
+{
+	m_Tag2 = _Tag;
 }

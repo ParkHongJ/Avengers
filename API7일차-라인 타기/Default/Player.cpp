@@ -64,6 +64,11 @@ int CPlayer::Update(void)
 	if (m_fOldTime + m_fUnbtbTime < GetTickCount64() && m_bUnbtb)
 	{
 		m_bUnbtb = false;
+
+		if (m_Sprite == IDB_SUPER_UNTBT&& m_bUnbtb)
+			m_Sprite = IDB_SUPERMARIO;
+		else if (m_Sprite == IDB_SMALL_UNTBT && m_bUnbtb)
+			m_Sprite = IDB_SMALLMARIO;
 	}
 
 
@@ -125,14 +130,19 @@ void CPlayer::Render(HDC hDC)
 	m_tRect.left += iScrollX + 5;
 	MemDC = CreateCompatibleDC(hDC);
 
+	if (m_Sprite == IDB_SUPERMARIO && m_bUnbtb)
+		m_Sprite = IDB_SUPER_UNTBT;
+	else if (m_Sprite == IDB_SMALLMARIO && m_bUnbtb)
+		m_Sprite = IDB_SMALL_UNTBT;
+
 	MyBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(m_Sprite));
 	OldBitmap = (HBITMAP)SelectObject(MemDC, MyBitmap);
 
-	if(m_Sprite == IDB_SUPERMARIO)
+	if (m_Sprite == IDB_SUPER_UNTBT || m_Sprite == IDB_SUPERMARIO)
 		TransparentBlt(hDC, m_tRect.left, m_tRect.top - 32, 32, 64, MemDC, 0, 0, 16, m_fBigY, RGB(255, 255, 255));
-	else if (m_Sprite == IDB_SMALLMARIO)
+	else if (m_Sprite == IDB_SMALL_UNTBT || m_Sprite == IDB_SMALLMARIO)
 		TransparentBlt(hDC, m_tRect.left, m_tRect.top, 32, 32, MemDC, 0, 0, 16, m_fSmallY, RGB(255, 255, 255));
-	
+
 	SelectObject(MemDC, OldBitmap);
 	DeleteObject(MyBitmap);
 	DeleteDC(MemDC);
@@ -230,7 +240,7 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	switch (eDir)
 	{
 	case DIR_UP:
-		if (other->CompareTag("Monster"))
+		if (other->CompareTag("Monster") || other->CompareTag("Turtle"))
 		{
 			m_fJumpPower *= 0.9f;
 			m_fGTime = 0.f;
@@ -247,7 +257,7 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 		m_fJumpPower = 0.f;
 		break;
 	case DIR_LEFT:
-		if (other->CompareTag("Monster"))
+		if (other->CompareTag("Monster") || other->CompareTag("Turtle"))
 		{
 			if (m_bUnbtb)
 				break;
@@ -262,7 +272,7 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 		}
 		break;
 	case DIR_RIGHT:
-		if (other->CompareTag("Monster"))
+		if (other->CompareTag("Monster") || other->CompareTag("Turtle"))
 		{
 			if (m_bUnbtb)
 				break;
@@ -281,9 +291,17 @@ void CPlayer::OnCollision(DIRECTION eDir, CObj* other)
 	}
 }
 
+void CPlayer::UpGradeBody()
+{
+	m_tInfo.fCX += 1.0; m_tInfo.fCY += 1.0;
+	m_Sprite = IDB_SUPERMARIO;
+	m_bUnbtb = false;
+}
+
 void CPlayer::UpLife()
 {
 	++m_fLifeCount;
+	UpGradeBody();
 	CUIMgr::Get_Instance()->SetLifeCount(m_fLifeCount);
 
 	if (0 >= m_fLifeCount)
@@ -291,8 +309,6 @@ void CPlayer::UpLife()
 		Set_Dead();
 		return;
 	}
-
-	// UpGradeBody();
 }
 
 void CPlayer::DownLife()
@@ -305,8 +321,6 @@ void CPlayer::DownLife()
 		Set_Dead();
 		return;
 	}
-
-	// DownGradeBody();
 }
 
 

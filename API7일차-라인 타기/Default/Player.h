@@ -30,8 +30,7 @@ public:
 public:     //�μ����� �÷��̾� ���׾Ƹ� Ŀ���� �ڵ� 
 	//���۸������϶� ���Ѽ���
 	const int GetState() { return m_Sprite; };
-	void UpGradeBody() { m_tInfo.fCX += 1.0; m_tInfo.fCY += 1.0;
-	m_Sprite = IDB_SUPERMARIO; }
+	void UpGradeBody();
 	void DownGradeBody() { m_tInfo.fCX -= 1.0; m_tInfo.fCY -= 1.0;
 	m_Sprite = IDB_SMALLMARIO; }
 	void UpLife();

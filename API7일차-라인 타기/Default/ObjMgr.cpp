@@ -98,10 +98,13 @@ void CObjMgr::Late_Update(void)
 
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TEMP]);
 	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TEMP], m_ObjList[OBJ_PLAYER], false);	// Player Monster
-
-
-	//CCollisionMgr::Collision_RectEx(m_ObjList[OBJ_INTERACTION], m_ObjList[OBJ_PLAYER]);
-	//CCollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	//=====================임시방편임============================================
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TURTLE], m_ObjList[OBJ_TEMP]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_TURTLE]);
+	CollisionMgr::Collision_RectEx(m_ObjList[OBJ_TURTLE], m_ObjList[OBJ_PLAYER]);
+	//==========================================================================
+	
+	CollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 }
 
 void CObjMgr::Render(HDC hDC)

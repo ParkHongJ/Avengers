@@ -79,16 +79,18 @@ void CRandbox::OnCollision(DIRECTION eDir, CObj* other)
 			{
 			case 0:
 				CObjMgr::Get_Instance()->Add_Object(OBJ_MUSHROOM, CAbstractFactory<CMushroom>::Create(m_tInfo.fX, m_tInfo.fY, true));
+				m_Sprite = IDB_RANDBOX_FALSE;
 				m_bCheck = true;
 				break;
 			case 1:
 				CObjMgr::Get_Instance()->Add_Object(OBJ_COIN, CAbstractFactory<CTimeitem>::Create(m_tInfo.fX, m_tInfo.fY, true));
+				m_Sprite = IDB_RANDBOX_FALSE;
 				m_bCheck = true;
 				break;
 			}
 			break;
 		}
-
+		
 	}
 
 

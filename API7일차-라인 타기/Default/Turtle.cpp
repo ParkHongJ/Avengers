@@ -3,6 +3,7 @@
 #include "ObjMgr.h"
 #include "ScrollMgr.h"
 #include "Resource.h"
+#include "GameMgr.h"
 CTurtle::CTurtle()
 {
 }
@@ -29,8 +30,7 @@ int CTurtle::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-
-	m_tInfo.fX -= m_fSpeed;
+	m_tInfo.fX -= m_fSpeed * CGameMgr::Get_Instance()->Get_Time();
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
@@ -87,30 +87,46 @@ void CTurtle::OnCollision(DIRECTION eDir, CObj* other)
 				m_fSpeed = 0.f;
 			}
 		}
-		//śĽżĄşŮąâ
 		m_bOnBlock = true;
 		break;
 	case DIR_DOWN:
 		
 		break;
 	case DIR_LEFT:
+ 		if (m_fSpeed != 0 && other->CompareTag("Player"))
+		{
+			SetTag("Monster");
+			SetTag2("Turtle");
+			m_eState = Spin; 
+			break;
+		}
 		if (m_eState == Hide)
 		{
-			m_fSpeed = 8.f;
-		}
-		if (other->CompareTag("Player") && m_eState == Hide)
-		{
+			SetTag("HideTurtle");
 			m_fSpeed = -8.f;
+		}
+		if (other->CompareTag("Block"))
+		{
+			m_fSpeed *= -1.f;
+
 		}
 		break;
 	case DIR_RIGHT:
+		if (m_fSpeed != 0 && other->CompareTag("Player"))
+		{
+			SetTag("Monster");
+			SetTag2("Turtle");
+			m_eState = Spin;
+			break;
+		}
 		if (m_eState == Hide)
 		{
-			m_fSpeed = -8.f;
-		}
-		if (other->CompareTag("Player") && m_eState == Hide)
-		{
+			SetTag("HideTurtle");
 			m_fSpeed = 8.f;
+		}
+		if (other->CompareTag("Block"))
+		{
+			m_fSpeed *= -1.f;
 		}
 		break;
 	default:

@@ -35,7 +35,7 @@ void CGameScene::Initailize(void)
 	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
 	
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 150.f));
-	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 150.f));
+	CObjMgr::Get_Instance()->Add_Object(OBJ_TURTLE, CAbstractFactory<CTurtle>::Create(300.f, 150.f));
 	//CObjMgr::Get_Instance()->Get_Player()
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));
 

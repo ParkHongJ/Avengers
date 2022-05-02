@@ -48,7 +48,9 @@ public:
 	virtual void	UpdateGravity();
 	virtual void	UpdateGravity(float _fGravity);
 	bool CompareTag(string _Tag);
+	bool CompareTag2(string _Tag);
 	void SetTag(string _Tag);
+	void SetTag2(string _Tag);
 protected:
 	void		Update_Rect(void);
 
@@ -62,6 +64,7 @@ protected:
 	DIRECTION	m_eDir;
 	bool		m_bDead;
 	string		m_Tag;
+	string		m_Tag2;
 	CObj*		m_pTarget;
 
 protected:
