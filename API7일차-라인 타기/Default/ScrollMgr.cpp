@@ -17,6 +17,11 @@ void CScrollMgr::Initialize(void)
 	m_fScrollX = 0.f;
 }
 
+void CScrollMgr::Release(void)
+{
+	m_pTarget = nullptr;
+}
+
 void CScrollMgr::Update()
 {
 	if (!m_pTarget)
@@ -29,4 +34,3 @@ void CScrollMgr::Update()
 	else if (MAPSIZE_RIGHT <= m_pTarget->Get_Info().fX + 400.f)
 		m_fScrollX = -MAPSIZE_RIGHT + 800.f;
 }
-

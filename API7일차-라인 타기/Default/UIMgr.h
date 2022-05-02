@@ -36,6 +36,7 @@ public:
 	void	Initialize();
 	void	Update(void);
 	void	Render(HDC hDC);
+	void	Release();
 
 public:
 	void	CoinRender(HDC hDC);
@@ -43,6 +44,11 @@ public:
 
 	void	MapEditorRender(HDC hDC, BLOCKID eID);
 	void	DrawBlockUI(HDC hDC, float left, float top, float right, float bottom, int iID);
+
+	void	StartSceneRender(HDC hDC, SCENEID eID);
+
+	void	StartSceneBackGround(HDC hDC);
+	void	GameSceneBackGround(HDC hDC);
 
 private:
 	static CUIMgr* m_pInstance;
@@ -53,5 +59,10 @@ private:
 	int		m_iLifeCount;
 
 	POINT	m_pEditTopDown;
+	POINT	m_pStartTopDown;
+
+	int		iR;
+	int		iG;
+	int		iB;
 };
 
