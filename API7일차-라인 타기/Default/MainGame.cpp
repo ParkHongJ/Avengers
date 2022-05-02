@@ -43,9 +43,9 @@ void CMainGame::Initialize(void)
 	CMapEditor::Get_Instance()->Initialize();
 	//CMapEditor::Get_Instance()->Load();
 
-	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
-	CScrollMgr::Get_Instance()->Initialize();
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	//CScrollMgr::Get_Instance()->Set_Target(CObjMgr::Get_Instance()->Get_Player());
+	//CScrollMgr::Get_Instance()->Initialize();
 	CUIMgr::Get_Instance()->Initialize();
 	for (int i = 0; i < 100; ++i)
 	{
@@ -54,10 +54,11 @@ void CMainGame::Initialize(void)
 	}
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_BLOCK, CAbstractFactory<CMovingBlock>::Create(70.f, 250.f, 0.f));
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, CAbstractFactory<CCoin>::Create(rand()%500+300, rand()%300+100, 0.f));	
-  
+
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CGumba>::Create(400.f, 350.f));
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CTurtle>::Create(300.f, 350.f));
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TEMP, CAbstractFactory<CKoopa>::Create(400.f, 0.f));	
+
 }
 
 void CMainGame::Update(void)

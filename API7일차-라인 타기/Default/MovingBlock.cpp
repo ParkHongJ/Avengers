@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MovingBlock.h"
 #include "MainGame.h"
+#include "Player.h"
 
 #include "ScrollMgr.h"
 
@@ -32,6 +33,14 @@ int CMovingBlock::Update(void)
 		return OBJ_DEAD;
 
 	m_tInfo.fY -= m_fSpeed * CMainGame::m_fTime;
+	if (m_pPlayer != nullptr)
+	{
+		if (m_tInfo.fCX > abs(m_pPlayer->Get_Info().fX - m_tInfo.fX) && m_tInfo.fCY > abs(m_pPlayer->Get_Info().fY - m_tInfo.fY))
+		{
+			m_pPlayer->Set_Pos(m_pPlayer->Get_Info().fX, (m_tInfo.fY - m_tInfo.fCY + 2.1));
+		}
+		m_pPlayer = nullptr;
+	}
 
 	Update_Rect();
 
@@ -65,4 +74,17 @@ void CMovingBlock::OnCollision()
 
 void CMovingBlock::OnCollision(DIRECTION eDir)
 {
+}
+
+void CMovingBlock::OnCollision(DIRECTION eDir, CObj* other)
+{
+	switch (eDir)
+	{
+	case DIR_UP:
+		if (other->CompareTag("Player"))
+		{
+			m_pPlayer = other;
+		}
+		break;
+	}
 }

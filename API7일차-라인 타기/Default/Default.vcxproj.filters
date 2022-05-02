@@ -202,6 +202,9 @@
     <ClInclude Include="CKoopa.h">
       <Filter>Hong</Filter>
     </ClInclude>
+    <ClInclude Include="MovingBlockLR.h">
+      <Filter>Saeng</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Default.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="CKoopa.cpp">
       <Filter>Hong</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingBlockLR.cpp">
+      <Filter>Saeng</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
